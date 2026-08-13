@@ -1789,9 +1789,24 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   .hood-row dd { padding: 14px 20px; }
 }
 
+/* ------------------------------------------------------------
+   REVEAL - staged entrance, verbatim from the Custom Web Design page.
+   The hidden state is gated on data-anim, which only the script sets,
+   so a page whose JS never runs shows its content outright rather
+   than a column of blank boxes.
+   ------------------------------------------------------------ */
+[data-anim="on"] .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-anim="on"] .reveal.is-revealed { opacity: 1; transform: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .hero-wash span, .hero-wash::after,
   .ig-step:hover .ig-icon { animation: none !important; transform: none !important; }
+  [data-anim="on"] .reveal { opacity: 1; transform: none; }
 }
 
 </style>
@@ -1905,6 +1920,19 @@ section.band.navy.final-cta {
   background-size: 24px 24px, auto;
 }
 
+/* --- The three-jobs band takes the reference's credibility ground: the same
+       deep blue rake and the same 26px dot field. Dots ride as a background
+       layer for the same reason as the CTA above — ::before is already
+       carrying the wash that rises out of every navy band. --- */
+section.band.navy.deep {
+  background-image:
+    radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(160deg,
+      #205fa6 0%, #1d569a 28%, #164784 47%,
+      #113659 65%, #0d2748 83%, #0a1c38 100%);
+  background-size: 26px 26px, auto;
+}
+
 /* Wide enough to hold the copy in two lines rather than three; balance then
    evens the pair out instead of leaving a short tail. */
 .final p.lead {
@@ -1987,27 +2015,67 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
 .lb-cols2 .checklist { margin-top: 24px; max-width: 100%; }
 
 /* --- Navy trio: the three jobs --- */
+/* Ruled top and bottom, the way the reference's credibility row is set — a
+   rule only at the top left the row hanging open at its foot. */
 .lb-trio {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 0; margin-top: 48px;
-  border-top: 1px solid rgba(255,255,255,0.18);
+  border-block: 1px solid rgba(255,255,255,0.18);
 }
-.lb-job { padding: 34px 32px 0 0; border-right: 1px solid rgba(255,255,255,0.18); }
+.lb-job {
+  position: relative;
+  padding: 34px 32px 34px 0;
+  border-right: 1px solid rgba(255,255,255,0.18);
+}
 .lb-job:not(:first-child) { padding-left: 32px; }
 .lb-job:last-child { border-right: none; padding-right: 0; }
+
+/* A pool of green light rises behind the column you are looking at. Straight
+   from the reference's .stat — same geometry, same falloff. */
+.lb-job::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(76% 72% at 50% 34%, rgba(128,195,74,.30), transparent 74%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s var(--ease);
+}
+.lb-job:hover::before { opacity: 1; }
+/* the pool is behind the column's own content, not over it */
+.lb-job-num, .lb-job h3, .lb-job p { position: relative; }
+
 .lb-job h3 {
   font-size: 18px; font-weight: 800; color: var(--white);
   line-height: 1.3; letter-spacing: -0.2px; margin-bottom: 14px;
 }
+/* All three numbers now read the same at rest. The third used to be green,
+   which left it with nowhere to go on hover — green is the response here,
+   not a decoration. */
 .lb-job-num {
   display: block;
   font-size: 30px; font-weight: 800; letter-spacing: -1.4px;
   line-height: 1;
   color: rgba(255,255,255,0.32);
   margin-bottom: 18px;
+  transition: transform .4s var(--ease), color .4s var(--ease);
 }
-.lb-job:last-child .lb-job-num { color: var(--green); }
-.lb-job p { font-size: 15.5px; line-height: 1.7; color: rgba(255,255,255,0.75); }
+.lb-job:hover .lb-job-num { transform: translateY(-5px); color: var(--green); }
+.lb-job p {
+  font-size: 15.5px; line-height: 1.7; color: rgba(255,255,255,0.75);
+  transition: color .4s var(--ease);
+}
+.lb-job:hover p { color: #fff; }
+
+/* Has to live here rather than in the shared sheet's reduced-motion block:
+   that block comes earlier in the cascade, so at equal specificity the hover
+   rules above would win and the movement would play anyway. The colour
+   changes stay — it is the travel that is the problem. */
+@media (prefers-reduced-motion: reduce) {
+  .lb-job::before, .lb-job:hover::before { transition: none; }
+  .lb-job-num { transition: color .4s var(--ease); }
+  .lb-job:hover .lb-job-num { transform: none; }
+}
 .lb-trio-close {
   margin-top: 44px; padding-top: 28px;
   border-top: 1px solid rgba(255,255,255,0.18);
@@ -2662,13 +2730,13 @@ figure.fig figcaption {
 <!-- ============================================================
      TRAFFIC + LINKS — NAVY
      ============================================================ -->
-<section class="band navy">
+<section class="band navy deep">
   <div class="wrap">
-    <p class="eyebrow on-dark">Three Jobs</p>
-    <h2 class="sec">One Article Does <em>Three Things</em></h2>
-    <p class="lead">Search content earns its keep three times over.</p>
+    <p class="eyebrow on-dark reveal">Three Jobs</p>
+    <h2 class="sec reveal">One Article Does <em>Three Things</em></h2>
+    <p class="lead reveal">Search content earns its keep three times over.</p>
 
-    <div class="lb-trio">
+    <div class="lb-trio reveal">
       <div class="lb-job">
         <span class="lb-job-num">01</span>
         <h3>It Brings In Relevant Traffic</h3>
@@ -2686,7 +2754,7 @@ figure.fig figcaption {
       </div>
     </div>
 
-    <div class="lb-cta on-dark">
+    <div class="lb-cta on-dark reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
       <a href="#plans" class="inline-link">Get pricing</a>
     </div>
@@ -2942,6 +3010,54 @@ figure.fig figcaption {
   'use strict';
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var root = document.documentElement;
+
+  /* ------------------------------------------------------------------
+     Entrance reveals. Only ever run once per element, and only when the
+     browser both supports IntersectionObserver and the visitor has not
+     asked for reduced motion.
+     ------------------------------------------------------------------ */
+  function setupReveals() {
+    var targets = document.querySelectorAll('.reveal');
+    if (!targets.length) return;
+
+    if (reduced.matches || !('IntersectionObserver' in window)) {
+      for (var i = 0; i < targets.length; i++) targets[i].classList.add('is-revealed');
+      root.setAttribute('data-anim', 'on');
+      return;
+    }
+
+    root.setAttribute('data-anim', 'on');
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+
+    targets.forEach(function (el) { io.observe(el); });
+
+    // The negative rootMargin means anything sitting in the last slice of a
+    // fully-scrolled page would never trigger. Once the visitor reaches the
+    // bottom, reveal whatever is still waiting.
+    function revealRemainder() {
+      var atBottom = window.innerHeight + window.scrollY >=
+                     document.documentElement.scrollHeight - 2;
+      if (!atBottom) return;
+      targets.forEach(function (el) {
+        if (el.classList.contains('is-revealed')) return;
+        el.classList.add('is-revealed');
+        io.unobserve(el);
+      });
+      window.removeEventListener('scroll', revealRemainder);
+    }
+
+    window.addEventListener('scroll', revealRemainder, { passive: true });
+    window.addEventListener('load', revealRemainder);
+    revealRemainder();
+  }
 
   /* ------------------------------------------------------------------
      The header only grows a border and shadow once the page has moved,
@@ -3100,8 +3216,9 @@ figure.fig figcaption {
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setupHeader(); setupMenu(); setupFaq(); });
+    document.addEventListener('DOMContentLoaded', function () { setupReveals(); setupHeader(); setupMenu(); setupFaq(); });
   } else {
+    setupReveals();
     setupHeader();
     setupMenu();
     setupFaq();
