@@ -1803,6 +1803,12 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
 }
 [data-anim="on"] .reveal.is-revealed { opacity: 1; transform: none; }
 
+/* A section's opening blocks cross the trigger line together, so without a
+   stagger they arrive as one slab. Only the first three need it — anything
+   further down a section is already spaced out by the scroll itself. */
+[data-anim="on"] .wrap > .reveal:nth-child(2) { --reveal-delay: 70ms; }
+[data-anim="on"] .wrap > .reveal:nth-child(3) { --reveal-delay: 140ms; }
+
 @media (prefers-reduced-motion: reduce) {
   .hero-wash span, .hero-wash::after,
   .ig-step:hover .ig-icon { animation: none !important; transform: none !important; }
@@ -2549,7 +2555,7 @@ figure.fig figcaption {
     <span class="hero-wash__s"></span>
   </div>
   <div class="wrap">
-    <div class="hero-copy">
+    <div class="hero-copy reveal">
       <h1>SEO + <em>AIO</em> Blog Writing</h1>
       <p class="hero-deck">Articles Built to Bring In Traffic and Earn Links</p>
       <p class="lead">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
@@ -2558,7 +2564,7 @@ figure.fig figcaption {
       </div>
     </div>
 
-    <div class="hero-figure">
+    <div class="hero-figure reveal">
       <svg class="hero-ill" viewBox="0 0 560 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A long-form article page shown in a browser, drawing search and AI visibility, linking to priority pages, and being referenced by another website.">
   <defs>
     <clipPath id="panelClip"><rect x="88" y="26" width="456" height="356" rx="18"/></clipPath>
@@ -2668,9 +2674,9 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band gray">
   <div class="wrap">
-    <p class="eyebrow">Definition</p>
-    <h2 class="sec">What Is SEO + AIO Blog Writing?</h2>
-    <div class="lb-answer">
+    <p class="eyebrow reveal">Definition</p>
+    <h2 class="sec reveal">What Is SEO + AIO Blog Writing?</h2>
+    <div class="lb-answer reveal">
       <p><strong>Answer:</strong> We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry. The articles <span class="hl">bring in relevant traffic</span>, <span class="hl">link internally to priority pages</span>, and give other websites <span class="hl">useful content to reference and link to</span>.</p>
     </div>
   </div>
@@ -2682,13 +2688,13 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band white anchor" id="blog-writing">
   <div class="wrap">
-    <p class="eyebrow">The Plan</p>
-    <h2 class="sec">SEO + AIO Blog Writing</h2>
-    <p class="lead">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
-    <p class="lead">We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry.</p>
+    <p class="eyebrow reveal">The Plan</p>
+    <h2 class="sec reveal">SEO + AIO Blog Writing</h2>
+    <p class="lead reveal">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
+    <p class="lead reveal">We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry.</p>
 
-    <h3 class="lb-h3">What You Get — $500/Month</h3>
-    <ul class="checklist">
+    <h3 class="lb-h3 reveal">What You Get — $500/Month</h3>
+    <ul class="checklist reveal">
       <li>Keyword and AI-prompt research</li>
       <li>Up to 10 long-form articles per month</li>
       <li>Search-focused article structure</li>
@@ -2697,10 +2703,10 @@ figure.fig figcaption {
       <li>More relevant traffic</li>
     </ul>
 
-    <p class="lead" style="margin-top:32px;">Each article gives your website another opportunity to appear in Google and AI search, while helping guide visitors toward the pages that matter most.</p>
-    <p class="lead">Articles are published directly on your website, so the traffic, internal links, and authority support the domain you own.</p>
+    <p class="lead reveal" style="margin-top:32px;">Each article gives your website another opportunity to appear in Google and AI search, while helping guide visitors toward the pages that matter most.</p>
+    <p class="lead reveal">Articles are published directly on your website, so the traffic, internal links, and authority support the domain you own.</p>
 
-    <figure class="fig">
+    <figure class="fig reveal">
       <div class="ill-blog">
         <div class="ill-doc">
           <svg class="ill-doc-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/></svg>
@@ -2717,9 +2723,9 @@ figure.fig figcaption {
       <figcaption>Each article links back to the service, location, and resource pages it supports.</figcaption>
     </figure>
 
-    <p class="lb-fineprint">* These are SEO + AIO articles built for search visibility, not internal company content. To keep pricing reasonable, client edit rounds are not included.</p>
+    <p class="lb-fineprint reveal">* These are SEO + AIO articles built for search visibility, not internal company content. To keep pricing reasonable, client edit rounds are not included.</p>
 
-    <div class="lb-cta">
+    <div class="lb-cta reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
       <a href="#plans" class="inline-link">Get pricing</a>
     </div>
@@ -2756,7 +2762,7 @@ figure.fig figcaption {
 
     <div class="lb-cta on-dark reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
-      <a href="#plans" class="inline-link">Get pricing</a>
+      <a href="#plans" class="btn-ghost">Get pricing</a>
     </div>
   </div>
 </section>
@@ -2767,21 +2773,21 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band gray">
   <div class="wrap">
-    <p class="eyebrow">Targeting</p>
-    <h2 class="sec">Built Around the Pages That Matter Most</h2>
-    <p class="lead">Internal links should not automatically point at the homepage.</p>
-    <p class="lead">We identify the pages that need the greatest support based on the company’s services, competition, search priorities, and existing authority.</p>
+    <p class="eyebrow reveal">Targeting</p>
+    <h2 class="sec reveal">Built Around the Pages That Matter Most</h2>
+    <p class="lead reveal">Internal links should not automatically point at the homepage.</p>
+    <p class="lead reveal">We identify the pages that need the greatest support based on the company’s services, competition, search priorities, and existing authority.</p>
 
-    <p class="lead" style="margin-top:32px;"><strong>That may include:</strong></p>
-    <ul class="lb-crit">
+    <p class="lead reveal" style="margin-top:32px;"><strong>That may include:</strong></p>
+    <ul class="lb-crit reveal">
       <li>High-value service pages</li>
       <li>Competitive location pages</li>
       <li>Important product or service categories</li>
       <li>Resource pages attracting organic traffic</li>
     </ul>
 
-    <p class="lead" style="margin-top:24px;">Pages positioned close to stronger rankings also take priority — regardless of type.</p>
-    <p class="lead" style="margin-top:20px;">Blog topics and internal links can then be aligned around those priorities.</p>
+    <p class="lead reveal" style="margin-top:24px;">Pages positioned close to stronger rankings also take priority — regardless of type.</p>
+    <p class="lead reveal" style="margin-top:20px;">Blog topics and internal links can then be aligned around those priorities.</p>
   </div>
 </section>
 
@@ -2791,9 +2797,9 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band white">
   <div class="wrap">
-    <p class="eyebrow">Outcomes</p>
-    <h2 class="sec">What SEO + AIO Blog Writing Can Support</h2>
-    <ul class="checklist">
+    <p class="eyebrow reveal">Outcomes</p>
+    <h2 class="sec reveal">What SEO + AIO Blog Writing Can Support</h2>
+    <ul class="checklist reveal">
       <li>Expand organic search visibility</li>
       <li>Attract relevant informational traffic</li>
       <li>Strengthen priority service and location pages</li>
@@ -2810,11 +2816,11 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band gray anchor" id="plans">
   <div class="wrap">
-    <p class="eyebrow">Pricing</p>
-    <h2 class="sec">What Does SEO + AIO Blog Writing Cost?</h2>
-    <p class="lead">One monthly plan. Articles written, optimized, and published on your website.</p>
+    <p class="eyebrow reveal">Pricing</p>
+    <h2 class="sec reveal">What Does SEO + AIO Blog Writing Cost?</h2>
+    <p class="lead reveal">One monthly plan. Articles written, optimized, and published on your website.</p>
 
-    <div class="lb-pricing">
+    <div class="lb-pricing reveal">
       <div class="lb-price feature">
         <h3>SEO + AIO Blog Writing</h3>
         <span class="lb-amount">Starting at $500 per month</span>
@@ -2823,7 +2829,7 @@ figure.fig figcaption {
       </div>
     </div>
 
-    <div class="lb-cta">
+    <div class="lb-cta reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
     </div>
   </div>
@@ -2835,12 +2841,12 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band white">
   <div class="wrap">
-    <div class="faq-head">
+    <div class="faq-head reveal">
       <p class="eyebrow">Questions</p>
       <h2 class="sec">Frequently Asked Questions</h2>
     </div>
 
-    <div class="faq" data-faq>
+    <div class="faq reveal" data-faq>
       <details class="faq-item" name="seo-blog-faq">
         <summary>Where Are the Blog Articles Published?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
         <div class="faq-answer">
@@ -2874,9 +2880,9 @@ figure.fig figcaption {
      ============================================================ -->
 <section class="band navy final-cta">
   <div class="wrap final">
-    <h2 class="sec">Your Next Customer Is Searching <em>Right Now</em></h2>
-    <p class="lead">Every month without search content is a month of questions your competitors get to answer. Up to 10 articles a month, published on your website, working for the pages that matter most — starting at $500.</p>
-    <div class="hero-ctas">
+    <h2 class="sec reveal">Your Next Customer Is Searching <em>Right Now</em></h2>
+    <p class="lead reveal">Every month without search content is a month of questions your competitors get to answer. Up to 10 articles a month, published on your website, working for the pages that matter most — starting at $500.</p>
+    <div class="hero-ctas reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
       <a href="#plans" class="btn-ghost">See the Plan</a>
     </div>
