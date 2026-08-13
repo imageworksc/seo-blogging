@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO + AIO Blog Writing | ImageWorks Creative</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- PRODUCTION: replace this inlined block with -->
+<!-- <link rel="stylesheet" href="/assets/iwc-styles.css"> -->
+<style>
+/* ============================================================
+   IWC Shared Stylesheet
+   Design system for ImageWorks Creative pages
+   ------------------------------------------------------------
+   Include on any IWC page:
+     <link rel="stylesheet" href="/assets/iwc-styles.css">
+   Font (load once in the page head):
+     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. TOKENS - brand colors, always use vars
+   ------------------------------------------------------------ */
+:root {
+  --navy: #143c66;
+  --blue: #1266b5;
+  --blue-dark: #2d59b5;
+  --blue-light: #e8f3fc;
+  --green: #80C34A;
+  --green-dark: #4a8628;
+  --green-light: #eef6e8;
+  --gray-bg: #f4f5f7;
+  --gray-mid: #e2e6ec;
+  --gray-text: #6b7a94;
+  --body-text: #344054;
+  --white: #ffffff;
+}
+
+
+/* ------------------------------------------------------------
+   2. BASE - reset, body type
+   ------------------------------------------------------------ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--body-text);
+  background: var(--white);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
+
+
+/* ------------------------------------------------------------
+   3. EYEBROW - green dot with glow ring + navy uppercase
+   ------------------------------------------------------------ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 18px;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px var(--green-light);
+  flex-shrink: 0;
+}
+.eyebrow.on-dark { color: rgba(255,255,255,0.9); }
+
+
+/* ------------------------------------------------------------
+   4. BANDS - alternating white / gray / navy sections
+   Rule: never place two same-color bands adjacent
+   ------------------------------------------------------------ */
+section.band { padding: 80px 0; }
+section.band.white { background: var(--white); }
+section.band.gray  { background: var(--gray-bg); border-top: 1px solid var(--gray-mid); border-bottom: 1px solid var(--gray-mid); }
+section.band.navy  { background: var(--navy); }
+
+
+/* ------------------------------------------------------------
+   5. TYPOGRAPHY - headings, lead paragraphs
+   ------------------------------------------------------------ */
+h2.sec {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+section.band.navy h2.sec { color: var(--white); }
+h2.sec em { font-style: normal; color: var(--green-dark); }
+section.band.navy h2.sec em { color: var(--green); }
+
+p.lead {
+  font-size: 17px;
+  color: var(--body-text);
+  line-height: 1.75;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+p.lead:last-child { margin-bottom: 0; }
+p.lead strong { color: var(--navy); font-weight: 700; }
+p.lead em { font-style: italic; }
+section.band.navy p.lead { color: rgba(255,255,255,0.75); }
+section.band.navy p.lead strong { color: var(--white); }
+
+
+/* ------------------------------------------------------------
+   6. BUTTONS
+   ------------------------------------------------------------ */
+.btn-green {
+  background: var(--green);
+  color: var(--white);
+  font-size: 15px; font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .15s;
+  display: inline-block;
+}
+.btn-green:hover { background: var(--green-dark); }
+
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+  font-size: 15px; font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .15s;
+  display: inline-block;
+}
+.btn-navy:hover { background: #0f2e50; }
+
+/* On light backgrounds */
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  font-size: 15px; font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 6px;
+  border: 1.5px solid var(--gray-mid);
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--navy); }
+
+/* On dark backgrounds */
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  font-size: 15px; font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  transition: border-color .15s, background .15s;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
+
+
+/* ------------------------------------------------------------
+   7. INLINE LINK - small text link with arrow
+   ------------------------------------------------------------ */
+.inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px; font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  margin-top: 20px;
+  transition: gap .15s;
+}
+.inline-link:hover { gap: 9px; }
+
+
+/* ------------------------------------------------------------
+   8. QUOTE LINE - quiet inline CTA text
+   Usage: <p class="quote-line">Ready to discuss your project? <a href="#">Request a quote →</a></p>
+   ------------------------------------------------------------ */
+.quote-line { font-size: 18px; font-weight: 600; color: var(--navy); }
+.quote-line a {
+  color: var(--green-dark);
+  font-weight: 800;
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.quote-line a:hover { color: var(--green); }
+
+
+/* ------------------------------------------------------------
+   9. SKIP LINK - subtle in-page anchor nudge
+   ------------------------------------------------------------ */
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--gray-text);
+  text-decoration: none;
+  margin-top: 32px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-mid);
+  transition: color .15s, gap .15s, border-color .15s;
+}
+.skip-link:hover { color: var(--navy); gap: 10px; border-color: var(--navy); }
+
+
+/* ------------------------------------------------------------
+   10. ANSWER BLOCK - green-accented callout for definitions / AEO answers
+   ------------------------------------------------------------ */
+.answer {
+  background: var(--green-light);
+  border-left: 4px solid var(--green);
+  border-radius: 0 10px 10px 0;
+  padding: 32px 36px;
+  max-width: 820px;
+}
+.answer p { font-size: 17px; line-height: 1.75; color: var(--body-text); margin-bottom: 14px; }
+.answer p:last-child { margin-bottom: 0; }
+.answer p strong { color: var(--navy); font-weight: 700; }
+
+
+/* ------------------------------------------------------------
+   11. SUBSECTION - numbered subheads with hanging indent
+   When h3 uses "1. Text" the paragraph aligns with the TEXT,
+   not the number. Rule locked in — do not change.
+   ------------------------------------------------------------ */
+.sub { margin-top: 36px; max-width: 780px; }
+.sub h3 {
+  font-size: 20px; font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 12px;
+  padding-left: 34px;
+  text-indent: -34px;
+}
+.sub h3 + p { padding-left: 34px; }
+.sub p { font-size: 16px; line-height: 1.75; color: var(--body-text); }
+.sub p em { font-style: italic; }
+
+
+/* ------------------------------------------------------------
+   12. POINTS LIST - divided rows with bold lead-in
+   Usage: <ul class="points"><li><strong>Title.</strong> Description.</li></ul>
+   ------------------------------------------------------------ */
+.points { list-style: none; max-width: 840px; margin-top: 28px; }
+.points li {
+  padding: 20px 0;
+  border-top: 1px solid var(--gray-mid);
+  font-size: 16px; line-height: 1.7;
+  color: var(--body-text);
+}
+.points li:last-child { border-bottom: 1px solid var(--gray-mid); }
+.points li strong { color: var(--navy); font-weight: 700; }
+section.band.navy .points li { border-top-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); }
+section.band.navy .points li:last-child { border-bottom-color: rgba(255,255,255,0.12); }
+section.band.navy .points li strong { color: var(--green); font-weight: 700; }
+
+
+/* ------------------------------------------------------------
+   13. CHECKLIST - green circled check + short benefit line
+   ------------------------------------------------------------ */
+.checklist { list-style: none; margin-top: 36px; max-width: 720px; display: flex; flex-direction: column; gap: 14px; }
+.checklist li {
+  font-size: 16px; line-height: 1.55;
+  color: var(--body-text); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 13px;
+}
+.checklist li::before {
+  content: '✓';
+  color: var(--green-dark); background: var(--green-light);
+  font-weight: 800; font-size: 12px;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   14. SIGNALS LIST - divided rows with bold end-word emphasis
+   Usage: <ul class="signals"><li>This company is <strong>established.</strong></li></ul>
+   ------------------------------------------------------------ */
+.signals { list-style: none; margin-top: 32px; max-width: 640px; display: flex; flex-direction: column; }
+.signals li {
+  font-size: 17px; line-height: 1.5;
+  color: var(--body-text);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-mid);
+  display: flex; align-items: center; gap: 14px;
+}
+.signals li:first-child { border-top: 1px solid var(--gray-mid); }
+.signals li::before {
+  content: '✓';
+  color: var(--green-dark); background: var(--green-light);
+  font-weight: 800; font-size: 12px;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.signals li strong { color: var(--navy); font-weight: 800; }
+
+
+/* ------------------------------------------------------------
+   15. ARGUMENT CALLOUT - stacked pull-quote for sales pages
+   ------------------------------------------------------------ */
+.argument-callout {
+  border-left: 4px solid var(--green);
+  background: var(--white);
+  border-radius: 0 12px 12px 0;
+  padding: 32px 36px;
+  margin-top: 36px;
+  max-width: 820px;
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.argument-callout p { font-size: 16.5px; line-height: 1.75; color: var(--body-text); margin-bottom: 14px; }
+.argument-callout p:last-child { margin-bottom: 0; }
+.argument-callout p strong { color: var(--navy); font-weight: 800; font-size: 18px; }
+.argument-callout .argument-close {
+  font-size: 18px; font-weight: 700; color: var(--navy);
+  border-top: 1px solid var(--gray-mid);
+  padding-top: 16px; margin-top: 4px;
+}
+
+
+/* ------------------------------------------------------------
+   16. COMPARE - side-by-side "shortcut vs. real thing" cards
+   The custom side gets a green border and shadow to visually win
+   ------------------------------------------------------------ */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
+.compare-col { border-radius: 14px; padding: 34px 32px; border: 1px solid var(--gray-mid); }
+.compare-col.shortcut { background: var(--gray-bg); }
+.compare-col.custom {
+  background: var(--white);
+  border: 2px solid var(--green);
+  box-shadow: 0 8px 32px rgba(20,60,102,0.1);
+}
+.compare-head { margin-bottom: 24px; }
+.compare-tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  margin-bottom: 14px;
+}
+.tag-red   { background: #fbe9e9; color: #b23b3b; }
+.tag-green { background: var(--green-light); color: var(--green-dark); }
+.compare-head h3 { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; }
+.compare-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.compare-list li {
+  font-size: 15px; line-height: 1.5; color: var(--body-text);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.compare-list li em { font-style: italic; }
+.compare-col.shortcut .compare-list li::before {
+  content: '✕'; color: #c25050; font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 2px;
+}
+.compare-col.custom .compare-list li::before {
+  content: '✓'; color: var(--green-dark); font-weight: 800; font-size: 13px; flex-shrink: 0; margin-top: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   17. HOOD TABLE - contained spec chart (blue-title rail + white desc)
+   ------------------------------------------------------------ */
+.hood-table {
+  margin-top: 40px;
+  max-width: 880px;
+  border: 1px solid var(--gray-mid);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.hood-row { display: grid; grid-template-columns: 240px 1fr; border-bottom: 1px solid var(--gray-mid); }
+.hood-row:last-child { border-bottom: none; }
+.hood-row dt {
+  background: var(--blue-light);
+  padding: 18px 24px;
+  font-size: 15px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.2px;
+  display: flex; align-items: center;
+  border-right: 1px solid var(--gray-mid);
+}
+.hood-row dd {
+  padding: 18px 26px;
+  font-size: 15px; line-height: 1.6; color: var(--body-text);
+  margin: 0;
+  display: flex; align-items: center;
+}
+
+
+/* ------------------------------------------------------------
+   18. PLATFORM SPLIT - one bordered panel, two halves side-by-side
+   For "Drupal vs WordPress" or any two-option comparison
+   ------------------------------------------------------------ */
+.platform-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--gray-mid);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 40px;
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.platform-half { background: var(--white); padding: 44px 42px; border-top: 4px solid transparent; }
+.half-drupal { border-top-color: #009CDE; border-right: 1px solid var(--gray-mid); }
+.half-wp     { border-top-color: #21759B; }
+.split-badge {
+  display: inline-block;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px; border-radius: 5px;
+  margin-bottom: 16px;
+}
+.badge-drupal { background: #e5f6ff; color: #007aad; }
+.badge-wp     { background: #e8f1f7; color: #1a5f7a; }
+.platform-half h3 { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; margin-bottom: 12px; }
+.platform-half p  { font-size: 15px; line-height: 1.7; color: var(--body-text); margin-bottom: 12px; }
+.platform-half p em { font-style: italic; }
+
+
+/* ------------------------------------------------------------
+   19. STATS BAR - four-up credibility grid with caddycorner colors
+   Usage: pair .blue and .green so they alternate diagonally.
+   ------------------------------------------------------------ */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+.stat {
+  border-radius: 12px;
+  padding: 30px 26px;
+  display: flex; flex-direction: column; gap: 8px;
+  border: 1px solid var(--gray-mid);
+}
+.stat.blue  { background: var(--blue-light);  border-color: #c5dcf0; }
+.stat.green { background: var(--green-light); border-color: #c3e6a0; }
+.stat-num   { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; line-height: 1; color: var(--navy); }
+.stat.green .stat-num { color: var(--green-dark); }
+.stat-label { font-size: 12.5px; color: var(--gray-text); font-weight: 500; line-height: 1.45; }
+.stat.humanai .stat-label { color: var(--navy); font-weight: 700; font-size: 14px; }
+.stat-icons { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.stat-plus  { font-size: 16px; font-weight: 700; color: var(--navy); opacity: 0.5; }
+
+
+/* ------------------------------------------------------------
+   20. HERO WASH - three drifting washes of brand colour on a light ground
+   Usage:
+     <section class="hero">
+       <div class="hero-wash" aria-hidden="true">
+         <span class="hero-wash__g"></span>
+         <span class="hero-wash__b"></span>
+         <span class="hero-wash__s"></span>
+       </div>
+       <div class="wrap">...</div>
+     </section>
+   Hero must be position: relative; overflow: hidden; isolation: isolate.
+
+   One element per wash, moved by transform. Separate elements mean separate
+   clocks and separate directions - the green runs one way, the blue the other,
+   so they drift apart and back together instead of sliding as one sheet.
+
+   Pale on purpose: on a white ground anything stronger stops reading as light
+   and starts reading as decoration.
+
+   Every number is in px, not vw. What the washes sit behind is a stack of type
+   whose height barely changes with the screen; sized in viewport units they
+   would grow on a wide monitor while the copy stayed put, and the colour would
+   slide off it. `left: 50%` plus a px margin hangs each wash off the middle of
+   the page, which is the right anchor because the wrap is centred too.
+   ------------------------------------------------------------ */
+/* The layer is 1040px tall rather than the hero's own height - the colour does
+   not stop where the copy does. The mask dissolves it well before the foot of
+   the hero, so nothing gets cut at the section seam. */
+.hero-wash {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  block-size: 1040px;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
+          mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
+}
+.hero-wash span { position: absolute; left: 50%; will-change: transform; }
+/* green: opens top-left over the headline, runs down and to the right */
+.hero-wash__g {
+  inline-size: 780px;
+  block-size: 640px;
+  margin-left: -870px;
+  top: -220px;
+  background: radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
+  animation: heroWashG 71s linear infinite;
+}
+/* brand blue: opens top-right behind the figure, runs the other way */
+.hero-wash__b {
+  inline-size: 840px;
+  block-size: 700px;
+  margin-left: 50px;
+  top: -190px;
+  background: radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
+  animation: heroWashB 97s linear infinite;
+}
+/* sky: the low one, parked under the call to action. Slowest and widest. */
+.hero-wash__s {
+  inline-size: 900px;
+  block-size: 660px;
+  margin-left: -410px;
+  top: 300px;
+  background: radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
+  animation: heroWashS 127s linear infinite;
+}
+/* Below the shell the px offsets hang the green and blue off screen entirely.
+   Pull them back toward the middle so the stacked hero still opens in colour. */
+@media (max-width: 900px) {
+  .hero-wash__g { margin-left: -560px; }
+  .hero-wash__b { margin-left: -220px; }
+  .hero-wash__s { margin-left: -450px; top: 260px; }
+}
+
+/* Closed loops at a constant rate. Two waypoints on an ease would decelerate,
+   stop and reverse, which reads as an animation looping; four that come back
+   round read as something wandering. The three periods share no useful factor,
+   so the arrangement takes hours to recur. */
+@keyframes heroWashG {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(38%, 22%, 0); }
+  50%  { transform: translate3d(64%, 6%, 0); }
+  75%  { transform: translate3d(26%, -14%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes heroWashB {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-42%, 26%, 0); }
+  50%  { transform: translate3d(-70%, -8%, 0); }
+  75%  { transform: translate3d(-30%, -24%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes heroWashS {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-34%, -18%, 0); }
+  50%  { transform: translate3d(-58%, 10%, 0); }
+  75%  { transform: translate3d(-18%, 20%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+/* A sheen crossing the surface, the way light moves over one. It rides inside
+   the wash layer rather than on the hero, so it fades out under the same mask
+   as everything else instead of cutting a diagonal across the seam. */
+.hero-wash::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(102deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.34) 50%, rgba(255,255,255,0) 70%);
+  background-repeat: no-repeat;
+  background-size: 260% 100%;
+  animation: heroSheen 47s ease-in-out infinite;
+}
+@keyframes heroSheen {
+  0%, 100% { background-position: 124% 0; }
+  50%      { background-position: -24% 0; }
+}
+
+
+/* ------------------------------------------------------------
+   21. PROCESS INFOGRAPH - horizontal 7-step timeline with phase groups
+   ------------------------------------------------------------ */
+.infograph { margin-top: 52px; }
+
+.ig-phases { display: flex; gap: 8px; margin-bottom: 0; padding: 0 4px; }
+.ig-phase {
+  position: relative;
+  padding: 10px 16px 12px;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-text);
+  border-bottom: 3px solid var(--gray-mid);
+  text-align: center;
+}
+.ig-phase:nth-child(1) { border-bottom-color: var(--green); color: var(--green-dark); }
+.ig-phase:nth-child(2) { border-bottom-color: var(--blue);  color: var(--blue); }
+.ig-phase:nth-child(3) { border-bottom-color: var(--navy);  color: var(--navy); }
+
+.ig-flow {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 40px;
+}
+.ig-flow::before {
+  content: '';
+  position: absolute;
+  top: 26px; left: 7%; right: 7%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--green) 0%, var(--green) 28%,
+    var(--blue) 30%, var(--blue) 71%,
+    var(--navy) 73%, var(--navy) 100%);
+  z-index: 0;
+  border-radius: 1px;
+}
+.ig-step { position: relative; padding: 0 8px; text-align: center; z-index: 1; color: var(--navy); }
+.ig-icon {
+  width: 54px; height: 54px;
+  background: var(--white);
+  border: 2px solid var(--gray-mid);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+  color: var(--navy);
+  position: relative; z-index: 2;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  box-shadow: 0 2px 8px rgba(20,60,102,0.06);
+}
+.ig-step:nth-child(-n+2) .ig-icon { border-color: var(--green); color: var(--green-dark); }
+.ig-step:nth-child(3) .ig-icon,
+.ig-step:nth-child(4) .ig-icon,
+.ig-step:nth-child(5) .ig-icon { border-color: var(--blue); color: var(--blue); }
+.ig-step:nth-child(6) .ig-icon,
+.ig-step:nth-child(7) .ig-icon { border-color: var(--navy); color: var(--navy); }
+.ig-step:hover .ig-icon { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 18px rgba(20,60,102,0.15); }
+
+.ig-num  { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--gray-text); margin-bottom: 4px; }
+.ig-step h3 { font-size: 13.5px; font-weight: 800; color: var(--navy); letter-spacing: -0.2px; margin-bottom: 6px; line-height: 1.25; }
+.ig-step p  { font-size: 12px; line-height: 1.5; color: var(--body-text); margin-bottom: 10px; }
+
+.ig-tag { display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+.ig-tag-human { background: var(--green-light); color: var(--green-dark); }
+.ig-tag-mixed { background: var(--blue-light);  color: var(--blue); }
+.ig-tag-ai    { background: #f4ecff; color: #6b3fbf; }
+
+.ig-legend { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--gray-mid); }
+.ig-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--body-text); }
+.ig-dot { width: 10px; height: 10px; border-radius: 50%; }
+.ig-dot-human { background: var(--green); }
+.ig-dot-mixed { background: var(--blue); }
+.ig-dot-ai    { background: #6b3fbf; }
+
+
+/* ------------------------------------------------------------
+   22. FAQ - native <details> accordion with green +/- indicator
+   ------------------------------------------------------------ */
+.faq-list { max-width: 820px; margin-top: 32px; }
+.faq-item { border-top: 1px solid var(--gray-mid); }
+.faq-item:last-child { border-bottom: 1px solid var(--gray-mid); }
+.faq-item summary {
+  font-size: 17px; font-weight: 700;
+  color: var(--navy);
+  padding: 22px 36px 22px 0;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  line-height: 1.4;
+  transition: color .15s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  position: absolute; right: 4px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px; font-weight: 400;
+  color: var(--green-dark);
+  transition: transform .2s;
+}
+.faq-item[open] summary::after { content: '−'; }
+.faq-item summary:hover { color: var(--blue); }
+.faq-item p { font-size: 16px; line-height: 1.75; color: var(--body-text); padding-bottom: 24px; max-width: 760px; }
+
+
+/* ------------------------------------------------------------
+   23. FINAL CTA - centered navy closing band
+   Usage: <section class="band navy"><div class="wrap final">...</div></section>
+   ------------------------------------------------------------ */
+.final { text-align: center; }
+.final h2.sec  { margin-bottom: 16px; }
+.final p.lead  { margin: 0 auto 32px; }
+.final .hero-ctas { justify-content: center; }
+.final-kicker { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+.final-flip   { font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.35; letter-spacing: -0.3px; margin: 0 auto; max-width: 720px; }
+.final-flip span { color: var(--green); font-weight: 800; }
+
+
+/* ------------------------------------------------------------
+   24. IMAGE PLACEHOLDER - hatched box for TBD image spots
+   ------------------------------------------------------------ */
+.img-ph {
+  background: repeating-linear-gradient(135deg, #eef1f5, #eef1f5 12px, #e7ebf1 12px, #e7ebf1 24px);
+  border: 1px dashed #b9c4d2;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+  color: #8091a5;
+  font-size: 13px; font-weight: 600;
+  text-align: center;
+  padding: 40px 24px;
+  min-height: 220px;
+  border-radius: 12px;
+}
+.img-ph.plain { border-radius: 0; border: none; }
+.img-ph span.tag { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #9aa8ba; font-weight: 700; }
+
+
+/* ============================================================
+   25. RESPONSIVE
+   Mobile-first rule: every multi-column grid collapses at ≤600px
+   ============================================================ */
+@media (max-width: 900px) {
+  .compare { grid-template-columns: 1fr; }
+  .platform-split { grid-template-columns: 1fr; }
+  .half-drupal { border-right: none; border-bottom: 1px solid var(--gray-mid); }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+
+  .ig-phases { display: none; }
+  .ig-flow { grid-template-columns: 1fr; gap: 4px; margin-top: 24px; }
+  .ig-flow::before {
+    top: 0; bottom: 0; left: 27px; right: auto;
+    width: 2px; height: auto;
+    background: linear-gradient(180deg,
+      var(--green) 0%, var(--green) 28%,
+      var(--blue) 30%, var(--blue) 71%,
+      var(--navy) 73%, var(--navy) 100%);
+  }
+  .ig-step { display: grid; grid-template-columns: 54px 1fr; gap: 16px; text-align: left; padding: 10px 0; }
+  .ig-icon { margin: 0; }
+  .ig-num  { grid-column: 2; margin-bottom: 2px; }
+  .ig-step h3 { grid-column: 2; }
+  .ig-step p  { grid-column: 2; }
+  .ig-tag { grid-column: 2; justify-self: start; }
+}
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 22px; }
+  section.band { padding: 56px 0; }
+  .answer { padding: 24px 22px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .hood-row { grid-template-columns: 1fr; }
+  .hood-row dt { border-right: none; border-bottom: 1px solid var(--gray-mid); padding: 12px 20px; }
+  .hood-row dd { padding: 14px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wash span, .hero-wash::after,
+  .ig-step:hover .ig-icon { animation: none !important; transform: none !important; }
+}
+
+</style>
+
+<style>
+/* ============================================================
+   PAGE-LEVEL COMPONENTS — SEO + AIO Link Building
+   Uses iwc-styles.css tokens only. Prefix: .lb-
+   ============================================================ */
+
+/* --- Hero (not defined in shared sheet) --- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--white);
+  padding: 96px 0 80px;
+  /* No rule at the foot: the washes fade out inside the hero and the band
+     below carries its own hairline top border, so a rule here only doubled
+     the line at the seam. */
+}
+.hero .wrap {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-copy { min-width: 0; }
+.hero-figure { min-width: 0; }
+.hero h1 {
+  font-size: clamp(36px, 5.4vw, 62px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.06;
+  letter-spacing: -1.8px;
+  max-width: 13ch;
+  margin-bottom: 18px;
+}
+.hero h1 em { font-style: normal; color: var(--green-dark); }
+.hero-deck {
+  font-size: clamp(21px, 2.4vw, 30px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+  max-width: 19ch;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--gray-mid);
+}
+
+.hero p.lead { font-size: 19px; max-width: 640px; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 32px; }
+.hero-sub {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-mid);
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray-text);
+  font-weight: 500;
+}
+
+/* --- Approach wash: the hero's own green/blue gradient, reused above
+       each navy band. Sits in the white section that precedes the band,
+       anchored at the boundary and fading upward as it rises — so the
+       dark band appears to cast its color up into the page above it.
+       Static by default (no keyframes): this sits right above a CTA,
+       not behind a stretch of body copy, but it's easy to animate to
+       fully match the hero wash if you want more life in it. --- */
+section.band.navy {
+  position: relative;
+  isolation: isolate;
+}
+section.band.navy::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 240px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(260px circle at 18% 100%, rgba(128,195,74,0.34), transparent 70%),
+    radial-gradient(260px circle at 82% 100%, rgba(46,140,214,0.28), transparent 70%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 90%);
+          mask-image: linear-gradient(to top, #000 0%, transparent 90%);
+}
+section.band.navy > .wrap { position: relative; z-index: 1; }
+
+/* --- EXPERIMENT: unified background. All light bands match the hero's
+       white; navy bands untouched. Hairline top rules keep section
+       boundaries readable now that the color alternation is gone. --- */
+section.band.gray {
+  background: var(--white);
+  border-top: 1px solid var(--gray-mid);
+  border-bottom: none;
+}
+section.band.white + section.band.white,
+section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
+
+/* --- Eyebrows: larger than the shared 11px. Bump the dot to match so the
+       proportion holds. --- */
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: 1.6px;
+  font-weight: 800;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  width: 16px; height: 16px;
+  border-radius: 0;
+  box-shadow: none;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13.85 7.05 L14.12 4.15 L17.88 4.15 L18.15 7.05 L20.81 8.16 L23.05 6.29 L25.71 8.95 L23.84 11.19 L24.95 13.85 L27.85 14.12 L27.85 17.88 L24.95 18.15 L23.84 20.81 L25.71 23.05 L23.05 25.71 L20.81 23.84 L18.15 24.95 L17.88 27.85 L14.12 27.85 L13.85 24.95 L11.19 23.84 L8.95 25.71 L6.29 23.05 L8.16 20.81 L7.05 18.15 L4.15 17.88 L4.15 14.12 L7.05 13.85 L8.16 11.19 L6.29 8.95 L8.95 6.29 L11.19 8.16 Z M16 12.00 A4.0 4.0 0 1 0 16 20.00 A4.0 4.0 0 1 0 16 12.00 Z' fill='%2380C34A' fill-rule='evenodd'/></svg>") center / contain no-repeat;
+}
+.eyebrow.on-dark::before {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13.85 7.05 L14.12 4.15 L17.88 4.15 L18.15 7.05 L20.81 8.16 L23.05 6.29 L25.71 8.95 L23.84 11.19 L24.95 13.85 L27.85 14.12 L27.85 17.88 L24.95 18.15 L23.84 20.81 L25.71 23.05 L23.05 25.71 L20.81 23.84 L18.15 24.95 L17.88 27.85 L14.12 27.85 L13.85 24.95 L11.19 23.84 L8.95 25.71 L6.29 23.05 L8.16 20.81 L7.05 18.15 L4.15 17.88 L4.15 14.12 L7.05 13.85 L8.16 11.19 L6.29 8.95 L8.95 6.29 L11.19 8.16 Z M16 12.00 A4.0 4.0 0 1 0 16 20.00 A4.0 4.0 0 1 0 16 12.00 Z' fill='%238FD154' fill-rule='evenodd'/></svg>") center / contain no-repeat;
+}
+
+/* --- Section anchor offset --- */
+.anchor { scroll-margin-top: 24px; }
+
+/* --- Criteria grid: neutral two-column divided list (not benefits) --- */
+.lb-crit {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  margin-top: 28px;
+  max-width: 860px;
+}
+.lb-crit li {
+  font-size: 15.5px; line-height: 1.55; color: var(--body-text);
+  padding: 14px 0 14px 20px;
+  border-top: 1px solid var(--gray-mid);
+  position: relative;
+}
+.lb-crit li::before {
+  content: '';
+  position: absolute; left: 0; top: 24px;
+  width: 8px; height: 2px; background: var(--blue);
+}
+
+/* --- Two-column checklist wrapper --- */
+.lb-cols2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 44px; }
+.lb-cols2 .checklist { margin-top: 24px; max-width: 100%; }
+
+/* --- Navy trio: the three jobs --- */
+.lb-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 48px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.lb-job { padding: 34px 32px 0 0; border-right: 1px solid rgba(255,255,255,0.18); }
+.lb-job:not(:first-child) { padding-left: 32px; }
+.lb-job:last-child { border-right: none; padding-right: 0; }
+.lb-job h3 {
+  font-size: 18px; font-weight: 800; color: var(--white);
+  line-height: 1.3; letter-spacing: -0.2px; margin-bottom: 14px;
+}
+.lb-job-num {
+  display: block;
+  font-size: 30px; font-weight: 800; letter-spacing: -1.4px;
+  line-height: 1;
+  color: rgba(255,255,255,0.32);
+  margin-bottom: 18px;
+}
+.lb-job:last-child .lb-job-num { color: var(--green); }
+.lb-job p { font-size: 15.5px; line-height: 1.7; color: rgba(255,255,255,0.75); }
+.lb-trio-close {
+  margin-top: 44px; padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  font-size: 19px; font-weight: 700; color: var(--white);
+  line-height: 1.5; max-width: 760px;
+}
+
+/* --- Pricing: asymmetric 2-up, monthly plans stacked left --- */
+.lb-pricing { margin-top: 48px; max-width: 560px; }
+.lb-price-stack { display: flex; flex-direction: column; gap: 24px; }
+.lb-price {
+  background: var(--white);
+  border: 1px solid var(--gray-mid);
+  border-radius: 14px;
+  padding: 32px 32px 34px;
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.lb-price.feature {
+  border: 2px solid var(--green);
+  box-shadow: 0 8px 32px rgba(20,60,102,0.1);
+  height: 100%;
+}
+.lb-price h3 {
+  font-size: 21px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.4px; line-height: 1.25; margin-bottom: 14px;
+}
+.lb-amount {
+  display: block;
+  font-size: 17px; font-weight: 800; color: var(--green-dark);
+  padding-bottom: 20px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--gray-mid);
+}
+.lb-price p { font-size: 15.5px; line-height: 1.7; color: var(--body-text); margin-bottom: 14px; }
+.lb-price p:last-child { margin-bottom: 0; }
+.lb-market {
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: var(--gray-text) !important;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-mid);
+}
+.lb-pricing-cta { margin-top: 40px; }
+
+/* --- Service 01 illustration: article -> the pages it supports.
+       HTML + CSS so the labels are real text (16px, reflows on mobile);
+       SVG layer carries only the connector curves. --- */
+.ill-blog {
+  position: relative;
+  display: grid;
+  grid-template-columns: 236px 168px 1fr;
+  align-items: center;
+  padding: 8px 0;
+  max-width: 820px;
+  margin-top: 44px;
+}
+.ill-doc {
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: var(--white);
+  padding: 20px;
+}
+.ill-doc-icon { display: block; margin-bottom: 14px; }
+.ill-doc-label {
+  display: block;
+  font-size: 16px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.2px; margin-bottom: 14px;
+}
+.ill-bars { display: flex; flex-direction: column; gap: 7px; }
+.ill-bars i { display: block; height: 7px; border-radius: 4px; background: #dce9f8; }
+.ill-bars i:nth-child(1) { width: 100%; }
+.ill-bars i:nth-child(2) { width: 82%; }
+.ill-bars i:nth-child(3) { width: 60%; }
+
+.ill-wires { display: block; width: 100%; height: 100%; }
+
+.ill-targets { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.ill-targets li {
+  display: flex; align-items: flex-start; gap: 12px;
+  border: 1.5px solid var(--navy);
+  border-radius: 10px;
+  background: var(--white);
+  padding: 14px 18px;
+}
+.ill-targets svg { margin-top: 2px; }
+.ill-targets strong {
+  display: block;
+  font-size: 16px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.2px; line-height: 1.3;
+}
+.ill-targets em {
+  display: block; font-style: normal;
+  font-size: 14px; font-weight: 600; color: var(--green-dark);
+  line-height: 1.4; margin-top: 3px;
+}
+.ill-targets svg { flex: 0 0 auto; }
+
+@media (max-width: 700px) {
+  .ill-blog { grid-template-columns: 1fr; gap: 20px; max-width: 100%; }
+  .ill-wires-cell { display: none; }
+  .ill-doc { max-width: 100%; }
+}
+
+/* --- Image placeholders. Overrides the shared .img-ph gray fill with a
+       blue-light tint per brand rule (no light gray surfaces). --- */
+.img-ph {
+  background: repeating-linear-gradient(135deg, #e8f2fd, #e8f2fd 12px, #dce9f8 12px, #dce9f8 24px);
+  border: 1px dashed #7ba7d4;
+  color: var(--navy);
+  line-height: 1.5;
+  max-width: 100%;
+}
+.img-ph span.tag { color: var(--blue); }
+.img-ph .ph-note { font-size: 12.5px; font-weight: 500; max-width: 46ch; opacity: 0.85; }
+.img-ph.ratio-wide { aspect-ratio: 16 / 6; min-height: 180px; }
+figure.fig { margin: 44px 0 0; max-width: 900px; }
+figure.fig figcaption {
+  font-size: 14px; font-weight: 600; color: var(--gray-text);
+  margin-top: 12px; padding-left: 2px;
+}
+
+/* --- In-band subhead (no hanging indent, unlike shared .sub h3) --- */
+.lb-h3 {
+  font-size: 21px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.4px; line-height: 1.25;
+  margin: 44px 0 18px;
+}
+
+/* --- Section-level CTA: hairline rule, primary + secondary.
+       Identical on all three service sections so the pattern is learnable. --- */
+.lb-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  max-width: 860px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--gray-mid);
+}
+.lb-cta.on-dark { border-top-color: rgba(255,255,255,0.20); }
+.lb-cta.on-dark .inline-link { color: #ffffff; }
+.lb-cta.on-dark .inline-link:hover { color: var(--green); }
+.lb-cta .lb-cta-note {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--gray-text);
+  font-weight: 500;
+}
+
+/* --- Outlined answer box: full green outline. Definition boxes read green,
+       argument boxes read navy — same family, different job. --- */
+.lb-answer {
+  border: 2px solid var(--green);
+  border-radius: 10px;
+  background: var(--white);
+  padding: 32px 36px;
+  max-width: 860px;
+}
+.lb-answer p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--body-text);
+}
+.lb-answer p + p { margin-top: 16px; }
+.lb-answer strong { color: var(--navy); font-weight: 800; }
+/* Green-rule emphasis — matches the Custom Web Design page treatment.
+   Navy text, 3px green rule beneath. Wraps correctly across lines. */
+.hl {
+  font-weight: 700;
+  color: var(--navy);
+  background-image: linear-gradient(var(--green), var(--green));
+  background-size: 100% 3px;
+  background-position: 0 calc(100% - 1px);
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+}
+
+/* --- Outlined callout: full navy outline, edge-to-edge inner rule.
+       Replaces the left-accent-bar treatment. Setup line reads quiet,
+       resolution line carries the weight. --- */
+.lb-outline {
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  background: var(--white);
+  padding: 34px 38px;
+  margin-top: 40px;
+  max-width: 820px;
+}
+.lb-outline .setup {
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 600;
+  color: var(--body-text);
+}
+.lb-outline .resolve {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin: 26px -38px 0;
+  padding: 26px 38px 0;
+  border-top: 1px solid var(--gray-mid);
+}
+.lb-outline .resolve:only-child { margin: 0; padding: 0; border-top: none; }
+
+/* --- Hero illustration --- */
+.hero-ill { display: block; width: 100%; height: auto; }
+
+/* --- Fine print: small note, not a feature --- */
+.lb-fineprint {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--gray-text);
+  max-width: 720px;
+  margin-top: 32px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1000px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+  .hero h1 { max-width: 20ch; }
+  .hero-figure { max-width: 520px; }
+}
+
+@media (max-width: 900px) {
+  .lb-trio { grid-template-columns: 1fr; }
+  .lb-job {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    padding: 28px 0;
+  }
+  .lb-job:not(:first-child) { padding-left: 0; }
+  .lb-job:last-child { border-bottom: none; }
+  .lb-pricing { grid-template-columns: 1fr; }
+  .lb-price.feature { height: auto; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 64px 0 56px; }
+  .lb-cols2, .lb-crit { grid-template-columns: 1fr; }
+  .sub h3 { padding-left: 0; text-indent: 0; }
+  .sub h3 + p { padding-left: 0; }
+  .hero-ctas .btn-green, .hero-ctas .btn-outline { width: 100%; text-align: center; }
+  .lb-cta { gap: 18px; }
+  .lb-cta .btn-green { width: 100%; text-align: center; }
+  .lb-price { padding: 26px 22px 28px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-wash" aria-hidden="true">
+    <span class="hero-wash__g"></span>
+    <span class="hero-wash__b"></span>
+    <span class="hero-wash__s"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1>SEO + <em>AIO</em> Blog Writing</h1>
+      <p class="hero-deck">Articles Built to Bring In Traffic and Earn Links</p>
+      <p class="lead">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
+      <div class="hero-ctas">
+        <a href="#plans" class="btn-green">See the Plan &amp; Pricing</a>
+      </div>
+    </div>
+
+    <div class="hero-figure">
+      <svg class="hero-ill" viewBox="0 0 560 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A long-form article page shown in a browser, drawing search and AI visibility, linking to priority pages, and being referenced by another website.">
+  <defs>
+    <clipPath id="panelClip"><rect x="88" y="26" width="456" height="356" rx="18"/></clipPath>
+  </defs>
+
+  <!-- backdrop navy panel with dot grid (house style) -->
+  <g>
+    <rect x="88" y="26" width="456" height="356" rx="18" fill="#143c66"/>
+    <g clip-path="url(#panelClip)" fill="#ffffff" opacity="0.14"><circle cx="36" cy="36" r="1.3"/><circle cx="60" cy="36" r="1.3"/><circle cx="84" cy="36" r="1.3"/><circle cx="108" cy="36" r="1.3"/><circle cx="132" cy="36" r="1.3"/><circle cx="156" cy="36" r="1.3"/><circle cx="180" cy="36" r="1.3"/><circle cx="204" cy="36" r="1.3"/><circle cx="228" cy="36" r="1.3"/><circle cx="252" cy="36" r="1.3"/><circle cx="276" cy="36" r="1.3"/><circle cx="300" cy="36" r="1.3"/><circle cx="324" cy="36" r="1.3"/><circle cx="348" cy="36" r="1.3"/><circle cx="372" cy="36" r="1.3"/><circle cx="396" cy="36" r="1.3"/><circle cx="420" cy="36" r="1.3"/><circle cx="444" cy="36" r="1.3"/><circle cx="36" cy="60" r="1.3"/><circle cx="60" cy="60" r="1.3"/><circle cx="84" cy="60" r="1.3"/><circle cx="108" cy="60" r="1.3"/><circle cx="132" cy="60" r="1.3"/><circle cx="156" cy="60" r="1.3"/><circle cx="180" cy="60" r="1.3"/><circle cx="204" cy="60" r="1.3"/><circle cx="228" cy="60" r="1.3"/><circle cx="252" cy="60" r="1.3"/><circle cx="276" cy="60" r="1.3"/><circle cx="300" cy="60" r="1.3"/><circle cx="324" cy="60" r="1.3"/><circle cx="348" cy="60" r="1.3"/><circle cx="372" cy="60" r="1.3"/><circle cx="396" cy="60" r="1.3"/><circle cx="420" cy="60" r="1.3"/><circle cx="444" cy="60" r="1.3"/><circle cx="36" cy="84" r="1.3"/><circle cx="60" cy="84" r="1.3"/><circle cx="84" cy="84" r="1.3"/><circle cx="108" cy="84" r="1.3"/><circle cx="132" cy="84" r="1.3"/><circle cx="156" cy="84" r="1.3"/><circle cx="180" cy="84" r="1.3"/><circle cx="204" cy="84" r="1.3"/><circle cx="228" cy="84" r="1.3"/><circle cx="252" cy="84" r="1.3"/><circle cx="276" cy="84" r="1.3"/><circle cx="300" cy="84" r="1.3"/><circle cx="324" cy="84" r="1.3"/><circle cx="348" cy="84" r="1.3"/><circle cx="372" cy="84" r="1.3"/><circle cx="396" cy="84" r="1.3"/><circle cx="420" cy="84" r="1.3"/><circle cx="444" cy="84" r="1.3"/><circle cx="36" cy="108" r="1.3"/><circle cx="60" cy="108" r="1.3"/><circle cx="84" cy="108" r="1.3"/><circle cx="108" cy="108" r="1.3"/><circle cx="132" cy="108" r="1.3"/><circle cx="156" cy="108" r="1.3"/><circle cx="180" cy="108" r="1.3"/><circle cx="204" cy="108" r="1.3"/><circle cx="228" cy="108" r="1.3"/><circle cx="252" cy="108" r="1.3"/><circle cx="276" cy="108" r="1.3"/><circle cx="300" cy="108" r="1.3"/><circle cx="324" cy="108" r="1.3"/><circle cx="348" cy="108" r="1.3"/><circle cx="372" cy="108" r="1.3"/><circle cx="396" cy="108" r="1.3"/><circle cx="420" cy="108" r="1.3"/><circle cx="444" cy="108" r="1.3"/><circle cx="36" cy="132" r="1.3"/><circle cx="60" cy="132" r="1.3"/><circle cx="84" cy="132" r="1.3"/><circle cx="108" cy="132" r="1.3"/><circle cx="132" cy="132" r="1.3"/><circle cx="156" cy="132" r="1.3"/><circle cx="180" cy="132" r="1.3"/><circle cx="204" cy="132" r="1.3"/><circle cx="228" cy="132" r="1.3"/><circle cx="252" cy="132" r="1.3"/><circle cx="276" cy="132" r="1.3"/><circle cx="300" cy="132" r="1.3"/><circle cx="324" cy="132" r="1.3"/><circle cx="348" cy="132" r="1.3"/><circle cx="372" cy="132" r="1.3"/><circle cx="396" cy="132" r="1.3"/><circle cx="420" cy="132" r="1.3"/><circle cx="444" cy="132" r="1.3"/><circle cx="36" cy="156" r="1.3"/><circle cx="60" cy="156" r="1.3"/><circle cx="84" cy="156" r="1.3"/><circle cx="108" cy="156" r="1.3"/><circle cx="132" cy="156" r="1.3"/><circle cx="156" cy="156" r="1.3"/><circle cx="180" cy="156" r="1.3"/><circle cx="204" cy="156" r="1.3"/><circle cx="228" cy="156" r="1.3"/><circle cx="252" cy="156" r="1.3"/><circle cx="276" cy="156" r="1.3"/><circle cx="300" cy="156" r="1.3"/><circle cx="324" cy="156" r="1.3"/><circle cx="348" cy="156" r="1.3"/><circle cx="372" cy="156" r="1.3"/><circle cx="396" cy="156" r="1.3"/><circle cx="420" cy="156" r="1.3"/><circle cx="444" cy="156" r="1.3"/><circle cx="36" cy="180" r="1.3"/><circle cx="60" cy="180" r="1.3"/><circle cx="84" cy="180" r="1.3"/><circle cx="108" cy="180" r="1.3"/><circle cx="132" cy="180" r="1.3"/><circle cx="156" cy="180" r="1.3"/><circle cx="180" cy="180" r="1.3"/><circle cx="204" cy="180" r="1.3"/><circle cx="228" cy="180" r="1.3"/><circle cx="252" cy="180" r="1.3"/><circle cx="276" cy="180" r="1.3"/><circle cx="300" cy="180" r="1.3"/><circle cx="324" cy="180" r="1.3"/><circle cx="348" cy="180" r="1.3"/><circle cx="372" cy="180" r="1.3"/><circle cx="396" cy="180" r="1.3"/><circle cx="420" cy="180" r="1.3"/><circle cx="444" cy="180" r="1.3"/><circle cx="36" cy="204" r="1.3"/><circle cx="60" cy="204" r="1.3"/><circle cx="84" cy="204" r="1.3"/><circle cx="108" cy="204" r="1.3"/><circle cx="132" cy="204" r="1.3"/><circle cx="156" cy="204" r="1.3"/><circle cx="180" cy="204" r="1.3"/><circle cx="204" cy="204" r="1.3"/><circle cx="228" cy="204" r="1.3"/><circle cx="252" cy="204" r="1.3"/><circle cx="276" cy="204" r="1.3"/><circle cx="300" cy="204" r="1.3"/><circle cx="324" cy="204" r="1.3"/><circle cx="348" cy="204" r="1.3"/><circle cx="372" cy="204" r="1.3"/><circle cx="396" cy="204" r="1.3"/><circle cx="420" cy="204" r="1.3"/><circle cx="444" cy="204" r="1.3"/><circle cx="36" cy="228" r="1.3"/><circle cx="60" cy="228" r="1.3"/><circle cx="84" cy="228" r="1.3"/><circle cx="108" cy="228" r="1.3"/><circle cx="132" cy="228" r="1.3"/><circle cx="156" cy="228" r="1.3"/><circle cx="180" cy="228" r="1.3"/><circle cx="204" cy="228" r="1.3"/><circle cx="228" cy="228" r="1.3"/><circle cx="252" cy="228" r="1.3"/><circle cx="276" cy="228" r="1.3"/><circle cx="300" cy="228" r="1.3"/><circle cx="324" cy="228" r="1.3"/><circle cx="348" cy="228" r="1.3"/><circle cx="372" cy="228" r="1.3"/><circle cx="396" cy="228" r="1.3"/><circle cx="420" cy="228" r="1.3"/><circle cx="444" cy="228" r="1.3"/><circle cx="36" cy="252" r="1.3"/><circle cx="60" cy="252" r="1.3"/><circle cx="84" cy="252" r="1.3"/><circle cx="108" cy="252" r="1.3"/><circle cx="132" cy="252" r="1.3"/><circle cx="156" cy="252" r="1.3"/><circle cx="180" cy="252" r="1.3"/><circle cx="204" cy="252" r="1.3"/><circle cx="228" cy="252" r="1.3"/><circle cx="252" cy="252" r="1.3"/><circle cx="276" cy="252" r="1.3"/><circle cx="300" cy="252" r="1.3"/><circle cx="324" cy="252" r="1.3"/><circle cx="348" cy="252" r="1.3"/><circle cx="372" cy="252" r="1.3"/><circle cx="396" cy="252" r="1.3"/><circle cx="420" cy="252" r="1.3"/><circle cx="444" cy="252" r="1.3"/><circle cx="36" cy="276" r="1.3"/><circle cx="60" cy="276" r="1.3"/><circle cx="84" cy="276" r="1.3"/><circle cx="108" cy="276" r="1.3"/><circle cx="132" cy="276" r="1.3"/><circle cx="156" cy="276" r="1.3"/><circle cx="180" cy="276" r="1.3"/><circle cx="204" cy="276" r="1.3"/><circle cx="228" cy="276" r="1.3"/><circle cx="252" cy="276" r="1.3"/><circle cx="276" cy="276" r="1.3"/><circle cx="300" cy="276" r="1.3"/><circle cx="324" cy="276" r="1.3"/><circle cx="348" cy="276" r="1.3"/><circle cx="372" cy="276" r="1.3"/><circle cx="396" cy="276" r="1.3"/><circle cx="420" cy="276" r="1.3"/><circle cx="444" cy="276" r="1.3"/><circle cx="36" cy="300" r="1.3"/><circle cx="60" cy="300" r="1.3"/><circle cx="84" cy="300" r="1.3"/><circle cx="108" cy="300" r="1.3"/><circle cx="132" cy="300" r="1.3"/><circle cx="156" cy="300" r="1.3"/><circle cx="180" cy="300" r="1.3"/><circle cx="204" cy="300" r="1.3"/><circle cx="228" cy="300" r="1.3"/><circle cx="252" cy="300" r="1.3"/><circle cx="276" cy="300" r="1.3"/><circle cx="300" cy="300" r="1.3"/><circle cx="324" cy="300" r="1.3"/><circle cx="348" cy="300" r="1.3"/><circle cx="372" cy="300" r="1.3"/><circle cx="396" cy="300" r="1.3"/><circle cx="420" cy="300" r="1.3"/><circle cx="444" cy="300" r="1.3"/><circle cx="36" cy="324" r="1.3"/><circle cx="60" cy="324" r="1.3"/><circle cx="84" cy="324" r="1.3"/><circle cx="108" cy="324" r="1.3"/><circle cx="132" cy="324" r="1.3"/><circle cx="156" cy="324" r="1.3"/><circle cx="180" cy="324" r="1.3"/><circle cx="204" cy="324" r="1.3"/><circle cx="228" cy="324" r="1.3"/><circle cx="252" cy="324" r="1.3"/><circle cx="276" cy="324" r="1.3"/><circle cx="300" cy="324" r="1.3"/><circle cx="324" cy="324" r="1.3"/><circle cx="348" cy="324" r="1.3"/><circle cx="372" cy="324" r="1.3"/><circle cx="396" cy="324" r="1.3"/><circle cx="420" cy="324" r="1.3"/><circle cx="444" cy="324" r="1.3"/><circle cx="36" cy="348" r="1.3"/><circle cx="60" cy="348" r="1.3"/><circle cx="84" cy="348" r="1.3"/><circle cx="108" cy="348" r="1.3"/><circle cx="132" cy="348" r="1.3"/><circle cx="156" cy="348" r="1.3"/><circle cx="180" cy="348" r="1.3"/><circle cx="204" cy="348" r="1.3"/><circle cx="228" cy="348" r="1.3"/><circle cx="252" cy="348" r="1.3"/><circle cx="276" cy="348" r="1.3"/><circle cx="300" cy="348" r="1.3"/><circle cx="324" cy="348" r="1.3"/><circle cx="348" cy="348" r="1.3"/><circle cx="372" cy="348" r="1.3"/><circle cx="396" cy="348" r="1.3"/><circle cx="420" cy="348" r="1.3"/><circle cx="444" cy="348" r="1.3"/></g>
+    <rect x="446" y="52" width="64" height="16" rx="4" fill="#80C34A"/>
+  </g>
+
+  <!-- main browser card: the article -->
+  <g>
+    <rect x="118" y="92" width="300" height="312" rx="12" fill="#ffffff" stroke="#dce9f8" stroke-width="1"/>
+    <!-- browser bar -->
+    <rect x="118" y="92" width="300" height="30" rx="12" fill="#e8f2fd"/>
+    <rect x="118" y="110" width="300" height="12" fill="#e8f2fd"/>
+    <circle cx="136" cy="107" r="4" fill="#80C34A"/>
+    <circle cx="150" cy="107" r="4" fill="#b9d4ee"/>
+    <circle cx="164" cy="107" r="4" fill="#b9d4ee"/>
+    <rect x="182" y="101" width="120" height="12" rx="6" fill="#ffffff"/>
+
+    <!-- article title -->
+    <rect x="142" y="144" width="200" height="13" rx="6.5" fill="#143c66"/>
+    <rect x="142" y="165" width="148" height="13" rx="6.5" fill="#143c66"/>
+    <rect x="142" y="188" width="56" height="4" rx="2" fill="#80C34A"/>
+
+    <!-- body -->
+    <rect x="142" y="210" width="252" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="142" y="226" width="252" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="142" y="242" width="196" height="8" rx="4" fill="#dce9f8"/>
+
+    <rect x="142" y="268" width="118" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="266" y="268" width="96" height="8" rx="4" fill="#80C34A"/>
+    <rect x="142" y="284" width="252" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="142" y="300" width="176" height="8" rx="4" fill="#dce9f8"/>
+
+    <rect x="142" y="326" width="130" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="278" y="326" width="84" height="8" rx="4" fill="#80C34A"/>
+    <rect x="142" y="342" width="252" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="142" y="358" width="140" height="8" rx="4" fill="#dce9f8"/>
+  </g>
+
+  <!-- search pill, tucked behind top-left of the browser card -->
+  <g>
+    <rect x="18" y="62" width="164" height="44" rx="22" fill="#ffffff" stroke="#dce9f8" stroke-width="1"/>
+    <circle cx="44" cy="84" r="7" fill="none" stroke="#1266b5" stroke-width="2"/>
+    <line x1="49.5" y1="89.5" x2="55" y2="95" stroke="#1266b5" stroke-width="2" stroke-linecap="round"/>
+    <rect x="66" y="80" width="74" height="8" rx="4" fill="#dce9f8"/>
+    <rect x="144" y="80" width="22" height="8" rx="4" fill="#80C34A"/>
+  </g>
+
+  <!-- AI spark chip, below search pill, overlapping card edge -->
+  <g>
+    <rect x="42" y="120" width="112" height="38" rx="10" fill="#e8f2fd"/>
+    <path d="M64 130 l2.4 6 6 2.4 -6 2.4 -2.4 6 -2.4 -6 -6 -2.4 6 -2.4 z" fill="#1266b5"/>
+    <rect x="80" y="135.5" width="58" height="7" rx="3.5" fill="#b9d4ee"/>
+  </g>
+
+  <!-- two priority-page cards, overlapping the browser card's right edge -->
+  <g>
+    <rect x="384" y="140" width="132" height="76" rx="10" fill="#ffffff" stroke="#dce9f8" stroke-width="1"/>
+    <circle cx="402" cy="160" r="4.5" fill="#80C34A"/>
+    <rect x="414" y="156" width="76" height="8" rx="4" fill="#143c66"/>
+    <rect x="402" y="178" width="96" height="7" rx="3.5" fill="#dce9f8"/>
+    <rect x="402" y="192" width="64" height="7" rx="3.5" fill="#dce9f8"/>
+
+    <rect x="404" y="238" width="132" height="76" rx="10" fill="#ffffff" stroke="#dce9f8" stroke-width="1"/>
+    <circle cx="422" cy="258" r="4.5" fill="#80C34A"/>
+    <rect x="434" y="254" width="62" height="8" rx="4" fill="#143c66"/>
+    <rect x="422" y="276" width="98" height="7" rx="3.5" fill="#dce9f8"/>
+    <rect x="422" y="290" width="72" height="7" rx="3.5" fill="#dce9f8"/>
+  </g>
+
+  <!-- external site chip, bottom, overlapping panel edge -->
+  <g>
+    <rect x="196" y="368" width="150" height="50" rx="10" fill="#ffffff" stroke="#dce9f8" stroke-width="1"/>
+    <circle cx="218" cy="393" r="8" fill="none" stroke="#1266b5" stroke-width="1.6"/>
+    <path d="M210 393 h16 M218 385 a12 12 0 0 1 0 16 M218 385 a12 12 0 0 0 0 16" fill="none" stroke="#1266b5" stroke-width="1.2"/>
+    <rect x="234" y="382" width="86" height="7" rx="3.5" fill="#dce9f8"/>
+    <rect x="234" y="396" width="60" height="7" rx="3.5" fill="#80C34A"/>
+  </g>
+
+  <!-- link connectors: green bars -> pages; external site -> article -->
+  <defs>
+    <marker id="lk" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0.6 0.8 L7 4 L0.6 7.2" fill="none" stroke="#4a8628" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke="#4a8628" stroke-width="1.7" stroke-linecap="round">
+    <circle cx="366" cy="272" r="3.2" fill="#4a8628" stroke="none"/>
+    <path d="M366 272 C 386 272, 392 248, 402 226" marker-end="url(#lk)"/>
+    <circle cx="366" cy="330" r="3.2" fill="#4a8628" stroke="none"/>
+    <path d="M366 330 C 388 330, 396 316, 408 300" marker-end="url(#lk)"/>
+    <circle cx="330" cy="386" r="3.2" fill="#4a8628" stroke="none"/>
+    <path d="M330 386 C 352 382, 366 368, 376 350" stroke-dasharray="4.5 5" marker-end="url(#lk)"/>
+  </g>
+</svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     DEFINITION
+     ============================================================ -->
+<section class="band gray">
+  <div class="wrap">
+    <p class="eyebrow">Definition</p>
+    <h2 class="sec">What Is SEO + AIO Blog Writing?</h2>
+    <div class="lb-answer">
+      <p><strong>Answer:</strong> We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry. The articles <span class="hl">bring in relevant traffic</span>, <span class="hl">link internally to priority pages</span>, and give other websites <span class="hl">useful content to reference and link to</span>.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SERVICE 01 — BLOG WRITING
+     ============================================================ -->
+<section class="band white anchor" id="blog-writing">
+  <div class="wrap">
+    <p class="eyebrow">The Plan</p>
+    <h2 class="sec">SEO + AIO Blog Writing</h2>
+    <p class="lead">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
+    <p class="lead">We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry.</p>
+
+    <h3 class="lb-h3">What You Get — $500/Month</h3>
+    <ul class="checklist">
+      <li>Keyword and AI-prompt research</li>
+      <li>Up to 10 long-form articles per month</li>
+      <li>Search-focused article structure</li>
+      <li>Internal links to priority website pages</li>
+      <li>Publishing on your website</li>
+      <li>More relevant traffic</li>
+    </ul>
+
+    <p class="lead" style="margin-top:32px;">Each article gives your website another opportunity to appear in Google and AI search, while helping guide visitors toward the pages that matter most.</p>
+    <p class="lead">Articles are published directly on your website, so the traffic, internal links, and authority support the domain you own.</p>
+
+    <figure class="fig">
+      <div class="ill-blog">
+        <div class="ill-doc">
+          <svg class="ill-doc-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+          <span class="ill-doc-label">AIO/SEO Optimized Article</span>
+          <div class="ill-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+        <div class="ill-wires-cell"><svg class="ill-wires" viewBox="0 0 168 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 150 C 74 150, 94 50, 168 50" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path d="M0 150 H 168" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path d="M0 150 C 74 150, 94 250, 168 250" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><circle cx="4" cy="150" r="4.5" fill="#80C34A"/><circle cx="164" cy="50" r="4" fill="#80C34A"/><circle cx="164" cy="150" r="4" fill="#80C34A"/><circle cx="164" cy="250" r="4" fill="#80C34A"/></svg></div>
+        <ul class="ill-targets">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7"/></svg><div><strong>Service page</strong><em>Builds link equity</em></div></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7"/></svg><div><strong>Location page</strong><em>Supports Maps rankings</em></div></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7"/></svg><div><strong>Resource page</strong><em>Answers common questions</em></div></li>
+        </ul>
+      </div>
+      <figcaption>Each article links back to the service, location, and resource pages it supports.</figcaption>
+    </figure>
+
+    <p class="lb-fineprint">* These are SEO + AIO articles built for search visibility, not internal company content. To keep pricing reasonable, client edit rounds are not included.</p>
+
+    <div class="lb-cta">
+      <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
+      <a href="#plans" class="inline-link">Get pricing</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TRAFFIC + LINKS — NAVY
+     ============================================================ -->
+<section class="band navy">
+  <div class="wrap">
+    <p class="eyebrow on-dark">Three Jobs</p>
+    <h2 class="sec">One Article Does <em>Three Things</em></h2>
+    <p class="lead">Search content earns its keep three times over.</p>
+
+    <div class="lb-trio">
+      <div class="lb-job">
+        <span class="lb-job-num">01</span>
+        <h3>It Brings In Relevant Traffic</h3>
+        <p>Long-form articles built around real search questions, comparisons, and AI prompts give your website more opportunities to appear in Google and AI search.</p>
+      </div>
+      <div class="lb-job">
+        <span class="lb-job-num">02</span>
+        <h3>It Links Internally to Priority Pages</h3>
+        <p>Each article links back to the service, location, and resource pages it supports — guiding visitors toward the pages that matter most, and helping search engines understand how those topics relate.</p>
+      </div>
+      <div class="lb-job">
+        <span class="lb-job-num">03</span>
+        <h3>It Gives Other Websites Something to Link To</h3>
+        <p>Useful, specific content is what other websites reference. Articles create the material worth citing — and worth linking to.</p>
+      </div>
+    </div>
+
+    <div class="lb-cta on-dark">
+      <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
+      <a href="#plans" class="inline-link">Get pricing</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TARGETING
+     ============================================================ -->
+<section class="band gray">
+  <div class="wrap">
+    <p class="eyebrow">Targeting</p>
+    <h2 class="sec">Built Around the Pages That Matter Most</h2>
+    <p class="lead">Internal links should not automatically point at the homepage.</p>
+    <p class="lead">We identify the pages that need the greatest support based on the company’s services, competition, search priorities, and existing authority.</p>
+
+    <p class="lead" style="margin-top:32px;"><strong>That may include:</strong></p>
+    <ul class="lb-crit">
+      <li>High-value service pages</li>
+      <li>Competitive location pages</li>
+      <li>Important product or service categories</li>
+      <li>Resource pages attracting organic traffic</li>
+    </ul>
+
+    <p class="lead" style="margin-top:24px;">Pages positioned close to stronger rankings also take priority — regardless of type.</p>
+    <p class="lead" style="margin-top:20px;">Blog topics and internal links can then be aligned around those priorities.</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     OUTCOMES
+     ============================================================ -->
+<section class="band white">
+  <div class="wrap">
+    <p class="eyebrow">Outcomes</p>
+    <h2 class="sec">What SEO + AIO Blog Writing Can Support</h2>
+    <ul class="checklist">
+      <li>Expand organic search visibility</li>
+      <li>Attract relevant informational traffic</li>
+      <li>Strengthen priority service and location pages</li>
+      <li>Improve internal website structure</li>
+      <li>Build broader topical authority</li>
+      <li>Give AI platforms more context about the company</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PRICING
+     ============================================================ -->
+<section class="band gray anchor" id="plans">
+  <div class="wrap">
+    <p class="eyebrow">Pricing</p>
+    <h2 class="sec">What Does SEO + AIO Blog Writing Cost?</h2>
+    <p class="lead">One monthly plan. Articles written, optimized, and published on your website.</p>
+
+    <div class="lb-pricing">
+      <div class="lb-price feature">
+        <h3>SEO + AIO Blog Writing</h3>
+        <span class="lb-amount">Starting at $500 per month</span>
+        <p>Includes up to 10 search-focused blog articles each month, written and published directly on your website.</p>
+        <p>The articles are designed to expand organic traffic, strengthen topical coverage, support priority pages through internal links, and create more opportunities for natural backlinks and AI-search visibility.</p>
+      </div>
+    </div>
+
+    <div class="lb-cta">
+      <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="band white">
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2 class="sec">Frequently Asked Questions</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Where Are the Blog Articles Published?</summary>
+        <p>Articles are published directly on your primary website domain so they can contribute to the search visibility and authority of the website you own.</p>
+        <p>They are not normally shown in your main menu — the goal is SEO and lead generation, not a branded content section.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does the Blog Need to Appear in the Main Navigation?</summary>
+        <p><strong>No.</strong></p>
+        <p>The article library can be connected through the footer, relevant service pages, internal links, resource categories, and search results without adding a prominent Blog item to the main navigation.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Are Rankings or AI Citations Guaranteed?</summary>
+        <p><strong>No company can guarantee a specific ranking, traffic increase, backlink result, lead volume, or placement within an AI-generated answer.</strong></p>
+        <p>Results depend on the website, competition, content quality, technical health, existing authority, backlink profile, and market demand.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="band navy">
+  <div class="wrap final">
+    <p class="final-kicker">SEO + AIO Blog Writing</p>
+    <h2 class="sec">Your Next Customer Is Searching <em>Right Now</em></h2>
+    <p class="lead">Every month without search content is a month of questions your competitors get to answer. Up to 10 articles a month, published on your website, working for the pages that matter most — starting at $500.</p>
+    <div class="hero-ctas">
+      <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
+      <a href="#plans" class="btn-ghost">See the Plan</a>
+    </div>
+  </div>
+</section>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where Are the Blog Articles Published?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Articles are published directly on your primary website domain so they can contribute to the search visibility and authority of the website you own. They are not normally shown in your main menu — the goal is SEO and lead generation, not a branded content section."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the Blog Need to Appear in the Main Navigation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The article library can be connected through the footer, relevant service pages, internal links, resource categories, and search results without adding a prominent Blog item to the main navigation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Rankings or AI Citations Guaranteed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No company can guarantee a specific ranking, traffic increase, backlink result, lead volume, or placement within an AI-generated answer. Results depend on the website, competition, content quality, technical health, existing authority, backlink profile, and market demand."
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
