@@ -2178,6 +2178,73 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
 }
 .ill-targets svg { flex: 0 0 auto; }
 
+/* --- The diagram builds itself in the order it is meant to be read: the
+       article first, then the wires running out of it, then the pages they
+       land on. Gated on .is-revealed, which the reveal observer sets once,
+       so it plays when the figure is reached and never again.
+
+       The figure itself is exempt from the reveal rise — a diagram that
+       slides in whole and then assembles reads as two separate events. Its
+       parts do the work instead. --- */
+[data-anim="on"] .fig.reveal { opacity: 1; transform: none; transition: none; }
+
+[data-anim="on"] .ill-doc,
+[data-anim="on"] .ill-targets li { opacity: 0; }
+[data-anim="on"] .ill-wires circle { opacity: 0; }
+/* pathLength="1" on each wire normalises them, so one dash value draws all
+   three regardless of their real length. */
+[data-anim="on"] .ill-wires path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+[data-anim="on"] .is-revealed .ill-doc {
+  animation: ill-from-left .5s var(--ease) .05s both;
+}
+[data-anim="on"] .is-revealed .ill-wires path {
+  animation: ill-draw .6s var(--ease) .35s both;
+}
+[data-anim="on"] .is-revealed .ill-wires circle { animation: ill-pop .3s var(--ease) both; }
+/* the source node sits with the article; the three landing nodes wait for
+   their wire to arrive */
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(1) { animation-delay: .3s; }
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(2) { animation-delay: .85s; }
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(3) { animation-delay: .92s; }
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(4) { animation-delay: .99s; }
+
+[data-anim="on"] .is-revealed .ill-targets li {
+  animation: ill-from-right .5s var(--ease) both;
+}
+[data-anim="on"] .is-revealed .ill-targets li:nth-child(1) { animation-delay: .70s; }
+[data-anim="on"] .is-revealed .ill-targets li:nth-child(2) { animation-delay: .82s; }
+[data-anim="on"] .is-revealed .ill-targets li:nth-child(3) { animation-delay: .94s; }
+
+@keyframes ill-from-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ill-from-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ill-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes ill-pop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Nothing travels or draws; the diagram is simply there. */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim="on"] .ill-doc,
+  [data-anim="on"] .ill-targets li,
+  [data-anim="on"] .ill-wires circle { opacity: 1; }
+  [data-anim="on"] .ill-wires path { stroke-dasharray: none; stroke-dashoffset: 0; }
+  [data-anim="on"] .is-revealed .ill-doc,
+  [data-anim="on"] .is-revealed .ill-targets li,
+  [data-anim="on"] .is-revealed .ill-wires circle,
+  [data-anim="on"] .is-revealed .ill-wires path { animation: none; }
+}
+
 @media (max-width: 700px) {
   .ill-blog { grid-template-columns: 1fr; gap: 20px; max-width: 100%; }
   .ill-wires-cell { display: none; }
@@ -2717,7 +2784,7 @@ figure.fig figcaption {
           <span class="ill-doc-label">AIO/SEO Optimized Article</span>
           <div class="ill-bars" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
-        <div class="ill-wires-cell"><svg class="ill-wires" viewBox="0 0 168 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 150 C 74 150, 94 50, 168 50" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path d="M0 150 H 168" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path d="M0 150 C 74 150, 94 250, 168 250" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><circle cx="4" cy="150" r="4.5" fill="#80C34A"/><circle cx="164" cy="50" r="4" fill="#80C34A"/><circle cx="164" cy="150" r="4" fill="#80C34A"/><circle cx="164" cy="250" r="4" fill="#80C34A"/></svg></div>
+        <div class="ill-wires-cell"><svg class="ill-wires" viewBox="0 0 168 300" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 150 C 74 150, 94 50, 168 50" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path pathLength="1" d="M0 150 H 168" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path pathLength="1" d="M0 150 C 74 150, 94 250, 168 250" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><circle cx="4" cy="150" r="4.5" fill="#80C34A"/><circle cx="164" cy="50" r="4" fill="#80C34A"/><circle cx="164" cy="150" r="4" fill="#80C34A"/><circle cx="164" cy="250" r="4" fill="#80C34A"/></svg></div>
         <ul class="ill-targets">
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7"/></svg><div><strong>Service page</strong><em>Builds link equity</em></div></li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h7"/></svg><div><strong>Location page</strong><em>Supports Maps rankings</em></div></li>
@@ -2731,7 +2798,7 @@ figure.fig figcaption {
 
     <div class="lb-cta reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
-      <a href="#plans" class="inline-link">Get pricing</a>
+      <a href="#plans" class="btn-outline">Get pricing</a>
     </div>
   </div>
 </section>
