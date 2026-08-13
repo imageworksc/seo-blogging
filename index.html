@@ -1885,6 +1885,28 @@ section.band.navy::before {
 }
 section.band.navy > .wrap { position: relative; z-index: 1; }
 
+/* --- Closing CTA: the Custom Web Design page's #cta ground. Same gradient
+       (--cta-band) with the same dot field laid over it.
+
+       The reference paints the dots with a ::before. That pseudo-element is
+       already spoken for here — it carries the wash that rises out of every
+       navy band into the section above — so the dots ride as a second
+       background layer instead. Same result, no collision, and the wash
+       above the band keeps working. --- */
+section.band.navy.final-cta {
+  background-image:
+    radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    var(--cta-band);
+  background-size: 24px 24px, auto;
+}
+
+/* Wide enough to hold the copy in two lines rather than three; balance then
+   evens the pair out instead of leaving a short tail. */
+.final p.lead {
+  max-width: 980px;
+  text-wrap: balance;
+}
+
 /* --- EXPERIMENT: unified background. All light bands match the hero's
        white; navy bands untouched. Hairline top rules keep section
        boundaries readable now that the color alternation is gone. --- */
@@ -2764,9 +2786,8 @@ figure.fig figcaption {
 <!-- ============================================================
      FINAL CTA
      ============================================================ -->
-<section class="band navy">
+<section class="band navy final-cta">
   <div class="wrap final">
-    <p class="final-kicker">SEO + AIO Blog Writing</p>
     <h2 class="sec">Your Next Customer Is Searching <em>Right Now</em></h2>
     <p class="lead">Every month without search content is a month of questions your competitors get to answer. Up to 10 articles a month, published on your website, working for the pages that matter most — starting at $500.</p>
     <div class="hero-ctas">
