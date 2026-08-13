@@ -2221,7 +2221,11 @@ figure.fig figcaption {
   padding-top: 28px;
   border-top: 1px solid var(--gray-mid);
 }
-.lb-cta.on-dark { border-top-color: rgba(255,255,255,0.20); }
+/* No rule over this pair. The trio above already closes on its own bottom
+   rule, so a second hairline 48px under it read as a double line — and now
+   that Get pricing is a button too, the two sit as a solid block that needs
+   no bar to separate it. The padding stays, so the spacing is unchanged. */
+.lb-cta.on-dark { border-top: 0; }
 .lb-cta.on-dark .inline-link { color: #ffffff; }
 .lb-cta.on-dark .inline-link:hover { color: var(--green); }
 .lb-cta .lb-cta-note {
