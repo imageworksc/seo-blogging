@@ -1069,7 +1069,7 @@ section.band.navy p.lead strong { color: var(--white); }
   color: var(--white);
   font-size: 15px; font-weight: 700;
   padding: 14px 28px;
-  border-radius: 6px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
   text-decoration: none;
   transition: background .15s;
   display: inline-block;
@@ -1081,7 +1081,7 @@ section.band.navy p.lead strong { color: var(--white); }
   color: var(--white);
   font-size: 15px; font-weight: 700;
   padding: 14px 28px;
-  border-radius: 6px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
   text-decoration: none;
   transition: background .15s;
   display: inline-block;
@@ -1094,7 +1094,7 @@ section.band.navy p.lead strong { color: var(--white); }
   color: var(--navy);
   font-size: 15px; font-weight: 600;
   padding: 14px 28px;
-  border-radius: 6px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
   border: 1.5px solid var(--gray-mid);
   text-decoration: none;
   transition: border-color .15s, color .15s;
@@ -1108,7 +1108,7 @@ section.band.navy p.lead strong { color: var(--white); }
   color: var(--white);
   font-size: 15px; font-weight: 600;
   padding: 14px 28px;
-  border-radius: 6px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
   border: 1.5px solid rgba(255,255,255,0.3);
   text-decoration: none;
   transition: border-color .15s, background .15s;
@@ -1807,12 +1807,16 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background: var(--white);
   padding: 96px 0 80px;
-  /* No rule at the foot: the washes fade out inside the hero and the band
-     below carries its own hairline top border, so a rule here only doubled
-     the line at the seam. */
+  /* No rule at the foot, and no flat white either. The ground ramps into the
+     tint the band below starts on, so the two read as one surface instead of
+     two sheets butted together — the Custom Web Design page's construction. */
+  background: linear-gradient(180deg,
+    var(--white) 0%,
+    var(--white) 56%,
+    var(--band-tint) 100%);
 }
+
 .hero .wrap {
   position: relative; z-index: 2;
   display: grid;
@@ -1839,9 +1843,10 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   line-height: 1.25;
   letter-spacing: -0.6px;
   max-width: 19ch;
-  padding-bottom: 24px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid var(--gray-mid);
+  /* No rule under the deck. The size and weight already separate it from the
+     paragraph below; a hairline on top of that reads as a seam in a band
+     that is meant to run uninterrupted. */
+  margin-bottom: 22px;
 }
 
 .hero p.lead { font-size: 19px; max-width: 640px; }
@@ -1917,6 +1922,19 @@ section.band.gray {
 }
 section.band.white + section.band.white,
 section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
+
+/* --- The one exception to the hairlines above: the band directly under the
+       hero. It opens on exactly the colour the hero's ramp ends on and then
+       runs back to white before its own foot, so the whole stretch from the
+       hero down to the third section carries no visible edge. Has to sit
+       after the rules above — same specificity, so source order decides. --- */
+.hero + section.band {
+  border-top: 0;
+  background: linear-gradient(180deg,
+    var(--band-tint) 0%,
+    var(--white) 55%,
+    var(--white) 100%);
+}
 
 /* --- Eyebrows: larger than the shared 11px. Bump the dot to match so the
        proportion holds. --- */
