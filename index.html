@@ -1433,12 +1433,20 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
 .hero-wash {
   position: absolute;
   top: 0; left: 0; right: 0;
-  block-size: 1040px;
+  /* Tied to the hero rather than a fixed 1040px. The layer is clipped at its
+     own foot, so any height it does not match is a height at which the washes
+     get cut mid-colour — which is exactly the seam a fixed value produced once
+     the hero lost its illustration and shrank from ~640px to ~500px. */
+  block-size: 100%;
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
-          mask-image: linear-gradient(180deg, #000 0, #000 330px, transparent 600px);
+  /* In percentages for the same reason: the fade has to finish before the
+     clip no matter how tall the hero ends up — taller on a phone where the
+     copy stacks, shorter on a wide screen. Fully transparent by 88%, so the
+     cut at 100% falls on nothing. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 40%, transparent 88%);
+          mask-image: linear-gradient(180deg, #000 0, #000 40%, transparent 88%);
 }
 .hero-wash span { position: absolute; left: 50%; will-change: transform; }
 /* green: opens top-left over the headline, runs down and to the right */
@@ -1459,12 +1467,15 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   background: radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
   animation: heroWashB 97s linear infinite;
 }
-/* sky: the low one, parked under the call to action. Slowest and widest. */
+/* sky: the low one, parked under the call to action. Slowest and widest.
+   Was top: 300px with a 660px box, which put its centre at 630px — below the
+   foot of a hero that is now ~500px tall, so only its faintest top edge ever
+   showed. Re-hung so the centre lands around 300px, inside the band. */
 .hero-wash__s {
   inline-size: 900px;
-  block-size: 660px;
+  block-size: 480px;
   margin-left: -410px;
-  top: 300px;
+  top: 60px;
   background: radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
   animation: heroWashS 127s linear infinite;
 }
@@ -1473,7 +1484,9 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
 @media (max-width: 900px) {
   .hero-wash__g { margin-left: -560px; }
   .hero-wash__b { margin-left: -220px; }
-  .hero-wash__s { margin-left: -450px; top: 260px; }
+  /* top follows the new 480px box — 260px was hung off the old 660px one and
+     would now sit the centre near the foot of the stacked hero. */
+  .hero-wash__s { margin-left: -450px; top: 120px; }
 }
 
 /* Closed loops at a constant rate. Two waypoints on an ease would decelerate,
