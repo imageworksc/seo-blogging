@@ -2052,16 +2052,20 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
   margin-top: 28px;
   max-width: 860px;
 }
+/* Each row carries its own icon now, in place of the blue dash that used to
+   sit where the icon does. Flex rather than the old absolute marker, so the
+   icon stays put against text that wraps to a second line. */
 .lb-crit li {
   font-size: 15.5px; line-height: 1.55; color: var(--body-text);
-  padding: 14px 0 14px 20px;
+  padding: 14px 0;
   border-top: 1px solid var(--gray-mid);
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.lb-crit li::before {
-  content: '';
-  position: absolute; left: 0; top: 24px;
-  width: 8px; height: 2px; background: var(--blue);
+.lb-crit li svg {
+  flex: 0 0 auto;
+  color: var(--blue);
 }
 
 /* --- Two-column checklist wrapper --- */
@@ -2807,10 +2811,10 @@ figure.fig figcaption {
 
     <p class="lead reveal" style="margin-top:32px;"><strong>That may include:</strong></p>
     <ul class="lb-crit reveal">
-      <li>High-value service pages</li>
-      <li>Competitive location pages</li>
-      <li>Important product or service categories</li>
-      <li>Resource pages attracting organic traffic</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>High-value service pages</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Competitive location pages</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>Important product or service categories</li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Resource pages attracting organic traffic</li>
     </ul>
 
     <p class="lead reveal" style="margin-top:24px;">Pages positioned close to stronger rankings also take priority — regardless of type.</p>
