@@ -2458,9 +2458,17 @@ figure.fig figcaption {
   .lb-cols2, .lb-crit { grid-template-columns: 1fr; }
   .sub h3 { padding-left: 0; text-indent: 0; }
   .sub h3 + p { padding-left: 0; }
-  .hero-ctas .btn-green, .hero-ctas .btn-outline { width: 100%; text-align: center; }
+  /* Every button in a CTA row goes full width, not just the primary. The rule
+     named .btn-green and .btn-outline back when those were the only two in
+     play; the outline and ghost secondaries added since were being left at
+     their natural width beside a full-width green one, which on a phone reads
+     as a mistake rather than a hierarchy. Three rows were affected. */
+  .hero-ctas .btn-green, .hero-ctas .btn-outline, .hero-ctas .btn-ghost,
+  .lb-cta .btn-green, .lb-cta .btn-outline, .lb-cta .btn-ghost {
+    width: 100%;
+    text-align: center;
+  }
   .lb-cta { gap: 18px; }
-  .lb-cta .btn-green { width: 100%; text-align: center; }
   .lb-price { padding: 26px 22px 28px; }
 }
 
