@@ -2026,12 +2026,16 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
 
 /* --- No rule over this button pair either, same as the three-jobs band: two
        buttons already read as a block of their own and need no bar to set
-       them apart from the fine print above. The padding stays, so the space
-       over them is unchanged.
+       them apart from the fine print above.
+
+       The 28px of padding went with it. That space existed to hold the copy
+       off the rule; with no rule to clear it was just holding the buttons
+       down, which left the row floating away from the section it belongs to.
+       48px of margin still separates it.
 
        The pricing band keeps its rule — that one still separates a single
        button from the copy above it. --- */
-#blog-writing .lb-cta { border-top: 0; }
+#blog-writing .lb-cta { border-top: 0; padding-top: 0; }
 
 /* --- Section anchor offset --- */
 /* The header is sticky now, so the clearance comes from the root's
