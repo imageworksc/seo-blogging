@@ -2012,6 +2012,18 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
   background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13.85 7.05 L14.12 4.15 L17.88 4.15 L18.15 7.05 L20.81 8.16 L23.05 6.29 L25.71 8.95 L23.84 11.19 L24.95 13.85 L27.85 14.12 L27.85 17.88 L24.95 18.15 L23.84 20.81 L25.71 23.05 L23.05 25.71 L20.81 23.84 L18.15 24.95 L17.88 27.85 L14.12 27.85 L13.85 24.95 L11.19 23.84 L8.95 25.71 L6.29 23.05 L8.16 20.81 L7.05 18.15 L4.15 17.88 L4.15 14.12 L7.05 13.85 L8.16 11.19 L6.29 8.95 L8.95 6.29 L11.19 8.16 Z M16 12.00 A4.0 4.0 0 1 0 16 20.00 A4.0 4.0 0 1 0 16 12.00 Z' fill='%238FD154' fill-rule='evenodd'/></svg>") center / contain no-repeat;
 }
 
+/* --- The Plan: every paragraph in two lines.
+       The four run 193, 151, 150 and 122 characters at 17px, so one measure
+       has to satisfy all of them. The longest sets the floor — it needs 858px
+       to split in two — and the shortest sets the ceiling, because past 996px
+       it stops needing a second line at all. 920px sits between them with
+       about seven characters of room at each end, which holds across the
+       spread of average character widths this face renders at.
+
+       Deliberately not balanced: filling each line to the measure is what
+       keeps the ragged edge shallow. --- */
+#blog-writing p.lead { max-width: 920px; }
+
 /* --- Section anchor offset --- */
 /* The header is sticky now, so the clearance comes from the root's
    scroll-padding-top (nav height + 16px). This only adds a little breathing
@@ -2346,7 +2358,10 @@ figure.fig figcaption {
   font-size: 18px;
   line-height: 1.65;
   color: var(--body-text);
-  text-wrap: balance;
+  /* No balancing here. Evening three lines out shortens all of them, which
+     inside a bordered box reads as the box standing off its own text — the
+     gap is on the right of every line, not just the last. Filling each line
+     to the measure puts the text back against the border. */
 }
 .lb-answer p + p { margin-top: 16px; }
 .lb-answer strong { color: var(--navy); font-weight: 800; }
