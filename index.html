@@ -1871,10 +1871,16 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   margin-bottom: 22px;
 }
 
-/* 640px was the width of the old copy column. Full-width now, but still
-   stopped short of the shell — a line that runs the whole 1100px is hard to
-   track back to the start of the next one. */
-.hero p.lead { font-size: 19px; max-width: 820px; }
+/* Sized to hold the lead in two lines. 193 characters at 19px need roughly
+   960px to split in two; 1000px clears that with room for the break to land
+   on a word boundary, and is still short of the 1100px the shell offers.
+   It cannot collapse to one line — that would take 1760px.
+   balance evens the pair rather than leaving a short second line. */
+.hero p.lead {
+  font-size: 19px;
+  max-width: 1000px;
+  text-wrap: balance;
+}
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 32px; }
 .hero-sub {
   margin-top: 32px;
@@ -2308,17 +2314,22 @@ figure.fig figcaption {
 
 /* --- Outlined answer box: full green outline. Definition boxes read green,
        argument boxes read navy — same family, different job. --- */
+/* Sized to hold the answer in three lines. 299 characters at 18px need about
+   940px of text width; the box carries 36px of padding a side, so 1060px
+   leaves 988px inside — enough, and still inside the 1100px shell. At 860px
+   the answer ran to four lines. It cannot collapse to two: that needs 1408px. */
 .lb-answer {
   border: 2px solid var(--green);
   border-radius: 10px;
   background: var(--white);
   padding: 32px 36px;
-  max-width: 860px;
+  max-width: 1060px;
 }
 .lb-answer p {
   font-size: 18px;
   line-height: 1.65;
   color: var(--body-text);
+  text-wrap: balance;
 }
 .lb-answer p + p { margin-top: 16px; }
 .lb-answer strong { color: var(--navy); font-weight: 800; }
