@@ -2327,16 +2327,20 @@ figure.fig figcaption {
 
 /* --- Outlined answer box: full green outline. Definition boxes read green,
        argument boxes read navy — same family, different job. --- */
-/* Sized to hold the answer in three lines. 299 characters at 18px need about
-   940px of text width; the box carries 36px of padding a side, so 1060px
-   leaves 988px inside — enough, and still inside the 1100px shell. At 860px
-   the answer ran to four lines. It cannot collapse to two: that needs 1408px. */
+/* Holds the answer in three lines. 299 characters at 18px need about 940px of
+   text width, and the box has to stay inside the 1100px shell.
+
+   The side padding comes down with the box: at 1020px wide, 36px a side would
+   leave 948px inside — eight pixels over the minimum, which is a single
+   character of margin and one rendering difference away from a fourth line.
+   26px a side leaves 968px, about three characters of room. It cannot
+   collapse to two lines either: that needs 1408px. */
 .lb-answer {
   border: 2px solid var(--green);
   border-radius: 10px;
   background: var(--white);
-  padding: 32px 36px;
-  max-width: 1060px;
+  padding: 32px 26px;
+  max-width: 1020px;
 }
 .lb-answer p {
   font-size: 18px;
