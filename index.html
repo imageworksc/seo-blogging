@@ -3,7 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SEO + AIO Blog Writing | ImageWorks Creative</title>
+<title>Blog Writing for SEO and AI Search | ImageWorks Creative</title>
+<!-- ============================================================
+     DEV NOTE - before this page goes live, replace 3 placeholders:
+
+     1. PAGE URL - currently set to /seo-aio-blog-writing in three
+        places: <link rel="canonical">, <meta property="og:url">, and
+        the "url" field inside the Service schema's "offers" object
+        near the end of <body>. Swap to the real published path.
+
+     2. OG IMAGE - <meta property="og:image"> and <meta name="twitter:image">
+        both point to /assets/og/seo-aio-blog-writing.png, which does
+        NOT exist yet. Needs a real 1200x630 image or link previews on
+        Slack/LinkedIn/iMessage will show a broken image.
+
+     3. SCHEMA PROVIDER - the Service schema at the end of <body> sets
+        "provider" to just name + url. It deliberately does NOT include
+        address, founding date, or logo, so it won't duplicate/conflict
+        with whatever Organization schema already exists on the
+        homepage. If no sitewide Organization schema exists yet, add
+        one once, on the homepage - not repeated here.
+     ============================================================ -->
+<meta name="description" content="AI-assisted blog writing for SEO and AI search, built for local service and B2B companies. Up to 10 articles a month, published on your site — starting at $500.">
+<link rel="canonical" href="https://www.imageworkscreative.com/seo-aio-blog-writing">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog Writing for SEO and AI Search | ImageWorks Creative">
+<meta property="og:description" content="AI-assisted blog writing for SEO and AI search, built for local service and B2B companies. Up to 10 articles a month, published on your site — starting at $500.">
+<meta property="og:url" content="https://www.imageworkscreative.com/seo-aio-blog-writing">
+<meta property="og:image" content="https://www.imageworkscreative.com/assets/og/seo-aio-blog-writing.png">
+<meta property="og:site_name" content="ImageWorks Creative">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog Writing for SEO and AI Search | ImageWorks Creative">
+<meta name="twitter:description" content="AI-assisted blog writing for SEO and AI search, built for local service and B2B companies. Up to 10 articles a month, published on your site — starting at $500.">
+<meta name="twitter:image" content="https://www.imageworkscreative.com/assets/og/seo-aio-blog-writing.png">
 <!-- Plus Jakarta Sans is self-hosted in the sheet below (@font-face), the
      way the reference page does it - no third-party request on first paint. -->
 <!-- ============================================================
@@ -1822,7 +1858,7 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
 
 <style>
 /* ============================================================
-   PAGE-LEVEL COMPONENTS — SEO + AIO Link Building
+   PAGE-LEVEL COMPONENTS — Blog Writing for SEO and AI Search
    Uses iwc-styles.css tokens only. Prefix: .lb-
    ============================================================ */
 
@@ -1874,10 +1910,10 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   margin-bottom: 22px;
 }
 
-/* Sized to hold the lead in two lines. 193 characters at 19px need roughly
-   960px to split in two; 1000px clears that with room for the break to land
-   on a word boundary, and is still short of the 1100px the shell offers.
-   It cannot collapse to one line — that would take 1760px.
+/* Sized to hold the lead in two lines. The copy is now 130 characters at 19px,
+   which needs about 650px to split in two; 1000px clears that with room for
+   the break to land on a word boundary and stays short of the 1100px the shell
+   offers. It cannot collapse to one line — that would take 1290px.
    balance evens the pair rather than leaving a short second line. */
 .hero p.lead {
   font-size: 19px;
@@ -1886,9 +1922,10 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
 }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 32px; }
 .hero-sub {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--gray-mid);
+  /* No rule over this line either. The hero-deck lost its own separator by
+     request, and the sheet's default for this element carried a second one;
+     with the element now in the markup that line would have come back. */
+  margin-top: 28px;
   max-width: 640px;
   font-size: 16px;
   line-height: 1.6;
@@ -2414,6 +2451,23 @@ figure.fig figcaption {
 .lb-outline .resolve:only-child { margin: 0; padding: 0; border-top: none; }
 
 /* --- Fine print: small note, not a feature --- */
+
+/* --- Related services: a quiet cross-link strip, not its own section. Ties
+       this page into the three-part service architecture for readers and
+       crawlers alike, without competing with Pricing. --- */
+.lb-related {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-mid);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-text);
+  max-width: 720px;
+}
+.lb-related a { font-weight: 700; }
+/* .inline-link carries a 20px top margin for standalone use, which drops the
+   link off the baseline when it sits mid-sentence. Neutralised here only. */
+.lb-related .inline-link { margin-top: 0; display: inline; }
 .lb-fineprint {
   font-size: 14.5px;
   line-height: 1.6;
@@ -2687,12 +2741,13 @@ figure.fig figcaption {
   </div>
   <div class="wrap">
     <div class="hero-copy reveal">
-      <h1>SEO + <em>AIO</em> Blog Writing</h1>
+      <h1>Blog Writing for SEO and <em>AI Search</em></h1>
       <p class="hero-deck">Articles Built to Bring In Traffic and Earn Links</p>
-      <p class="lead">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
+      <p class="lead">Long-form articles matched to real search questions and AI prompts — published on your site, and built to earn links back to it.</p>
       <div class="hero-ctas">
-        <a href="#plans" class="btn-green">See the Plan &amp; Pricing</a>
+        <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
       </div>
+      <p class="hero-sub">Built for local service businesses, professional firms, and B2B companies.</p>
     </div>
   </div>
 </section>
@@ -2704,7 +2759,7 @@ figure.fig figcaption {
 <section class="band gray">
   <div class="wrap">
     <p class="eyebrow reveal">Definition</p>
-    <h2 class="sec reveal">What Is SEO + AIO Blog Writing?</h2>
+    <h2 class="sec reveal">What Is Blog Writing for SEO and AI Search?</h2>
     <div class="lb-answer reveal">
       <p><strong>Answer:</strong> We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry. The articles <span class="hl">bring in relevant traffic</span>, <span class="hl">link internally to priority pages</span>, and give other websites <span class="hl">useful content to reference and link to</span>.</p>
     </div>
@@ -2718,19 +2773,10 @@ figure.fig figcaption {
 <section class="band white anchor" id="blog-writing">
   <div class="wrap">
     <p class="eyebrow reveal">The Plan</p>
-    <h2 class="sec reveal">SEO + AIO Blog Writing</h2>
+    <h2 class="sec reveal">Blog Writing for SEO and AI Search</h2>
     <p class="lead reveal">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
     <p class="lead reveal">We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry.</p>
 
-    <h3 class="lb-h3 reveal">What You Get — $500/Month</h3>
-    <ul class="checklist reveal">
-      <li>Keyword and AI-prompt research</li>
-      <li>Up to 10 long-form articles per month</li>
-      <li>Search-focused article structure</li>
-      <li>Internal links to priority website pages</li>
-      <li>Publishing on your website</li>
-      <li>More relevant traffic</li>
-    </ul>
 
     <p class="lead reveal" style="margin-top:32px;">Each article gives your website another opportunity to appear in Google and AI search, while helping guide visitors toward the pages that matter most.</p>
     <p class="lead reveal">Articles are published directly on your website, so the traffic, internal links, and authority support the domain you own.</p>
@@ -2739,7 +2785,7 @@ figure.fig figcaption {
       <div class="ill-blog">
         <div class="ill-doc">
           <svg class="ill-doc-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/></svg>
-          <span class="ill-doc-label">AIO/SEO Optimized Article</span>
+          <span class="ill-doc-label">SEO + AI Search Article</span>
           <div class="ill-bars" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
         <div class="ill-wires-cell"><svg class="ill-wires" viewBox="0 0 168 300" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 150 C 74 150, 94 50, 168 50" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path pathLength="1" d="M0 150 H 168" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><path pathLength="1" d="M0 150 C 74 150, 94 250, 168 250" fill="none" stroke="#143c66" stroke-width="1.6" stroke-opacity="0.45"/><circle cx="4" cy="150" r="4.5" fill="#80C34A"/><circle cx="164" cy="50" r="4" fill="#80C34A"/><circle cx="164" cy="150" r="4" fill="#80C34A"/><circle cx="164" cy="250" r="4" fill="#80C34A"/></svg></div>
@@ -2752,7 +2798,7 @@ figure.fig figcaption {
       <figcaption>Each article links back to the service, location, and resource pages it supports.</figcaption>
     </figure>
 
-    <p class="lb-fineprint reveal">* These are SEO + AIO articles built for search visibility, not internal company content. To keep pricing reasonable, client edit rounds are not included.</p>
+    <p class="lb-fineprint reveal">* These are articles built for SEO and AI search visibility, not internal company content. To keep pricing reasonable, client edit rounds are not included.</p>
 
     <div class="lb-cta reveal">
       <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
@@ -2827,7 +2873,7 @@ figure.fig figcaption {
 <section class="band white">
   <div class="wrap">
     <p class="eyebrow reveal">Outcomes</p>
-    <h2 class="sec reveal">What SEO + AIO Blog Writing Can Support</h2>
+    <h2 class="sec reveal">What Blog Writing for SEO and AI Search Can Support</h2>
     <ul class="checklist reveal">
       <li>Expand organic search visibility</li>
       <li>Attract relevant informational traffic</li>
@@ -2836,6 +2882,8 @@ figure.fig figcaption {
       <li>Build broader topical authority</li>
       <li>Give AI platforms more context about the company</li>
     </ul>
+
+    <p class="lb-related reveal">Blog Writing pairs well with <a href="/seo-aio-link-building" class="inline-link">High Referring Domain Backlinks</a> and <a href="/citations-entity-signals" class="inline-link">Citations &amp; Entity Signals</a> for a fuller authority-building strategy.</p>
   </div>
 </section>
 
@@ -2846,14 +2894,14 @@ figure.fig figcaption {
 <section class="band gray anchor" id="plans">
   <div class="wrap">
     <p class="eyebrow reveal">Pricing</p>
-    <h2 class="sec reveal">What Does SEO + AIO Blog Writing Cost?</h2>
+    <h2 class="sec reveal">What Does Blog Writing for SEO and AI Search Cost?</h2>
     <p class="lead reveal">One monthly plan. Articles written, optimized, and published on your website.</p>
 
     <div class="lb-pricing reveal">
       <div class="lb-price feature">
-        <h3>SEO + AIO Blog Writing</h3>
+        <h3>Blog Writing for SEO and AI Search</h3>
         <span class="lb-amount">Starting at $500 per month</span>
-        <p>Includes up to 10 search-focused blog articles each month, written and published directly on your website.</p>
+        <p>Includes keyword and AI-prompt research, plus up to 10 search-focused blog articles each month, written and published directly on your website.</p>
         <p>The articles are designed to expand organic traffic, strengthen topical coverage, support priority pages through internal links, and create more opportunities for natural backlinks and AI-search visibility.</p>
       </div>
     </div>
@@ -2889,6 +2937,14 @@ figure.fig figcaption {
         <div class="faq-answer">
           <p><strong>No.</strong></p>
           <p>The article library can be connected through the footer, relevant service pages, internal links, resource categories, and search results without adding a prominent Blog item to the main navigation.</p>
+        </div>
+      </details>
+
+      <details class="faq-item" name="seo-blog-faq">
+        <summary>What Does &ldquo;No Client Edit Rounds&rdquo; Mean?<span class="faq-mark" aria-hidden="true"><svg width="16" height="16"><use href="#i-chevron"/></svg></span></summary>
+        <div class="faq-answer">
+          <p>These are articles built for SEO and AI search visibility, not internal company content — so there's no back-and-forth revision process built into the plan.</p>
+          <p>Keeping edit rounds out of scope is part of how the plan stays at $500 per month for up to 10 long-form articles.</p>
         </div>
       </details>
 
@@ -3028,6 +3084,14 @@ figure.fig figcaption {
     },
     {
       "@type": "Question",
+      "name": "What Does \"No Client Edit Rounds\" Mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "These are articles built for SEO and AI search visibility, not internal company content, so there's no back-and-forth revision process built into the plan. Keeping edit rounds out of scope is part of how the plan stays at $500 per month for up to 10 long-form articles."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Are Rankings or AI Citations Guaranteed?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -3035,6 +3099,41 @@ figure.fig figcaption {
       }
     }
   ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Blog Writing for SEO and AI Search",
+  "serviceType": "SEO Content Writing",
+  "provider": {
+    "@type": "Organization",
+    "name": "ImageWorks Creative",
+    "url": "https://www.imageworkscreative.com"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Local service businesses, professional services firms, and B2B companies"
+  },
+  "description": "AI-assisted long-form blog articles built around real search questions and AI prompts, published directly on the client's own website to build organic traffic and internal-linking authority to priority pages.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.imageworkscreative.com/seo-aio-blog-writing",
+    "priceCurrency": "USD",
+    "price": "500",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "priceCurrency": "USD",
+      "price": "500",
+      "unitCode": "MON"
+    }
+  }
 }
 </script>
 
