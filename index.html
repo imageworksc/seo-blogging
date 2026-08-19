@@ -2041,13 +2041,17 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
   background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13.85 7.05 L14.12 4.15 L17.88 4.15 L18.15 7.05 L20.81 8.16 L23.05 6.29 L25.71 8.95 L23.84 11.19 L24.95 13.85 L27.85 14.12 L27.85 17.88 L24.95 18.15 L23.84 20.81 L25.71 23.05 L23.05 25.71 L20.81 23.84 L18.15 24.95 L17.88 27.85 L14.12 27.85 L13.85 24.95 L11.19 23.84 L8.95 25.71 L6.29 23.05 L8.16 20.81 L7.05 18.15 L4.15 17.88 L4.15 14.12 L7.05 13.85 L8.16 11.19 L6.29 8.95 L8.95 6.29 L11.19 8.16 Z M16 12.00 A4.0 4.0 0 1 0 16 20.00 A4.0 4.0 0 1 0 16 12.00 Z' fill='%238FD154' fill-rule='evenodd'/></svg>") center / contain no-repeat;
 }
 
-/* --- The Plan: every paragraph in two lines.
-       The four run 193, 151, 150 and 122 characters at 17px, so one measure
-       has to satisfy all of them. The longest sets the floor — it needs 858px
-       to split in two — and the shortest sets the ceiling, because past 996px
-       it stops needing a second line at all. 920px sits between them with
-       about seven characters of room at each end, which holds across the
-       spread of average character widths this face renders at.
+/* --- The Plan's measure.
+       920px was originally derived from a two-line requirement across four
+       short paragraphs. Those are now two long ones — 345 and 273 characters
+       at 17px, which land on four lines and three — so that constraint no
+       longer applies and the number is kept only so this section's measure
+       stays in step with the hero and the answer box above it.
+
+       Worth knowing: at 17px this runs to roughly 110 characters a line,
+       well past the 45-75 usually recommended for body copy. That was a fair
+       trade when it bought a clean two-line break; now it buys nothing, so
+       narrowing it is a live option.
 
        Deliberately not balanced: filling each line to the measure is what
        keeps the ragged edge shallow. --- */
@@ -2776,12 +2780,9 @@ figure.fig figcaption {
   <div class="wrap">
     <p class="eyebrow reveal">The Plan</p>
     <h2 class="sec reveal">Blog Writing for SEO and AI Search</h2>
-    <p class="lead reveal">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to.</p>
-    <p class="lead reveal">We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry.</p>
+    <p class="lead reveal">AI-assisted blog articles built to bring more relevant traffic to your website, create internal links to priority website pages, and give other websites useful content to reference and link to. We create long-form articles around real search questions, comparisons, and AI prompts tied to your services, products, locations, brand, and industry.</p>
 
-
-    <p class="lead reveal" style="margin-top:32px;">Each article gives your website another opportunity to appear in Google and AI search, while helping guide visitors toward the pages that matter most.</p>
-    <p class="lead reveal">Articles are published directly on your website, so the traffic, internal links, and authority support the domain you own.</p>
+    <p class="lead reveal" style="margin-top:32px;">Each article gives your website another opportunity to appear in Google and AI search, while helping guide visitors toward the pages that matter most. Articles are published directly on your website, so the traffic, internal links, and authority support the domain you own.</p>
 
     <figure class="fig reveal">
       <div class="ill-blog">
