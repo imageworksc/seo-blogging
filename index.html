@@ -2189,15 +2189,51 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
   box-shadow: 0 8px 32px rgba(20,60,102,0.1);
   height: 100%;
 }
+/* --- Card head and figure, taken from the host-tier block on the Drupal and
+       WordPress page: a small uppercase name over a large figure, so the
+       number is what the eye lands on rather than the service name repeated
+       from the heading above it.
+
+       One change from that page. There "starting at" sits on the baseline to
+       the left of the figure, inside the same flex row; here it gets its own
+       line above it, which is what the annotation on the screenshot asked
+       for. It also stops the qualifier from competing with the number for the
+       same horizontal space. --- */
 .lb-price h3 {
-  font-size: 21px; font-weight: 800; color: var(--navy);
-  letter-spacing: -0.4px; line-height: 1.25; margin-bottom: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  line-height: 1.4;
+  margin-bottom: 0;
 }
 .lb-amount {
   display: block;
-  font-size: 17px; font-weight: 800; color: var(--green-dark);
-  padding-bottom: 20px; margin-bottom: 20px;
+  margin-top: 14px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
   border-bottom: 1px solid var(--gray-mid);
+}
+.lb-from {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gray-text);
+  margin-bottom: 2px;
+}
+.lb-num {
+  font-size: clamp(36px, 3.2vw, 48px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+.lb-per {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-text);
+  margin-left: 5px;
 }
 .lb-price p { font-size: 15.5px; line-height: 1.7; color: var(--body-text); margin-bottom: 14px; }
 .lb-price p:last-child { margin-bottom: 0; }
@@ -2897,7 +2933,7 @@ figure.fig figcaption {
     <div class="lb-pricing reveal">
       <div class="lb-price feature">
         <h3>Blog Writing for SEO and AI Search</h3>
-        <span class="lb-amount">Starting at $500 per month</span>
+        <span class="lb-amount"><span class="lb-from">starting at</span><span class="lb-num">$500</span><span class="lb-per">/month</span></span>
         <p>Includes keyword and AI-prompt research, plus up to 10 search-focused blog articles each month, written and published directly on your website.</p>
         <p>The articles are designed to expand organic traffic, strengthen topical coverage, support priority pages through internal links, and create more opportunities for natural backlinks and AI-search visibility.</p>
       </div>
