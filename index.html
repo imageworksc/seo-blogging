@@ -1890,8 +1890,10 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   color: var(--navy);
   line-height: 1.06;
   letter-spacing: -1.8px;
-  /* was 13ch, sized to fit beside the illustration. With the full width to
-     work in, the headline runs on one line instead of breaking after "AIO". */
+  /* The break is forced in the markup rather than left to the measure, so the
+     headline reads "Blog Writing for SEO" over "and AI Search" at every width
+     the two halves fit on their own. The measure only caps: at 62px it gives
+     778px, and the longer half needs 648px. */
   max-width: 24ch;
   margin-bottom: 18px;
 }
@@ -2741,7 +2743,7 @@ figure.fig figcaption {
   </div>
   <div class="wrap">
     <div class="hero-copy reveal">
-      <h1>Blog Writing for SEO and <em>AI Search</em></h1>
+      <h1>Blog Writing for SEO<br>and <em>AI Search</em></h1>
       <p class="hero-deck">Articles Built to Bring In Traffic and Earn Links</p>
       <p class="lead">Long-form articles matched to real search questions and AI prompts — published on your site, and built to earn links back to it.</p>
       <div class="hero-ctas">
