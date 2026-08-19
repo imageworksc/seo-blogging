@@ -1427,91 +1427,81 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
    slide off it. `left: 50%` plus a px margin hangs each wash off the middle of
    the page, which is the right anchor because the wrap is centred too.
    ------------------------------------------------------------ */
-/* The layer is 1040px tall rather than the hero's own height - the colour does
-   not stop where the copy does. The mask dissolves it well before the foot of
-   the hero, so nothing gets cut at the section seam. */
+/* The layer measures what the hero measures and the mask is expressed in
+   percentages, not fixed pixels, so the fade always finishes before the clip
+   no matter how tall the hero ends up. Fully out by 88%, which leaves the
+   hero ending on the same flat tint the band below opens on. */
 .hero-wash {
   position: absolute;
   top: 0; left: 0; right: 0;
-  /* Tied to the hero rather than a fixed 1040px. The layer is clipped at its
-     own foot, so any height it does not match is a height at which the washes
-     get cut mid-colour — which is exactly the seam a fixed value produced once
-     the hero lost its illustration and shrank from ~640px to ~500px. */
   block-size: 100%;
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  /* In percentages for the same reason: the fade has to finish before the
-     clip no matter how tall the hero ends up — taller on a phone where the
-     copy stacks, shorter on a wide screen. Fully transparent by 88%, so the
-     cut at 100% falls on nothing. */
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 40%, transparent 88%);
-          mask-image: linear-gradient(180deg, #000 0, #000 40%, transparent 88%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
+          mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
 }
 .hero-wash span { position: absolute; left: 50%; will-change: transform; }
 /* green: opens top-left over the headline, runs down and to the right */
 .hero-wash__g {
-  inline-size: 780px;
-  block-size: 640px;
-  margin-left: -870px;
-  top: -220px;
+  inline-size: 1015px;
+  block-size: 830px;
+  margin-left: -987px;
+  top: -315px;
   background: radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
   animation: heroWashG 71s linear infinite;
 }
-/* brand blue: opens top-right behind the figure, runs the other way */
+/* brand blue: opens top-right and runs the other way */
 .hero-wash__b {
-  inline-size: 840px;
-  block-size: 700px;
-  margin-left: 50px;
-  top: -190px;
+  inline-size: 1090px;
+  block-size: 910px;
+  margin-left: -75px;
+  top: -295px;
   background: radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
   animation: heroWashB 97s linear infinite;
 }
-/* sky: the low one, parked under the call to action. Slowest and widest.
-   Was top: 300px with a 660px box, which put its centre at 630px — below the
-   foot of a hero that is now ~500px tall, so only its faintest top edge ever
-   showed. Re-hung so the centre lands around 300px, inside the band. */
+/* sky: the low one, parked under the call to action. Slowest and widest. */
 .hero-wash__s {
-  inline-size: 900px;
-  block-size: 480px;
-  margin-left: -410px;
-  top: 60px;
+  inline-size: 1170px;
+  block-size: 860px;
+  margin-left: -545px;
+  top: 200px;
   background: radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
   animation: heroWashS 127s linear infinite;
 }
-/* Below the shell the px offsets hang the green and blue off screen entirely.
-   Pull them back toward the middle so the stacked hero still opens in colour. */
-@media (max-width: 900px) {
-  .hero-wash__g { margin-left: -560px; }
-  .hero-wash__b { margin-left: -220px; }
-  /* top follows the new 480px box — 260px was hung off the old 660px one and
-     would now sit the centre near the foot of the stacked hero. */
-  .hero-wash__s { margin-left: -450px; top: 120px; }
-}
+/* No mobile override any more. At this size the washes already reach across a
+   narrow screen on their own — on a 375px viewport the green covers its left
+   200px, the blue its right half and the sky the whole of it — so the margins
+   that used to pull the small washes back toward the middle would now only
+   drag these off their marks. */
 
 /* Closed loops at a constant rate. Two waypoints on an ease would decelerate,
    stop and reverse, which reads as an animation looping; four that come back
    round read as something wandering. The three periods share no useful factor,
-   so the arrangement takes hours to recur. */
+   so the arrangement takes hours to recur.
+
+   Vertical only. The Y values are the original ones, one for one; X is held at
+   zero so each wash rises and falls in place instead of travelling sideways
+   across the one next to it. */
 @keyframes heroWashG {
   0%   { transform: translate3d(0, 0, 0); }
-  25%  { transform: translate3d(38%, 22%, 0); }
-  50%  { transform: translate3d(64%, 6%, 0); }
-  75%  { transform: translate3d(26%, -14%, 0); }
+  25%  { transform: translate3d(0, 22%, 0); }
+  50%  { transform: translate3d(0, 6%, 0); }
+  75%  { transform: translate3d(0, -14%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes heroWashB {
   0%   { transform: translate3d(0, 0, 0); }
-  25%  { transform: translate3d(-42%, 26%, 0); }
-  50%  { transform: translate3d(-70%, -8%, 0); }
-  75%  { transform: translate3d(-30%, -24%, 0); }
+  25%  { transform: translate3d(0, 26%, 0); }
+  50%  { transform: translate3d(0, -8%, 0); }
+  75%  { transform: translate3d(0, -24%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes heroWashS {
   0%   { transform: translate3d(0, 0, 0); }
-  25%  { transform: translate3d(-34%, -18%, 0); }
-  50%  { transform: translate3d(-58%, 10%, 0); }
-  75%  { transform: translate3d(-18%, 20%, 0); }
+  25%  { transform: translate3d(0, -18%, 0); }
+  50%  { transform: translate3d(0, 10%, 0); }
+  75%  { transform: translate3d(0, 20%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 /* A sheen crossing the surface, the way light moves over one. It rides inside
