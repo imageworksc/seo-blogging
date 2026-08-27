@@ -1862,6 +1862,13 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
    Uses iwc-styles.css tokens only. Prefix: .lb-
    ============================================================ */
 
+
+/* --- 18px floor for body copy, taken from the branding page's own
+       page-level override. Several shared-sheet classes ship under 18px;
+       this lifts the ones this page uses. Same note applies: worth fixing
+       at the source sheet rather than per page. --- */
+p.lead, .answer p, .sub p, .checklist li, .signals li { font-size: 18px; }
+
 /* --- Hero (not defined in shared sheet) --- */
 .hero {
   position: relative;
@@ -1882,10 +1889,71 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
    the Custom Web Design hero makes. */
 .hero .wrap {
   position: relative; z-index: 2;
+  /* Two columns again, at the branding page's ratio. The copy column comes
+     out around 558px of the 1100px the shell offers. */
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
+  align-items: center;
 }
 .hero-copy { min-width: 0; }
+.hero-visual { min-width: 0; }
+
+/* --- Hero visual: a flat-lay of what the service produces, built from CSS
+       shapes rather than an image — the same construction as the branding
+       page's brand-kit, with the subject swapped.
+
+       The article card is the piece; the green bar inside it is an internal
+       link; the chips it sits over are the pages that link points at; and the
+       badge is the traffic that follows. Three objects on three angles, same
+       as the original. --- */
+.blogkit { position: relative; width: 100%; height: 360px; }
+
+.bk-article {
+  position: absolute; top: 14px; left: 6%; width: 68%;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 20px 44px rgba(20,60,102,0.18);
+  transform: rotate(-5deg);
+  padding: 24px 26px;
+}
+.bk-article span { display: block; }
+.bk-tag { width: 56px; height: 10px; border-radius: 5px; background: var(--green); margin-bottom: 18px; }
+.bk-title { height: 11px; border-radius: 5px; background: var(--navy); margin-bottom: 8px; }
+.bk-title.short { width: 58%; margin-bottom: 20px; }
+.bk-line { height: 7px; border-radius: 4px; background: var(--gray-mid); margin-bottom: 9px; }
+/* the internal link the article carries */
+.bk-line.link { width: 72%; background: var(--green); }
+.bk-line.short { width: 44%; margin-bottom: 0; }
+
+/* the pages that link points at */
+.bk-pages {
+  position: absolute; bottom: 20px; right: 3%;
+  display: flex; flex-direction: column; gap: 9px;
+  transform: rotate(4deg);
+}
+.bk-pages span {
+  width: 96px; height: 28px;
+  border-radius: 6px;
+  background: var(--white);
+  border-left: 4px solid var(--green);
+  box-shadow: 0 14px 30px rgba(20,60,102,0.16);
+}
+
+/* the traffic that follows */
+.bk-mark {
+  position: absolute; top: 54%; left: 58%;
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  background: var(--navy);
+  box-shadow: 0 16px 32px rgba(20,60,102,0.26);
+  display: flex; align-items: center; justify-content: center;
+  transform: translate(-50%, -50%) rotate(8deg);
+  color: var(--green);
+}
+.bk-mark svg { width: 38px; height: 38px; transform: rotate(-8deg); }
 .hero h1 {
-  font-size: clamp(36px, 5.4vw, 62px);
+  font-size: clamp(32px, 4.2vw, 48px);
   font-weight: 800;
   color: var(--navy);
   line-height: 1.06;
@@ -1912,13 +1980,13 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   margin-bottom: 22px;
 }
 
-/* Sized to hold the lead in two lines. The copy is now 130 characters at 19px,
-   which needs about 650px to split in two; 1000px clears that with room for
-   the break to land on a word boundary and stays short of the 1100px the shell
-   offers. It cannot collapse to one line — that would take 1290px.
-   balance evens the pair rather than leaving a short second line. */
+/* The 1000px cap is inert now — the copy column is about 558px wide, so the
+   column is what sets the measure. At 18px that is roughly 59 characters a
+   line, and the copy is 130, so the lead runs to three lines rather than the
+   two it held when the hero was full width. Restoring two would need a
+   612px column, which would leave the visual too little room. */
 .hero p.lead {
-  font-size: 19px;
+  font-size: 18px;
   max-width: 1000px;
   text-wrap: balance;
 }
@@ -2520,10 +2588,19 @@ figure.fig figcaption {
 
 /* --- Responsive --- */
 @media (max-width: 1000px) {
-  /* The measures above are set for the full shell; below it the headline and
-     deck need to give ground or they run past the gutter. */
+  /* The copy column carries the measures now, so the headline and deck only
+     need capping once the grid collapses. */
   .hero h1 { max-width: 18ch; }
   .hero-deck { max-width: 26ch; }
+}
+
+/* One column below this, and the visual loses height with it. The copy stays
+   first: on a phone the headline should be the thing that leads, which is why
+   the branding page's order swap is not carried over. */
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 460px; }
+  .blogkit { height: 280px; }
 }
 
 @media (max-width: 900px) {
@@ -2790,6 +2867,27 @@ figure.fig figcaption {
         <a href="https://www.imageworkscreative.com/lets-grow-your-brand" class="btn-green">Book a Call to Discuss</a>
       </div>
       <p class="hero-sub">Built for local service businesses, professional firms, and B2B companies.</p>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="blogkit" aria-hidden="true">
+        <div class="bk-article">
+          <span class="bk-tag"></span>
+          <span class="bk-title"></span>
+          <span class="bk-title short"></span>
+          <span class="bk-line"></span>
+          <span class="bk-line"></span>
+          <span class="bk-line link"></span>
+          <span class="bk-line short"></span>
+        </div>
+        <div class="bk-pages"><span></span><span></span><span></span></div>
+        <div class="bk-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 17 9 11 13 15 21 7"/>
+            <polyline points="15 7 21 7 21 13"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 </section>
