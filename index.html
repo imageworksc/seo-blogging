@@ -1852,10 +1852,8 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   .hero-wash span, .hero-wash::after,
   .ig-step:hover .ig-icon { animation: none !important; transform: none !important; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
-  /* the board holds still: the guide stops marching, the query stops typing,
-     the link and the bars stop breathing. Hover states still respond. */
-  .bk-art__guide, .bk-art__l--link, .bk-q__typed,
-  .bk-links__set li, .bk-traffic__set li { animation: none !important; }
+  /* the spark stops descending the rail. Hover states still respond. */
+  .fk__spark { animation: none; opacity: 0; }
 }
 
 </style>
@@ -1903,223 +1901,120 @@ p.lead, .answer p, .sub p, .checklist li, .signals li { font-size: 18px; }
 .hero-copy { min-width: 0; }
 .hero-visual { min-width: 0; }
 
-/* --- Hero visual: a board of five tiles, built the way the branding page
-       builds its own. That page had a flat lay of pieces tilted at angles and
-       replaced it, for the reason its own comment gives: with nothing holding
-       them, objects with drop shadows read as spilled rather than composed.
-       On a grid they read as what the work actually hands over.
+/* --- Hero visual: the four steps, read top to bottom.
+       Not a board and not a flat lay — a sequence, because that is what the
+       service is. A question comes in, an article gets written, it links out,
+       traffic follows. Each step is one row; a rail runs behind them and a
+       spark travels down it, so the order is something you watch rather than
+       something you have to infer from position.
 
-       Five tiles here, on the same 2x3 layout: the article, the question it
-       answers, the pages it links to, the traffic that follows, and where it
-       gets published. Every tile lifts and takes a green rule under the
-       cursor, and each has an idle loop of its own on a period sharing no
-       factor with the others. --- */
-.bk {
-  display: grid;
-  grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
-  gap: 12px;
-  width: 100%;
-  max-width: 460px;
-  margin-inline: auto;
-}
-
-/* ---- the shared tile ---- */
-.bk-t {
+       The rail's colour is the page's own: it starts on the blue the search
+       icons use and ends on the green everything positive is set in. --- */
+.fk {
   position: relative;
-  overflow: hidden;
-  padding: 14px 16px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 12px 28px rgba(20, 40, 80, .10);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
-}
-.bk-t::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  inset-inline: 0;
-  z-index: 3;
-  block-size: 3px;
-  background: var(--green);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.bk-t:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 20px 40px rgba(20, 40, 80, .16);
-}
-.bk-t:hover::before { transform: scaleX(1); }
-
-.bk-label {
-  font-size: 8.5px;
-  font-weight: 800;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--faint);
-  transition: color .35s var(--ease);
-}
-.bk-t:hover .bk-label { color: var(--navy); }
-
-/* ---- 1 - the article, on its measuring ground ---- */
-.bk-art {
-  grid-column: 1;
-  grid-row: 1 / span 2;
+  width: 100%;
+  max-width: 400px;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  min-block-size: 210px;
-  /* ruling first: in background-image the earlier layer paints on top, and
-     behind the card gradient it would be invisible */
-  background-image:
-    linear-gradient(to right, rgba(20, 60, 102, .055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(20, 60, 102, .055) 1px, transparent 1px),
-    linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  background-size: 20px 20px, 20px 20px, 100% 100%;
+  gap: 20px;
 }
-.bk-art__stage { position: relative; display: grid; place-items: center; flex: 1; }
-.bk-art__page {
-  position: relative;
-  inline-size: 108px;
-  padding: 13px 12px;
-  border-radius: 3px;
-  background: #fff;
-  box-shadow: 0 8px 20px rgba(20, 60, 102, .16);
-}
-.bk-art__page i { display: block; border-radius: 2px; }
-.bk-art__tag { inline-size: 30px; block-size: 6px; background: var(--green); margin-bottom: 10px; }
-.bk-art__h { block-size: 6px; background: var(--navy); margin-bottom: 5px; }
-.bk-art__h--s { inline-size: 62%; margin-bottom: 11px; }
-.bk-art__l { block-size: 4px; background: var(--border); margin-bottom: 5px; }
-.bk-art__l--s { inline-size: 52%; margin-bottom: 0; }
-/* the internal link the article carries. It is the point of the piece, so it
-   is the one thing on the page that moves. */
-.bk-art__l--link {
-  background: var(--green);
-  inline-size: 74%;
-  animation: bkLink 19s ease-in-out infinite;
-}
-/* marching guide, the way the branding page rules the clear space round its
-   mark. It steps out under the cursor. */
-.bk-art__guide {
-  --ant: rgba(18, 102, 181, .38);
-  position: absolute;
-  inset: -17px;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(90deg, var(--ant) 0 5px, transparent 5px 10px),
-    repeating-linear-gradient(90deg, var(--ant) 0 5px, transparent 5px 10px),
-    repeating-linear-gradient(0deg,  var(--ant) 0 5px, transparent 5px 10px),
-    repeating-linear-gradient(0deg,  var(--ant) 0 5px, transparent 5px 10px);
-  background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-  background-position: 0 0, 0 100%, 0 0, 100% 0;
-  background-repeat: no-repeat;
-  animation: bkAnts 11s linear infinite;
-  transition: inset .45s var(--ease);
-}
-.bk-art:hover .bk-art__guide { inset: -24px; }
 
-/* ---- 2 - the question it answers ---- */
-.bk-q { grid-column: 2; grid-row: 1; }
-.bk-q__field {
-  display: flex;
+/* the rail, behind the icons. Stops short at both ends so it runs between the
+   first and last disc rather than past them. */
+.fk::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 40px;
+  bottom: 40px;
+  inline-size: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg,
+    var(--blue) 0%, var(--navy) 46%, var(--green-ink) 78%, var(--green) 100%);
+}
+
+/* the spark: one dot descending the rail on a loop. It is the only thing that
+   moves at rest, and it moves in the direction the steps are meant to be
+   read. */
+.fk__spark {
+  position: absolute;
+  left: 19px;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(128, 195, 74, .22);
+  animation: fkSpark 7s ease-in-out infinite;
+}
+
+.fk-step {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
   align-items: center;
-  gap: 7px;
-  margin-top: 9px;
-  padding: 7px 9px;
-  border-radius: 999px;
-  background: var(--white);
-  box-shadow: inset 0 0 0 1.5px var(--border);
+  gap: 14px;
 }
-.bk-q__field svg { inline-size: 12px; block-size: 12px; flex: none; color: var(--blue); }
-/* types itself out and clears again, the way a query gets entered */
-.bk-q__typed {
-  block-size: 5px;
-  border-radius: 3px;
-  background: var(--navy);
-  opacity: .55;
-  animation: bkType 23s ease-in-out infinite;
-}
-.bk-q__name { margin-top: 8px; font-size: 10px; font-weight: 700; color: var(--ink); }
 
-/* ---- 3 - the pages it links to ---- */
-.bk-links { grid-column: 2; grid-row: 2; }
-.bk-links__set { display: flex; flex-direction: column; gap: 6px; margin-top: 9px; }
-.bk-links__set li {
-  position: relative;
-  block-size: 20px;
-  border-radius: 3px;
+.fk-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border-radius: 50%;
   background: var(--white);
-  box-shadow: inset 0 0 0 1px var(--border);
-  border-left: 3px solid var(--green);
-  transition: transform .3s var(--ease);
-  animation: bkPage 17s ease-in-out infinite;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 8px rgba(20, 60, 102, .07);
+  transition: transform .3s var(--ease), border-color .3s var(--ease),
+              box-shadow .3s var(--ease);
 }
-.bk-links__set li:nth-child(2) { animation-delay: -5.5s; }
-.bk-links__set li:nth-child(3) { animation-delay: -11s; }
-.bk-links__set li:hover { transform: translateX(3px); }
+.fk-icon svg { inline-size: 20px; block-size: 20px; }
+.fk-step:hover .fk-icon {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 8px 18px rgba(20, 60, 102, .15);
+}
 
-/* ---- 4 - the traffic that follows ---- */
-.bk-traffic { grid-column: 1; grid-row: 3; padding-bottom: 16px; }
-.bk-traffic__set { display: flex; align-items: flex-end; gap: 6px; margin-top: 10px; block-size: 40px; }
-.bk-traffic__set li {
-  flex: 1;
+/* each step takes the colour it sits at on the rail */
+.fk-step:nth-child(2) .fk-icon { border-color: var(--blue); color: var(--blue); }
+.fk-step:nth-child(3) .fk-icon { border-color: var(--navy); color: var(--navy); }
+.fk-step:nth-child(4) .fk-icon { border-color: var(--blue); color: var(--blue); }
+.fk-step:nth-child(5) .fk-icon { border-color: var(--green); color: var(--green-ink); }
+
+.fk-card {
+  min-width: 0;
+  padding: 11px 15px;
   border-radius: var(--r);
-  background: linear-gradient(180deg, var(--blue), var(--navy));
-  box-shadow: inset 0 0 0 1px rgba(20, 40, 80, .07);
-  transition: block-size .45s var(--ease);
-  animation: bkBar 13s ease-in-out infinite;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 8px 20px rgba(20, 40, 80, .08);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
-.bk-traffic__set li:nth-child(1) { block-size: 38%; }
-.bk-traffic__set li:nth-child(2) { block-size: 56%; animation-delay: -3.25s; }
-.bk-traffic__set li:nth-child(3) { block-size: 74%; animation-delay: -6.5s; }
-.bk-traffic__set li:nth-child(4) {
-  block-size: 100%;
-  background: linear-gradient(180deg, var(--green), var(--green-ink));
-  animation-delay: -9.75s;
+.fk-step:hover .fk-card {
+  transform: translateX(3px);
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 14px 28px rgba(20, 40, 80, .13);
 }
-.bk-traffic:hover .bk-traffic__set li { block-size: 100%; }
+.fk-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.fk-note {
+  margin-top: 3px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--faint);
+}
 
-/* ---- 5 - where it gets published ---- */
-.bk-pub { grid-column: 2; grid-row: 3; display: flex; flex-direction: column; }
-.bk-pub__edge {
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  inline-size: 4px;
-  background: var(--green);
-  transform-origin: top;
-  transition: transform .45s var(--ease);
-}
-.bk-pub__word { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
-.bk-pub__word b { font-size: 13px; font-weight: 800; letter-spacing: -.025em; line-height: 1; color: var(--navy); }
-.bk-pub__word span { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
-.bk-pub__rule {
-  margin-top: 9px;
-  block-size: 2px;
-  inline-size: 34%;
-  background: var(--green);
-  transition: inline-size .45s var(--ease);
-}
-.bk-pub:hover .bk-pub__rule { inline-size: 100%; }
-
-/* ---- the idle loops. The periods share no useful factor, so the board takes
-        hours to repeat an arrangement. ---- */
-@keyframes bkAnts { to { background-position: 100% 0, -100% 100%, 0 -100%, 100% 100%; } }
-@keyframes bkLink {
-  0%, 100% { inline-size: 74%; }
-  46%      { inline-size: 52%; }
-}
-@keyframes bkType {
-  0%, 8%    { inline-size: 12%; }
-  38%, 62%  { inline-size: 100%; }
-  92%, 100% { inline-size: 12%; }
-}
-@keyframes bkPage {
-  0%, 100% { box-shadow: inset 0 0 0 1px var(--border); }
-  50%      { box-shadow: inset 0 0 0 1px rgba(128, 195, 74, .55); }
-}
-@keyframes bkBar {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: .78; }
+/* Down the rail and back to the top. The hold at each end keeps it from
+   reading as a shuttle. */
+@keyframes fkSpark {
+  0%, 6%    { top: 38px; opacity: 0; }
+  12%       { opacity: 1; }
+  88%       { opacity: 1; }
+  94%, 100% { top: calc(100% - 48px); opacity: 0; }
 }
 .hero h1 {
   font-size: clamp(32px, 4.2vw, 48px);
@@ -2769,7 +2664,7 @@ figure.fig figcaption {
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
   .hero-visual { max-width: 420px; }
-  .bk { max-width: 380px; }
+  .fk { max-width: 360px; }
 }
 
 @media (max-width: 900px) {
@@ -3039,53 +2934,58 @@ figure.fig figcaption {
     </div>
 
     <div class="hero-visual reveal">
-      <div class="bk" aria-hidden="true">
-        <div class="bk-t bk-art">
-          <p class="bk-label">Article</p>
-          <div class="bk-art__stage">
-            <div class="bk-art__page">
-              <i class="bk-art__tag"></i>
-              <i class="bk-art__h"></i>
-              <i class="bk-art__h bk-art__h--s"></i>
-              <i class="bk-art__l"></i>
-              <i class="bk-art__l bk-art__l--link"></i>
-              <i class="bk-art__l"></i>
-              <i class="bk-art__l bk-art__l--s"></i>
-              <i class="bk-art__guide"></i>
-            </div>
-          </div>
-        </div>
+      <div class="fk" aria-hidden="true">
+        <span class="fk__spark"></span>
 
-        <div class="bk-t bk-q">
-          <p class="bk-label">Search intent</p>
-          <div class="bk-q__field">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+        <div class="fk-step">
+          <span class="fk-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/>
             </svg>
-            <span class="bk-q__typed"></span>
+          </span>
+          <div class="fk-card">
+            <p class="fk-title">A real question</p>
+            <p class="fk-note">What people search, and what they ask AI</p>
           </div>
-          <p class="bk-q__name">Real questions and AI prompts</p>
         </div>
 
-        <div class="bk-t bk-links">
-          <p class="bk-label">Internal links</p>
-          <ul class="bk-links__set">
-            <li></li><li></li><li></li>
-          </ul>
+        <div class="fk-step">
+          <span class="fk-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 3v5h5M9 13h6M9 17h4"/>
+            </svg>
+          </span>
+          <div class="fk-card">
+            <p class="fk-title">An article that answers it</p>
+            <p class="fk-note">Long-form, published on your domain</p>
+          </div>
         </div>
 
-        <div class="bk-t bk-traffic">
-          <p class="bk-label">Traffic</p>
-          <ul class="bk-traffic__set">
-            <li></li><li></li><li></li><li></li>
-          </ul>
+        <div class="fk-step">
+          <span class="fk-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.4 13.6a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7"/>
+              <path d="M13.6 10.4a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/>
+            </svg>
+          </span>
+          <div class="fk-card">
+            <p class="fk-title">Links to the pages that matter</p>
+            <p class="fk-note">Service, location and resource pages</p>
+          </div>
         </div>
 
-        <div class="bk-t bk-pub">
-          <span class="bk-pub__edge"></span>
-          <p class="bk-label">Published</p>
-          <p class="bk-pub__word"><b>Your domain</b><span>Not ours</span></p>
-          <span class="bk-pub__rule"></span>
+        <div class="fk-step">
+          <span class="fk-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 17 9 11 13 15 21 7"/>
+              <polyline points="15 7 21 7 21 13"/>
+            </svg>
+          </span>
+          <div class="fk-card">
+            <p class="fk-title">Traffic, and reasons to cite you</p>
+            <p class="fk-note">Search visibility and earned links</p>
+          </div>
         </div>
       </div>
     </div>
