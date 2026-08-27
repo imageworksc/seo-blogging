@@ -1852,8 +1852,6 @@ section.band.navy .points li strong { color: var(--green); font-weight: 700; }
   .hero-wash span, .hero-wash::after,
   .ig-step:hover .ig-icon { animation: none !important; transform: none !important; }
   [data-anim="on"] .reveal { opacity: 1; transform: none; }
-  /* the spark stops descending the rail. Hover states still respond. */
-  .fk__spark { animation: none; opacity: 0; }
 }
 
 </style>
@@ -1902,120 +1900,85 @@ p.lead, .answer p, .sub p, .checklist li, .signals li { font-size: 18px; }
 .hero-visual { min-width: 0; }
 
 /* --- Hero visual: the four steps, read top to bottom.
-       Not a board and not a flat lay — a sequence, because that is what the
-       service is. A question comes in, an article gets written, it links out,
-       traffic follows. Each step is one row; a rail runs behind them and a
-       spark travels down it, so the order is something you watch rather than
-       something you have to infer from position.
+       A sequence rather than a board, because that is what the service is: a
+       question comes in, an article gets written, it links out, traffic
+       follows.
 
-       The rail's colour is the page's own: it starts on the blue the search
-       icons use and ends on the green everything positive is set in. --- */
+       Held quiet on purpose. The rail is one hairline instead of a four-stop
+       gradient, the discs are outlined rather than filled, the rows sit on the
+       page instead of on cards with shadows under them, and nothing moves at
+       rest. Green appears once, on the last step, because that is the outcome
+       and the only place it earns emphasis. --- */
 .fk {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 26px;
 }
 
-/* the rail, behind the icons. Stops short at both ends so it runs between the
-   first and last disc rather than past them. */
+/* the rail. One hairline, stopping at the first and last disc rather than
+   running past them. */
 .fk::before {
   content: '';
   position: absolute;
-  left: 23px;
+  left: 19px;
   top: 40px;
   bottom: 40px;
-  inline-size: 2px;
-  border-radius: 1px;
-  background: linear-gradient(180deg,
-    var(--blue) 0%, var(--navy) 46%, var(--green-ink) 78%, var(--green) 100%);
-}
-
-/* the spark: one dot descending the rail on a loop. It is the only thing that
-   moves at rest, and it moves in the direction the steps are meant to be
-   read. */
-.fk__spark {
-  position: absolute;
-  left: 19px;
-  inline-size: 10px;
-  block-size: 10px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 4px rgba(128, 195, 74, .22);
-  animation: fkSpark 7s ease-in-out infinite;
+  inline-size: 1px;
+  background: var(--border);
 }
 
 .fk-step {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-columns: 40px minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .fk-icon {
   display: grid;
   place-items: center;
-  inline-size: 48px;
-  block-size: 48px;
+  inline-size: 40px;
+  block-size: 40px;
   border-radius: 50%;
   background: var(--white);
-  border: 2px solid var(--border);
-  box-shadow: 0 2px 8px rgba(20, 60, 102, .07);
-  transition: transform .3s var(--ease), border-color .3s var(--ease),
-              box-shadow .3s var(--ease);
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  transition: border-color .3s var(--ease), color .3s var(--ease);
 }
-.fk-icon svg { inline-size: 20px; block-size: 20px; }
-.fk-step:hover .fk-icon {
-  transform: translateY(-2px) scale(1.06);
-  box-shadow: 0 8px 18px rgba(20, 60, 102, .15);
+.fk-icon svg { inline-size: 17px; block-size: 17px; }
+
+/* the outcome, and the only colour in the set */
+.fk-step:last-child .fk-icon {
+  border-color: var(--green);
+  color: var(--green-ink);
 }
 
-/* each step takes the colour it sits at on the rail */
-.fk-step:nth-child(2) .fk-icon { border-color: var(--blue); color: var(--blue); }
-.fk-step:nth-child(3) .fk-icon { border-color: var(--navy); color: var(--navy); }
-.fk-step:nth-child(4) .fk-icon { border-color: var(--blue); color: var(--blue); }
-.fk-step:nth-child(5) .fk-icon { border-color: var(--green); color: var(--green-ink); }
-
-.fk-card {
-  min-width: 0;
-  padding: 11px 15px;
-  border-radius: var(--r);
-  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 8px 20px rgba(20, 40, 80, .08);
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-}
-.fk-step:hover .fk-card {
-  transform: translateX(3px);
-  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 14px 28px rgba(20, 40, 80, .13);
-}
+.fk-body { min-width: 0; }
 .fk-title {
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -.01em;
-  line-height: 1.25;
+  line-height: 1.3;
   color: var(--navy);
+  transition: color .3s var(--ease);
 }
 .fk-note {
-  margin-top: 3px;
+  margin-top: 2px;
   font-size: 11.5px;
-  font-weight: 600;
-  line-height: 1.4;
+  font-weight: 500;
+  line-height: 1.45;
   color: var(--faint);
 }
 
-/* Down the rail and back to the top. The hold at each end keeps it from
-   reading as a shuttle. */
-@keyframes fkSpark {
-  0%, 6%    { top: 38px; opacity: 0; }
-  12%       { opacity: 1; }
-  88%       { opacity: 1; }
-  94%, 100% { top: calc(100% - 48px); opacity: 0; }
-}
+/* a colour shift and nothing else — no lift, no scale, no travel */
+.fk-step:hover .fk-icon { border-color: var(--navy); color: var(--navy); }
+.fk-step:hover .fk-title { color: var(--blue); }
 .hero h1 {
   font-size: clamp(32px, 4.2vw, 48px);
   font-weight: 800;
@@ -2935,7 +2898,6 @@ figure.fig figcaption {
 
     <div class="hero-visual reveal">
       <div class="fk" aria-hidden="true">
-        <span class="fk__spark"></span>
 
         <div class="fk-step">
           <span class="fk-icon">
@@ -2943,7 +2905,7 @@ figure.fig figcaption {
               <circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/>
             </svg>
           </span>
-          <div class="fk-card">
+          <div class="fk-body">
             <p class="fk-title">A real question</p>
             <p class="fk-note">What people search, and what they ask AI</p>
           </div>
@@ -2956,7 +2918,7 @@ figure.fig figcaption {
               <path d="M14 3v5h5M9 13h6M9 17h4"/>
             </svg>
           </span>
-          <div class="fk-card">
+          <div class="fk-body">
             <p class="fk-title">An article that answers it</p>
             <p class="fk-note">Long-form, published on your domain</p>
           </div>
@@ -2969,7 +2931,7 @@ figure.fig figcaption {
               <path d="M13.6 10.4a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/>
             </svg>
           </span>
-          <div class="fk-card">
+          <div class="fk-body">
             <p class="fk-title">Links to the pages that matter</p>
             <p class="fk-note">Service, location and resource pages</p>
           </div>
@@ -2982,7 +2944,7 @@ figure.fig figcaption {
               <polyline points="15 7 21 7 21 13"/>
             </svg>
           </span>
-          <div class="fk-card">
+          <div class="fk-body">
             <p class="fk-title">Traffic, and reasons to cite you</p>
             <p class="fk-note">Search visibility and earned links</p>
           </div>
