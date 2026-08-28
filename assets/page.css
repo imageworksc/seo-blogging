@@ -1,0 +1,859 @@
+/* ============================================================
+   PAGE-LEVEL COMPONENTS — Blog Writing for SEO and AI Search
+   Uses iwc-styles.css tokens only. Prefix: .lb-
+   ============================================================ */
+
+
+/* --- 18px floor for body copy, taken from the branding page's own
+       page-level override. Several shared-sheet classes ship under 18px;
+       this lifts the ones this page uses. Same note applies: worth fixing
+       at the source sheet rather than per page. --- */
+p.lead, .answer p, .sub p, .checklist li, .signals li { font-size: 18px; }
+
+/* --- Paragraph spacing that used to be set with style attributes on the
+       markup. Three different values were in use, and they are kept as they
+       were rather than normalised to one, so moving them out of the HTML
+       changes nothing on the page. They set only margin-top, which p.lead
+       does not, so there is no conflict with it despite the lower
+       specificity. --- */
+.lead-gap-32 { margin-top: 32px; }
+.lead-gap-24 { margin-top: 24px; }
+.lead-gap-20 { margin-top: 20px; }
+
+/* --- The icon sprite. Zero-sized and taken out of flow so it can sit at the
+       top of the body without occupying any. Was a style attribute. --- */
+.svg-sprite { position: absolute; }
+
+/* --- Hero (not defined in shared sheet) --- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 96px 0 80px;
+  /* No rule at the foot, and no flat white either. The ground ramps into the
+     tint the band below starts on, so the two read as one surface instead of
+     two sheets butted together — the Custom Web Design page's construction. */
+  background: linear-gradient(180deg,
+    var(--white) 0%,
+    var(--white) 56%,
+    var(--band-tint) 100%);
+}
+
+/* One column now that the illustration is gone. The washes carry the
+   right-hand side, so the band does not read as half empty — the same move
+   the Custom Web Design hero makes. */
+.hero .wrap {
+  position: relative; z-index: 2;
+  /* Two columns again, at the branding page's ratio. The copy column comes
+     out around 558px of the 1100px the shell offers. */
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-copy { min-width: 0; }
+.hero-visual { min-width: 0; }
+
+/* --- Hero visual: the four steps, read top to bottom.
+       Not a board and not a flat lay — a sequence, because that is what the
+       service is. A question comes in, an article gets written, it links out,
+       traffic follows. Each step is one row; a rail runs behind them and a
+       spark travels down it, so the order is something you watch rather than
+       something you have to infer from position.
+
+       The rail's colour is the page's own: it starts on the blue the search
+       icons use and ends on the green everything positive is set in. --- */
+.fk {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* the rail, behind the icons. Stops short at both ends so it runs between the
+   first and last disc rather than past them. */
+.fk::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 40px;
+  bottom: 40px;
+  inline-size: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg,
+    var(--blue) 0%, var(--navy) 46%, var(--green-ink) 78%, var(--green) 100%);
+}
+
+/* the spark: one dot descending the rail on a loop. It is the only thing that
+   moves at rest, and it moves in the direction the steps are meant to be
+   read. */
+.fk__spark {
+  position: absolute;
+  left: 19px;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(128, 195, 74, .22);
+  animation: fkSpark 7s ease-in-out infinite;
+}
+
+.fk-step {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.fk-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 8px rgba(20, 60, 102, .07);
+  color: var(--muted);
+  transition: transform .3s var(--ease), border-color .3s var(--ease),
+              color .3s var(--ease),
+              box-shadow .3s var(--ease);
+}
+.fk-icon svg { inline-size: 20px; block-size: 20px; }
+.fk-step:hover .fk-icon {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 8px 18px rgba(20, 60, 102, .15);
+}
+
+/* Held neutral at rest — outlined in the border grey with the icon in muted,
+   so the four discs read as one set rather than four colours competing down
+   the rail. Each takes the colour it sits at on the rail only under the
+   cursor. */
+.fk-step:nth-child(2):hover .fk-icon { border-color: var(--blue); color: var(--blue); }
+.fk-step:nth-child(3):hover .fk-icon { border-color: var(--navy); color: var(--navy); }
+.fk-step:nth-child(4):hover .fk-icon { border-color: var(--blue); color: var(--blue); }
+.fk-step:nth-child(5):hover .fk-icon { border-color: var(--green); color: var(--green-ink); }
+
+.fk-card {
+  min-width: 0;
+  padding: 11px 15px;
+  border-radius: var(--r);
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .07), 0 8px 20px rgba(20, 40, 80, .08);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.fk-step:hover .fk-card {
+  transform: translateX(3px);
+  box-shadow: 0 1px 3px rgba(20, 40, 80, .08), 0 14px 28px rgba(20, 40, 80, .13);
+}
+.fk-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.fk-note {
+  margin-top: 3px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--faint);
+}
+
+/* Down the rail and back to the top. The hold at each end keeps it from
+   reading as a shuttle. */
+@keyframes fkSpark {
+  0%, 6%    { top: 38px; opacity: 0; }
+  12%       { opacity: 1; }
+  88%       { opacity: 1; }
+  94%, 100% { top: calc(100% - 48px); opacity: 0; }
+}
+.hero h1 {
+  font-size: clamp(32px, 4.2vw, 48px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.06;
+  letter-spacing: -1.8px;
+  /* The break is forced in the markup rather than left to the measure, so the
+     headline reads "Blog Writing for SEO" over "and AI Search" at every width
+     the two halves fit on their own. The measure only caps: at 62px it gives
+     778px, and the longer half needs 648px. */
+  max-width: 24ch;
+  margin-bottom: 18px;
+}
+.hero h1 em { font-style: normal; color: var(--green-dark); }
+.hero-deck {
+  font-size: clamp(21px, 2.4vw, 30px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+  /* was 19ch — the deck broke over three lines in the narrow column. */
+  max-width: 34ch;
+  /* No rule under the deck. The size and weight already separate it from the
+     paragraph below; a hairline on top of that reads as a seam in a band
+     that is meant to run uninterrupted. */
+  margin-bottom: 22px;
+}
+
+/* The 1000px cap is inert now — the copy column is about 558px wide, so the
+   column is what sets the measure. At 18px that is roughly 59 characters a
+   line, and the copy is 130, so the lead runs to three lines rather than the
+   two it held when the hero was full width. Restoring two would need a
+   612px column, which would leave the visual too little room. */
+.hero p.lead {
+  font-size: 18px;
+  max-width: 1000px;
+  text-wrap: balance;
+}
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 32px; }
+.hero-sub {
+  /* No rule over this line either. The hero-deck lost its own separator by
+     request, and the sheet's default for this element carried a second one;
+     with the element now in the markup that line would have come back. */
+  margin-top: 28px;
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray-text);
+  font-weight: 500;
+}
+
+/* --- Approach wash: the hero's own green/blue gradient, reused above
+       each navy band. Sits in the white section that precedes the band,
+       anchored at the boundary and fading upward as it rises — so the
+       dark band appears to cast its color up into the page above it.
+       Static by default (no keyframes): this sits right above a CTA,
+       not behind a stretch of body copy, but it's easy to animate to
+       fully match the hero wash if you want more life in it. --- */
+section.band.navy {
+  position: relative;
+  isolation: isolate;
+}
+section.band.navy::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 240px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(260px circle at 18% 100%, rgba(128,195,74,0.34), transparent 70%),
+    radial-gradient(260px circle at 82% 100%, rgba(46,140,214,0.28), transparent 70%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 90%);
+          mask-image: linear-gradient(to top, #000 0%, transparent 90%);
+}
+section.band.navy > .wrap { position: relative; z-index: 1; }
+
+/* --- Closing CTA: the Custom Web Design page's #cta ground. Same gradient
+       (--cta-band) with the same dot field laid over it.
+
+       The reference paints the dots with a ::before. That pseudo-element is
+       already spoken for here — it carries the wash that rises out of every
+       navy band into the section above — so the dots ride as a second
+       background layer instead. Same result, no collision, and the wash
+       above the band keeps working. --- */
+section.band.navy.final-cta {
+  background-image:
+    radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    var(--cta-band);
+  background-size: 24px 24px, auto;
+}
+
+/* --- The three-jobs band takes the reference's credibility ground: the same
+       deep blue rake and the same 26px dot field. Dots ride as a background
+       layer for the same reason as the CTA above — ::before is already
+       carrying the wash that rises out of every navy band. --- */
+section.band.navy.deep {
+  background-image:
+    radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(160deg,
+      #205fa6 0%, #1d569a 28%, #164784 47%,
+      #113659 65%, #0d2748 83%, #0a1c38 100%);
+  background-size: 26px 26px, auto;
+}
+
+/* Wide enough to hold the copy in two lines rather than three; balance then
+   evens the pair out instead of leaving a short tail. */
+.final p.lead {
+  max-width: 980px;
+  text-wrap: balance;
+}
+
+/* --- EXPERIMENT: unified background. All light bands match the hero's
+       white; navy bands untouched. Hairline top rules keep section
+       boundaries readable now that the color alternation is gone. --- */
+section.band.gray {
+  background: var(--white);
+  border-top: 1px solid var(--gray-mid);
+  border-bottom: none;
+}
+section.band.white + section.band.white,
+section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
+
+/* --- The one exception to the hairlines above: the band directly under the
+       hero. It opens on exactly the colour the hero's ramp ends on and then
+       runs back to white before its own foot, so the whole stretch from the
+       hero down to the third section carries no visible edge. Has to sit
+       after the rules above — same specificity, so source order decides. --- */
+.hero + section.band {
+  border-top: 0;
+  background: linear-gradient(180deg,
+    var(--band-tint) 0%,
+    var(--white) 55%,
+    var(--white) 100%);
+}
+
+/* --- Eyebrows: larger than the shared 11px. Bump the dot to match so the
+       proportion holds. --- */
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: 1.6px;
+  font-weight: 800;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  width: 16px; height: 16px;
+  border-radius: 0;
+  box-shadow: none;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13.85 7.05 L14.12 4.15 L17.88 4.15 L18.15 7.05 L20.81 8.16 L23.05 6.29 L25.71 8.95 L23.84 11.19 L24.95 13.85 L27.85 14.12 L27.85 17.88 L24.95 18.15 L23.84 20.81 L25.71 23.05 L23.05 25.71 L20.81 23.84 L18.15 24.95 L17.88 27.85 L14.12 27.85 L13.85 24.95 L11.19 23.84 L8.95 25.71 L6.29 23.05 L8.16 20.81 L7.05 18.15 L4.15 17.88 L4.15 14.12 L7.05 13.85 L8.16 11.19 L6.29 8.95 L8.95 6.29 L11.19 8.16 Z M16 12.00 A4.0 4.0 0 1 0 16 20.00 A4.0 4.0 0 1 0 16 12.00 Z' fill='%2380C34A' fill-rule='evenodd'/></svg>") center / contain no-repeat;
+}
+.eyebrow.on-dark::before {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13.85 7.05 L14.12 4.15 L17.88 4.15 L18.15 7.05 L20.81 8.16 L23.05 6.29 L25.71 8.95 L23.84 11.19 L24.95 13.85 L27.85 14.12 L27.85 17.88 L24.95 18.15 L23.84 20.81 L25.71 23.05 L23.05 25.71 L20.81 23.84 L18.15 24.95 L17.88 27.85 L14.12 27.85 L13.85 24.95 L11.19 23.84 L8.95 25.71 L6.29 23.05 L8.16 20.81 L7.05 18.15 L4.15 17.88 L4.15 14.12 L7.05 13.85 L8.16 11.19 L6.29 8.95 L8.95 6.29 L11.19 8.16 Z M16 12.00 A4.0 4.0 0 1 0 16 20.00 A4.0 4.0 0 1 0 16 12.00 Z' fill='%238FD154' fill-rule='evenodd'/></svg>") center / contain no-repeat;
+}
+
+/* --- The Plan's measure.
+       920px was originally derived from a two-line requirement across four
+       short paragraphs. Those are now two long ones — 345 and 273 characters
+       at 17px, which land on four lines and three — so that constraint no
+       longer applies and the number is kept only so this section's measure
+       stays in step with the hero and the answer box above it.
+
+       Worth knowing: at 17px this runs to roughly 110 characters a line,
+       well past the 45-75 usually recommended for body copy. That was a fair
+       trade when it bought a clean two-line break; now it buys nothing, so
+       narrowing it is a live option.
+
+       Deliberately not balanced: filling each line to the measure is what
+       keeps the ragged edge shallow. --- */
+#blog-writing p.lead { max-width: 920px; }
+
+/* --- No rule over this button pair either, same as the three-jobs band: two
+       buttons already read as a block of their own and need no bar to set
+       them apart from the fine print above.
+
+       The 28px of padding went with it. That space existed to hold the copy
+       off the rule; with no rule to clear it was just holding the buttons
+       down, which left the row floating away from the section it belongs to.
+       48px of margin still separates it.
+
+       Pricing gets the same treatment, single button and all. --- */
+#blog-writing .lb-cta,
+#plans .lb-cta { border-top: 0; padding-top: 0; }
+
+/* --- Section anchor offset --- */
+/* The header is sticky now, so the clearance comes from the root's
+   scroll-padding-top (nav height + 16px). This only adds a little breathing
+   room on top of it; 24px here would stack into a visible overshoot. */
+.anchor { scroll-margin-top: 8px; }
+
+/* --- Criteria grid: neutral two-column divided list (not benefits) --- */
+.lb-crit {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  margin-top: 28px;
+  max-width: 860px;
+}
+/* Each row carries its own icon now, in place of the blue dash that used to
+   sit where the icon does. Flex rather than the old absolute marker, so the
+   icon stays put against text that wraps to a second line. */
+.lb-crit li {
+  font-size: 15.5px; line-height: 1.55; color: var(--body-text);
+  padding: 14px 0;
+  border-top: 1px solid var(--gray-mid);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lb-crit li svg {
+  flex: 0 0 auto;
+  color: var(--blue);
+}
+
+/* --- Two-column checklist wrapper --- */
+.lb-cols2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 44px; }
+.lb-cols2 .checklist { margin-top: 24px; max-width: 100%; }
+
+/* --- Navy trio: the three jobs --- */
+/* Ruled top and bottom, the way the reference's credibility row is set — a
+   rule only at the top left the row hanging open at its foot. */
+.lb-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 48px;
+  border-block: 1px solid rgba(255,255,255,0.18);
+}
+.lb-job {
+  position: relative;
+  padding: 34px 32px 34px 0;
+  border-right: 1px solid rgba(255,255,255,0.18);
+}
+.lb-job:not(:first-child) { padding-left: 32px; }
+.lb-job:last-child { border-right: none; padding-right: 0; }
+
+/* A pool of green light rises behind the column you are looking at. Straight
+   from the reference's .stat — same geometry, same falloff. */
+.lb-job::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(76% 72% at 50% 34%, rgba(128,195,74,.30), transparent 74%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s var(--ease);
+}
+.lb-job:hover::before { opacity: 1; }
+/* the pool is behind the column's own content, not over it */
+.lb-job-num, .lb-job h3, .lb-job p { position: relative; }
+
+.lb-job h3 {
+  font-size: 18px; font-weight: 800; color: var(--white);
+  line-height: 1.3; letter-spacing: -0.2px; margin-bottom: 14px;
+}
+/* All three numbers now read the same at rest. The third used to be green,
+   which left it with nowhere to go on hover — green is the response here,
+   not a decoration. */
+.lb-job-num {
+  display: block;
+  font-size: 30px; font-weight: 800; letter-spacing: -1.4px;
+  line-height: 1;
+  color: rgba(255,255,255,0.32);
+  margin-bottom: 18px;
+  transition: transform .4s var(--ease), color .4s var(--ease);
+}
+.lb-job:hover .lb-job-num { transform: translateY(-5px); color: var(--green); }
+.lb-job p {
+  font-size: 15.5px; line-height: 1.7; color: rgba(255,255,255,0.75);
+  transition: color .4s var(--ease);
+}
+.lb-job:hover p { color: #fff; }
+
+/* Has to live here rather than in the shared sheet's reduced-motion block:
+   that block comes earlier in the cascade, so at equal specificity the hover
+   rules above would win and the movement would play anyway. The colour
+   changes stay — it is the travel that is the problem. */
+@media (prefers-reduced-motion: reduce) {
+  .lb-job::before, .lb-job:hover::before { transition: none; }
+  .lb-job-num { transition: color .4s var(--ease); }
+  .lb-job:hover .lb-job-num { transform: none; }
+}
+.lb-trio-close {
+  margin-top: 44px; padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  font-size: 19px; font-weight: 700; color: var(--white);
+  line-height: 1.5; max-width: 760px;
+}
+
+/* --- Pricing: asymmetric 2-up, monthly plans stacked left --- */
+.lb-pricing { margin-top: 48px; max-width: 560px; }
+.lb-price-stack { display: flex; flex-direction: column; gap: 24px; }
+.lb-price {
+  background: var(--white);
+  border: 1px solid var(--gray-mid);
+  border-radius: 14px;
+  padding: 32px 32px 34px;
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.lb-price.feature {
+  border: 2px solid var(--green);
+  box-shadow: 0 8px 32px rgba(20,60,102,0.1);
+  height: 100%;
+}
+/* --- Card head and figure, taken from the host-tier block on the Drupal and
+       WordPress page: a small uppercase name over a large figure, so the
+       number is what the eye lands on rather than the service name repeated
+       from the heading above it.
+
+       One change from that page. There "starting at" sits on the baseline to
+       the left of the figure, inside the same flex row; here it gets its own
+       line above it, which is what the annotation on the screenshot asked
+       for. It also stops the qualifier from competing with the number for the
+       same horizontal space. --- */
+.lb-price h3 {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+.lb-amount {
+  display: block;
+  margin-top: 14px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--gray-mid);
+}
+.lb-from {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gray-text);
+  margin-bottom: 2px;
+}
+.lb-num {
+  font-size: clamp(36px, 3.2vw, 48px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+.lb-per {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-text);
+  margin-left: 5px;
+}
+.lb-price p { font-size: 15.5px; line-height: 1.7; color: var(--body-text); margin-bottom: 14px; }
+.lb-price p:last-child { margin-bottom: 0; }
+.lb-market {
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: var(--gray-text) !important;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-mid);
+}
+.lb-pricing-cta { margin-top: 40px; }
+
+/* --- Service 01 illustration: article -> the pages it supports.
+       HTML + CSS so the labels are real text (16px, reflows on mobile);
+       SVG layer carries only the connector curves. --- */
+.ill-blog {
+  position: relative;
+  display: grid;
+  grid-template-columns: 236px 168px 1fr;
+  align-items: center;
+  padding: 8px 0;
+  max-width: 820px;
+  margin-top: 44px;
+}
+.ill-doc {
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: var(--white);
+  padding: 20px;
+}
+.ill-doc-icon { display: block; margin-bottom: 14px; }
+.ill-doc-label {
+  display: block;
+  font-size: 16px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.2px; margin-bottom: 14px;
+}
+.ill-bars { display: flex; flex-direction: column; gap: 7px; }
+.ill-bars i { display: block; height: 7px; border-radius: 4px; background: #dce9f8; }
+.ill-bars i:nth-child(1) { width: 100%; }
+.ill-bars i:nth-child(2) { width: 82%; }
+.ill-bars i:nth-child(3) { width: 60%; }
+
+.ill-wires { display: block; width: 100%; height: 100%; }
+
+.ill-targets { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.ill-targets li {
+  display: flex; align-items: flex-start; gap: 12px;
+  border: 1.5px solid var(--navy);
+  border-radius: 10px;
+  background: var(--white);
+  padding: 14px 18px;
+}
+.ill-targets svg { margin-top: 2px; }
+.ill-targets strong {
+  display: block;
+  font-size: 16px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.2px; line-height: 1.3;
+}
+.ill-targets em {
+  display: block; font-style: normal;
+  font-size: 14px; font-weight: 600; color: var(--green-dark);
+  line-height: 1.4; margin-top: 3px;
+}
+.ill-targets svg { flex: 0 0 auto; }
+
+/* --- The diagram builds itself in the order it is meant to be read: the
+       article first, then the wires running out of it, then the pages they
+       land on. Gated on .is-revealed, which the reveal observer sets once,
+       so it plays when the figure is reached and never again.
+
+       The figure itself is exempt from the reveal rise — a diagram that
+       slides in whole and then assembles reads as two separate events. Its
+       parts do the work instead. --- */
+[data-anim="on"] .fig.reveal { opacity: 1; transform: none; transition: none; }
+
+[data-anim="on"] .ill-doc,
+[data-anim="on"] .ill-targets li { opacity: 0; }
+[data-anim="on"] .ill-wires circle { opacity: 0; }
+/* pathLength="1" on each wire normalises them, so one dash value draws all
+   three regardless of their real length. */
+[data-anim="on"] .ill-wires path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+[data-anim="on"] .is-revealed .ill-doc {
+  animation: ill-from-left .5s var(--ease) .05s both;
+}
+[data-anim="on"] .is-revealed .ill-wires path {
+  animation: ill-draw .6s var(--ease) .35s both;
+}
+[data-anim="on"] .is-revealed .ill-wires circle { animation: ill-pop .3s var(--ease) both; }
+/* the source node sits with the article; the three landing nodes wait for
+   their wire to arrive */
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(1) { animation-delay: .3s; }
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(2) { animation-delay: .85s; }
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(3) { animation-delay: .92s; }
+[data-anim="on"] .is-revealed .ill-wires circle:nth-of-type(4) { animation-delay: .99s; }
+
+[data-anim="on"] .is-revealed .ill-targets li {
+  animation: ill-from-right .5s var(--ease) both;
+}
+[data-anim="on"] .is-revealed .ill-targets li:nth-child(1) { animation-delay: .70s; }
+[data-anim="on"] .is-revealed .ill-targets li:nth-child(2) { animation-delay: .82s; }
+[data-anim="on"] .is-revealed .ill-targets li:nth-child(3) { animation-delay: .94s; }
+
+@keyframes ill-from-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ill-from-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ill-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes ill-pop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Nothing travels or draws; the diagram is simply there. */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim="on"] .ill-doc,
+  [data-anim="on"] .ill-targets li,
+  [data-anim="on"] .ill-wires circle { opacity: 1; }
+  [data-anim="on"] .ill-wires path { stroke-dasharray: none; stroke-dashoffset: 0; }
+  [data-anim="on"] .is-revealed .ill-doc,
+  [data-anim="on"] .is-revealed .ill-targets li,
+  [data-anim="on"] .is-revealed .ill-wires circle,
+  [data-anim="on"] .is-revealed .ill-wires path { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .ill-blog { grid-template-columns: 1fr; gap: 20px; max-width: 100%; }
+  .ill-wires-cell { display: none; }
+  .ill-doc { max-width: 100%; }
+}
+
+/* --- Image placeholders. Overrides the shared .img-ph gray fill with a
+       blue-light tint per brand rule (no light gray surfaces). --- */
+.img-ph {
+  background: repeating-linear-gradient(135deg, #e8f2fd, #e8f2fd 12px, #dce9f8 12px, #dce9f8 24px);
+  border: 1px dashed #7ba7d4;
+  color: var(--navy);
+  line-height: 1.5;
+  max-width: 100%;
+}
+.img-ph span.tag { color: var(--blue); }
+.img-ph .ph-note { font-size: 12.5px; font-weight: 500; max-width: 46ch; opacity: 0.85; }
+.img-ph.ratio-wide { aspect-ratio: 16 / 6; min-height: 180px; }
+figure.fig { margin: 44px 0 0; max-width: 900px; }
+figure.fig figcaption {
+  font-size: 14px; font-weight: 600; color: var(--gray-text);
+  margin-top: 12px; padding-left: 2px;
+}
+
+/* --- In-band subhead (no hanging indent, unlike shared .sub h3) --- */
+.lb-h3 {
+  font-size: 21px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.4px; line-height: 1.25;
+  margin: 44px 0 18px;
+}
+
+/* --- Section-level CTA: hairline rule, primary + secondary.
+       Identical on all three service sections so the pattern is learnable. --- */
+.lb-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  max-width: 860px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--gray-mid);
+}
+/* No rule over this pair. The trio above already closes on its own bottom
+   rule, so a second hairline 48px under it read as a double line — and now
+   that Get pricing is a button too, the two sit as a solid block that needs
+   no bar to separate it. The padding stays, so the spacing is unchanged. */
+.lb-cta.on-dark { border-top: 0; }
+.lb-cta.on-dark .inline-link { color: #ffffff; }
+.lb-cta.on-dark .inline-link:hover { color: var(--green); }
+.lb-cta .lb-cta-note {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--gray-text);
+  font-weight: 500;
+}
+
+/* --- Outlined answer box: full green outline. Definition boxes read green,
+       argument boxes read navy — same family, different job. --- */
+/* Holds the answer in three lines. 299 characters at 18px need about 940px of
+   text width, and the box has to stay inside the 1100px shell.
+
+   The side padding comes down with the box: at 1020px wide, 36px a side would
+   leave 948px inside — eight pixels over the minimum, which is a single
+   character of margin and one rendering difference away from a fourth line.
+   26px a side leaves 968px, about three characters of room. It cannot
+   collapse to two lines either: that needs 1408px. */
+.lb-answer {
+  border: 2px solid var(--green);
+  border-radius: 10px;
+  background: var(--white);
+  padding: 32px 26px;
+  max-width: 1020px;
+}
+.lb-answer p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--body-text);
+  /* No balancing here. Evening three lines out shortens all of them, which
+     inside a bordered box reads as the box standing off its own text — the
+     gap is on the right of every line, not just the last. Filling each line
+     to the measure puts the text back against the border. */
+}
+.lb-answer p + p { margin-top: 16px; }
+.lb-answer strong { color: var(--navy); font-weight: 800; }
+/* Green-rule emphasis — matches the Custom Web Design page treatment.
+   Navy text, 3px green rule beneath. Wraps correctly across lines. */
+.hl {
+  font-weight: 700;
+  color: var(--navy);
+  background-image: linear-gradient(var(--green), var(--green));
+  background-size: 100% 3px;
+  background-position: 0 calc(100% - 1px);
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+}
+
+/* --- Outlined callout: full navy outline, edge-to-edge inner rule.
+       Replaces the left-accent-bar treatment. Setup line reads quiet,
+       resolution line carries the weight. --- */
+.lb-outline {
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  background: var(--white);
+  padding: 34px 38px;
+  margin-top: 40px;
+  max-width: 820px;
+}
+.lb-outline .setup {
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 600;
+  color: var(--body-text);
+}
+.lb-outline .resolve {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin: 26px -38px 0;
+  padding: 26px 38px 0;
+  border-top: 1px solid var(--gray-mid);
+}
+.lb-outline .resolve:only-child { margin: 0; padding: 0; border-top: none; }
+
+/* --- Fine print: small note, not a feature --- */
+
+/* --- Related services: a quiet cross-link strip, not its own section. Ties
+       this page into the three-part service architecture for readers and
+       crawlers alike, without competing with Pricing. --- */
+.lb-related {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-mid);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-text);
+  max-width: 720px;
+}
+.lb-related a { font-weight: 700; }
+/* .inline-link carries a 20px top margin for standalone use, which drops the
+   link off the baseline when it sits mid-sentence. Neutralised here only. */
+.lb-related .inline-link { margin-top: 0; display: inline; }
+.lb-fineprint {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--gray-text);
+  max-width: 720px;
+  margin-top: 32px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1000px) {
+  /* The copy column carries the measures now, so the headline and deck only
+     need capping once the grid collapses. */
+  .hero h1 { max-width: 18ch; }
+  .hero-deck { max-width: 26ch; }
+}
+
+/* One column below this. The copy stays first: on a phone the headline should
+   be the thing that leads, which is why the branding page's order swap is not
+   carried over. The board narrows rather than shrinking its tiles. */
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 420px; }
+  .fk { max-width: 360px; }
+}
+
+@media (max-width: 900px) {
+  .lb-trio { grid-template-columns: 1fr; }
+  .lb-job {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    padding: 28px 0;
+  }
+  .lb-job:not(:first-child) { padding-left: 0; }
+  .lb-job:last-child { border-bottom: none; }
+  .lb-pricing { grid-template-columns: 1fr; }
+  .lb-price.feature { height: auto; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 64px 0 56px; }
+  .lb-cols2, .lb-crit { grid-template-columns: 1fr; }
+  .sub h3 { padding-left: 0; text-indent: 0; }
+  .sub h3 + p { padding-left: 0; }
+  /* Every button in a CTA row goes full width, not just the primary. The rule
+     named .btn-green and .btn-outline back when those were the only two in
+     play; the outline and ghost secondaries added since were being left at
+     their natural width beside a full-width green one, which on a phone reads
+     as a mistake rather than a hierarchy. Three rows were affected. */
+  .hero-ctas .btn-green, .hero-ctas .btn-outline, .hero-ctas .btn-ghost,
+  .lb-cta .btn-green, .lb-cta .btn-outline, .lb-cta .btn-ghost {
+    width: 100%;
+    text-align: center;
+  }
+  .lb-cta { gap: 18px; }
+  .lb-price { padding: 26px 22px 28px; }
+}
+

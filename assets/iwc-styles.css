@@ -1,0 +1,871 @@
+/* ============================================================
+   IWC Shared Stylesheet
+   Design system for ImageWorks Creative pages
+   ------------------------------------------------------------
+   Include on any IWC page:
+     <link rel="stylesheet" href="/assets/iwc-styles.css">
+   Font: Plus Jakarta Sans is self-hosted by the foundation sheet above
+   (@font-face, one variable woff2). No third-party request is needed.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. TOKENS - brand colors, always use vars
+   ------------------------------------------------------------ */
+:root {
+  --navy: #143c66;
+  --blue: #1266b5;
+  --blue-dark: #2d59b5;
+  --blue-light: #e8f3fc;
+  --green: #80C34A;
+  --green-dark: #4a8628;
+  --green-light: #eef6e8;
+  --gray-bg: #f4f5f7;
+  --gray-mid: #e2e6ec;
+  --gray-text: #6b7a94;
+  --body-text: #344054;
+  --white: #ffffff;
+}
+
+
+/* ------------------------------------------------------------
+   2. BASE - reset, body type
+   ------------------------------------------------------------ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--body-text);
+  background: var(--white);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Was a hard 1140px / 40px. Now deferred to the shared tokens so this page's
+   measure lines up with the nav, the footer and the rest of the site. */
+.wrap { max-width: var(--shell); margin: 0 auto; padding-inline: var(--gutter); }
+
+
+/* ------------------------------------------------------------
+   3. EYEBROW - green dot with glow ring + navy uppercase
+   ------------------------------------------------------------ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 18px;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px var(--green-light);
+  flex-shrink: 0;
+}
+.eyebrow.on-dark { color: rgba(255,255,255,0.9); }
+
+
+/* ------------------------------------------------------------
+   4. BANDS - alternating white / gray / navy sections
+   Rule: never place two same-color bands adjacent
+   ------------------------------------------------------------ */
+section.band { padding: 80px 0; }
+section.band.white { background: var(--white); }
+section.band.gray  { background: var(--gray-bg); border-top: 1px solid var(--gray-mid); border-bottom: 1px solid var(--gray-mid); }
+section.band.navy  { background: var(--navy); }
+
+
+/* ------------------------------------------------------------
+   5. TYPOGRAPHY - headings, lead paragraphs
+   ------------------------------------------------------------ */
+h2.sec {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+section.band.navy h2.sec { color: var(--white); }
+h2.sec em { font-style: normal; color: var(--green-dark); }
+section.band.navy h2.sec em { color: var(--green); }
+
+p.lead {
+  font-size: 17px;
+  color: var(--body-text);
+  line-height: 1.75;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+p.lead:last-child { margin-bottom: 0; }
+p.lead strong { color: var(--navy); font-weight: 700; }
+p.lead em { font-style: italic; }
+section.band.navy p.lead { color: rgba(255,255,255,0.75); }
+section.band.navy p.lead strong { color: var(--white); }
+
+
+/* ------------------------------------------------------------
+   6. BUTTONS
+   ------------------------------------------------------------ */
+.btn-green {
+  background: var(--green);
+  color: var(--white);
+  font-size: 15px; font-weight: 700;
+  padding: 14px 28px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
+  text-decoration: none;
+  transition: background .15s;
+  display: inline-block;
+}
+.btn-green:hover { background: var(--green-dark); }
+
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+  font-size: 15px; font-weight: 700;
+  padding: 14px 28px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
+  text-decoration: none;
+  transition: background .15s;
+  display: inline-block;
+}
+.btn-navy:hover { background: #0f2e50; }
+
+/* On light backgrounds */
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  font-size: 15px; font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
+  border: 1.5px solid var(--gray-mid);
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--navy); }
+
+/* On dark backgrounds */
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  font-size: 15px; font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--r);   /* 2px - matches the Custom Web Design buttons */
+  border: 1.5px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  transition: border-color .15s, background .15s;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
+
+
+/* ------------------------------------------------------------
+   7. INLINE LINK - small text link with arrow
+   ------------------------------------------------------------ */
+.inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px; font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  margin-top: 20px;
+  transition: gap .15s;
+}
+.inline-link:hover { gap: 9px; }
+
+
+/* ------------------------------------------------------------
+   8. QUOTE LINE - quiet inline CTA text
+   Usage: <p class="quote-line">Ready to discuss your project? <a href="#">Request a quote →</a></p>
+   ------------------------------------------------------------ */
+.quote-line { font-size: 18px; font-weight: 600; color: var(--navy); }
+.quote-line a {
+  color: var(--green-dark);
+  font-weight: 800;
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.quote-line a:hover { color: var(--green); }
+
+
+/* ------------------------------------------------------------
+   9. SKIP LINK - subtle in-page anchor nudge
+   ------------------------------------------------------------ */
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--gray-text);
+  text-decoration: none;
+  margin-top: 32px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-mid);
+  transition: color .15s, gap .15s, border-color .15s;
+}
+.skip-link:hover { color: var(--navy); gap: 10px; border-color: var(--navy); }
+
+
+/* ------------------------------------------------------------
+   10. ANSWER BLOCK - green-accented callout for definitions / AEO answers
+   ------------------------------------------------------------ */
+.answer {
+  background: var(--green-light);
+  border-left: 4px solid var(--green);
+  border-radius: 0 10px 10px 0;
+  padding: 32px 36px;
+  max-width: 820px;
+}
+.answer p { font-size: 17px; line-height: 1.75; color: var(--body-text); margin-bottom: 14px; }
+.answer p:last-child { margin-bottom: 0; }
+.answer p strong { color: var(--navy); font-weight: 700; }
+
+
+/* ------------------------------------------------------------
+   11. SUBSECTION - numbered subheads with hanging indent
+   When h3 uses "1. Text" the paragraph aligns with the TEXT,
+   not the number. Rule locked in — do not change.
+   ------------------------------------------------------------ */
+.sub { margin-top: 36px; max-width: 780px; }
+.sub h3 {
+  font-size: 20px; font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 12px;
+  padding-left: 34px;
+  text-indent: -34px;
+}
+.sub h3 + p { padding-left: 34px; }
+.sub p { font-size: 16px; line-height: 1.75; color: var(--body-text); }
+.sub p em { font-style: italic; }
+
+
+/* ------------------------------------------------------------
+   12. POINTS LIST - divided rows with bold lead-in
+   Usage: <ul class="points"><li><strong>Title.</strong> Description.</li></ul>
+   ------------------------------------------------------------ */
+.points { list-style: none; max-width: 840px; margin-top: 28px; }
+.points li {
+  padding: 20px 0;
+  border-top: 1px solid var(--gray-mid);
+  font-size: 16px; line-height: 1.7;
+  color: var(--body-text);
+}
+.points li:last-child { border-bottom: 1px solid var(--gray-mid); }
+.points li strong { color: var(--navy); font-weight: 700; }
+section.band.navy .points li { border-top-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); }
+section.band.navy .points li:last-child { border-bottom-color: rgba(255,255,255,0.12); }
+section.band.navy .points li strong { color: var(--green); font-weight: 700; }
+
+
+/* ------------------------------------------------------------
+   13. CHECKLIST - green circled check + short benefit line
+   ------------------------------------------------------------ */
+.checklist { list-style: none; margin-top: 36px; max-width: 720px; display: flex; flex-direction: column; gap: 14px; }
+.checklist li {
+  font-size: 16px; line-height: 1.55;
+  color: var(--body-text); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 13px;
+}
+.checklist li::before {
+  content: '✓';
+  color: var(--green-dark); background: var(--green-light);
+  font-weight: 800; font-size: 12px;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   14. SIGNALS LIST - divided rows with bold end-word emphasis
+   Usage: <ul class="signals"><li>This company is <strong>established.</strong></li></ul>
+   ------------------------------------------------------------ */
+.signals { list-style: none; margin-top: 32px; max-width: 640px; display: flex; flex-direction: column; }
+.signals li {
+  font-size: 17px; line-height: 1.5;
+  color: var(--body-text);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-mid);
+  display: flex; align-items: center; gap: 14px;
+}
+.signals li:first-child { border-top: 1px solid var(--gray-mid); }
+.signals li::before {
+  content: '✓';
+  color: var(--green-dark); background: var(--green-light);
+  font-weight: 800; font-size: 12px;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.signals li strong { color: var(--navy); font-weight: 800; }
+
+
+/* ------------------------------------------------------------
+   15. ARGUMENT CALLOUT - stacked pull-quote for sales pages
+   ------------------------------------------------------------ */
+.argument-callout {
+  border-left: 4px solid var(--green);
+  background: var(--white);
+  border-radius: 0 12px 12px 0;
+  padding: 32px 36px;
+  margin-top: 36px;
+  max-width: 820px;
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.argument-callout p { font-size: 16.5px; line-height: 1.75; color: var(--body-text); margin-bottom: 14px; }
+.argument-callout p:last-child { margin-bottom: 0; }
+.argument-callout p strong { color: var(--navy); font-weight: 800; font-size: 18px; }
+.argument-callout .argument-close {
+  font-size: 18px; font-weight: 700; color: var(--navy);
+  border-top: 1px solid var(--gray-mid);
+  padding-top: 16px; margin-top: 4px;
+}
+
+
+/* ------------------------------------------------------------
+   16. COMPARE - side-by-side "shortcut vs. real thing" cards
+   The custom side gets a green border and shadow to visually win
+   ------------------------------------------------------------ */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
+.compare-col { border-radius: 14px; padding: 34px 32px; border: 1px solid var(--gray-mid); }
+.compare-col.shortcut { background: var(--gray-bg); }
+.compare-col.custom {
+  background: var(--white);
+  border: 2px solid var(--green);
+  box-shadow: 0 8px 32px rgba(20,60,102,0.1);
+}
+.compare-head { margin-bottom: 24px; }
+.compare-tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  margin-bottom: 14px;
+}
+.tag-red   { background: #fbe9e9; color: #b23b3b; }
+.tag-green { background: var(--green-light); color: var(--green-dark); }
+.compare-head h3 { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; }
+.compare-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.compare-list li {
+  font-size: 15px; line-height: 1.5; color: var(--body-text);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.compare-list li em { font-style: italic; }
+.compare-col.shortcut .compare-list li::before {
+  content: '✕'; color: #c25050; font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 2px;
+}
+.compare-col.custom .compare-list li::before {
+  content: '✓'; color: var(--green-dark); font-weight: 800; font-size: 13px; flex-shrink: 0; margin-top: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   17. HOOD TABLE - contained spec chart (blue-title rail + white desc)
+   ------------------------------------------------------------ */
+.hood-table {
+  margin-top: 40px;
+  max-width: 880px;
+  border: 1px solid var(--gray-mid);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.hood-row { display: grid; grid-template-columns: 240px 1fr; border-bottom: 1px solid var(--gray-mid); }
+.hood-row:last-child { border-bottom: none; }
+.hood-row dt {
+  background: var(--blue-light);
+  padding: 18px 24px;
+  font-size: 15px; font-weight: 800; color: var(--navy);
+  letter-spacing: -0.2px;
+  display: flex; align-items: center;
+  border-right: 1px solid var(--gray-mid);
+}
+.hood-row dd {
+  padding: 18px 26px;
+  font-size: 15px; line-height: 1.6; color: var(--body-text);
+  margin: 0;
+  display: flex; align-items: center;
+}
+
+
+/* ------------------------------------------------------------
+   18. PLATFORM SPLIT - one bordered panel, two halves side-by-side
+   For "Drupal vs WordPress" or any two-option comparison
+   ------------------------------------------------------------ */
+.platform-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--gray-mid);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 40px;
+  box-shadow: 0 2px 12px rgba(20,60,102,0.05);
+}
+.platform-half { background: var(--white); padding: 44px 42px; border-top: 4px solid transparent; }
+.half-drupal { border-top-color: #009CDE; border-right: 1px solid var(--gray-mid); }
+.half-wp     { border-top-color: #21759B; }
+.split-badge {
+  display: inline-block;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px; border-radius: 5px;
+  margin-bottom: 16px;
+}
+.badge-drupal { background: #e5f6ff; color: #007aad; }
+.badge-wp     { background: #e8f1f7; color: #1a5f7a; }
+.platform-half h3 { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; margin-bottom: 12px; }
+.platform-half p  { font-size: 15px; line-height: 1.7; color: var(--body-text); margin-bottom: 12px; }
+.platform-half p em { font-style: italic; }
+
+
+/* ------------------------------------------------------------
+   19. STATS BAR - four-up credibility grid with caddycorner colors
+   Usage: pair .blue and .green so they alternate diagonally.
+   ------------------------------------------------------------ */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+.stat {
+  border-radius: 12px;
+  padding: 30px 26px;
+  display: flex; flex-direction: column; gap: 8px;
+  border: 1px solid var(--gray-mid);
+}
+.stat.blue  { background: var(--blue-light);  border-color: #c5dcf0; }
+.stat.green { background: var(--green-light); border-color: #c3e6a0; }
+.stat-num   { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; line-height: 1; color: var(--navy); }
+.stat.green .stat-num { color: var(--green-dark); }
+.stat-label { font-size: 12.5px; color: var(--gray-text); font-weight: 500; line-height: 1.45; }
+.stat.humanai .stat-label { color: var(--navy); font-weight: 700; font-size: 14px; }
+.stat-icons { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.stat-plus  { font-size: 16px; font-weight: 700; color: var(--navy); opacity: 0.5; }
+
+
+/* ------------------------------------------------------------
+   20. HERO WASH - three drifting washes of brand colour on a light ground
+   Usage:
+     <section class="hero">
+       <div class="hero-wash" aria-hidden="true">
+         <span class="hero-wash__g"></span>
+         <span class="hero-wash__b"></span>
+         <span class="hero-wash__s"></span>
+       </div>
+       <div class="wrap">...</div>
+     </section>
+   Hero must be position: relative; overflow: hidden; isolation: isolate.
+
+   One element per wash, moved by transform. Separate elements mean separate
+   clocks and separate directions - the green runs one way, the blue the other,
+   so they drift apart and back together instead of sliding as one sheet.
+
+   Pale on purpose: on a white ground anything stronger stops reading as light
+   and starts reading as decoration.
+
+   Every number is in px, not vw. What the washes sit behind is a stack of type
+   whose height barely changes with the screen; sized in viewport units they
+   would grow on a wide monitor while the copy stayed put, and the colour would
+   slide off it. `left: 50%` plus a px margin hangs each wash off the middle of
+   the page, which is the right anchor because the wrap is centred too.
+   ------------------------------------------------------------ */
+/* The layer measures what the hero measures and the mask is expressed in
+   percentages, not fixed pixels, so the fade always finishes before the clip
+   no matter how tall the hero ends up. Fully out by 88%, which leaves the
+   hero ending on the same flat tint the band below opens on. */
+.hero-wash {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  block-size: 100%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
+          mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 88%);
+}
+.hero-wash span { position: absolute; left: 50%; will-change: transform; }
+/* green: opens top-left over the headline, runs down and to the right */
+.hero-wash__g {
+  inline-size: 1015px;
+  block-size: 830px;
+  margin-left: -987px;
+  top: -315px;
+  background: radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
+  animation: heroWashG 71s linear infinite;
+}
+/* brand blue: opens top-right and runs the other way */
+.hero-wash__b {
+  inline-size: 1090px;
+  block-size: 910px;
+  margin-left: -75px;
+  top: -295px;
+  background: radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
+  animation: heroWashB 97s linear infinite;
+}
+/* sky: the low one, parked under the call to action. Slowest and widest. */
+.hero-wash__s {
+  inline-size: 1170px;
+  block-size: 860px;
+  margin-left: -545px;
+  top: 200px;
+  background: radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
+  animation: heroWashS 127s linear infinite;
+}
+/* No mobile override any more. At this size the washes already reach across a
+   narrow screen on their own — on a 375px viewport the green covers its left
+   200px, the blue its right half and the sky the whole of it — so the margins
+   that used to pull the small washes back toward the middle would now only
+   drag these off their marks. */
+
+/* Closed loops at a constant rate. Two waypoints on an ease would decelerate,
+   stop and reverse, which reads as an animation looping; four that come back
+   round read as something wandering. The three periods share no useful factor,
+   so the arrangement takes hours to recur.
+
+   Vertical only. The Y values are the original ones, one for one; X is held at
+   zero so each wash rises and falls in place instead of travelling sideways
+   across the one next to it. */
+@keyframes heroWashG {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(0, 22%, 0); }
+  50%  { transform: translate3d(0, 6%, 0); }
+  75%  { transform: translate3d(0, -14%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes heroWashB {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(0, 26%, 0); }
+  50%  { transform: translate3d(0, -8%, 0); }
+  75%  { transform: translate3d(0, -24%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes heroWashS {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(0, -18%, 0); }
+  50%  { transform: translate3d(0, 10%, 0); }
+  75%  { transform: translate3d(0, 20%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+/* A sheen crossing the surface, the way light moves over one. It rides inside
+   the wash layer rather than on the hero, so it fades out under the same mask
+   as everything else instead of cutting a diagonal across the seam. */
+.hero-wash::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(102deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.34) 50%, rgba(255,255,255,0) 70%);
+  background-repeat: no-repeat;
+  background-size: 260% 100%;
+  animation: heroSheen 47s ease-in-out infinite;
+}
+@keyframes heroSheen {
+  0%, 100% { background-position: 124% 0; }
+  50%      { background-position: -24% 0; }
+}
+
+
+/* ------------------------------------------------------------
+   21. PROCESS INFOGRAPH - horizontal 7-step timeline with phase groups
+   ------------------------------------------------------------ */
+.infograph { margin-top: 52px; }
+
+.ig-phases { display: flex; gap: 8px; margin-bottom: 0; padding: 0 4px; }
+.ig-phase {
+  position: relative;
+  padding: 10px 16px 12px;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-text);
+  border-bottom: 3px solid var(--gray-mid);
+  text-align: center;
+}
+.ig-phase:nth-child(1) { border-bottom-color: var(--green); color: var(--green-dark); }
+.ig-phase:nth-child(2) { border-bottom-color: var(--blue);  color: var(--blue); }
+.ig-phase:nth-child(3) { border-bottom-color: var(--navy);  color: var(--navy); }
+
+.ig-flow {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 40px;
+}
+.ig-flow::before {
+  content: '';
+  position: absolute;
+  top: 26px; left: 7%; right: 7%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--green) 0%, var(--green) 28%,
+    var(--blue) 30%, var(--blue) 71%,
+    var(--navy) 73%, var(--navy) 100%);
+  z-index: 0;
+  border-radius: 1px;
+}
+.ig-step { position: relative; padding: 0 8px; text-align: center; z-index: 1; color: var(--navy); }
+.ig-icon {
+  width: 54px; height: 54px;
+  background: var(--white);
+  border: 2px solid var(--gray-mid);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+  color: var(--navy);
+  position: relative; z-index: 2;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  box-shadow: 0 2px 8px rgba(20,60,102,0.06);
+}
+.ig-step:nth-child(-n+2) .ig-icon { border-color: var(--green); color: var(--green-dark); }
+.ig-step:nth-child(3) .ig-icon,
+.ig-step:nth-child(4) .ig-icon,
+.ig-step:nth-child(5) .ig-icon { border-color: var(--blue); color: var(--blue); }
+.ig-step:nth-child(6) .ig-icon,
+.ig-step:nth-child(7) .ig-icon { border-color: var(--navy); color: var(--navy); }
+.ig-step:hover .ig-icon { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 18px rgba(20,60,102,0.15); }
+
+.ig-num  { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--gray-text); margin-bottom: 4px; }
+.ig-step h3 { font-size: 13.5px; font-weight: 800; color: var(--navy); letter-spacing: -0.2px; margin-bottom: 6px; line-height: 1.25; }
+.ig-step p  { font-size: 12px; line-height: 1.5; color: var(--body-text); margin-bottom: 10px; }
+
+.ig-tag { display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+.ig-tag-human { background: var(--green-light); color: var(--green-dark); }
+.ig-tag-mixed { background: var(--blue-light);  color: var(--blue); }
+.ig-tag-ai    { background: #f4ecff; color: #6b3fbf; }
+
+.ig-legend { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--gray-mid); }
+.ig-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--body-text); }
+.ig-dot { width: 10px; height: 10px; border-radius: 50%; }
+.ig-dot-human { background: var(--green); }
+.ig-dot-mixed { background: var(--blue); }
+.ig-dot-ai    { background: #6b3fbf; }
+
+
+/* ------------------------------------------------------------
+   22. FAQ - the Custom Web Design page's accordion, verbatim.
+   Closed rows are quiet hairlines; the open one lifts out of the
+   list and becomes a card. The marker is an outlined chevron that
+   fills in and flips, so the page keeps speaking in arrows.
+   Markup:
+     <div class="faq" data-faq>
+       <details class="faq-item" name="GROUP">
+         <summary>Question<span class="faq-mark" aria-hidden="true">
+           <svg width="16" height="16"><use href="#i-chevron"/></svg>
+         </span></summary>
+         <div class="faq-answer"><p>Answer.</p></div>
+       </details>
+     </div>
+   The shared `name` makes it an exclusive accordion natively - no JS.
+   ------------------------------------------------------------ */
+.faq {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+/* Closed rows are quiet hairlines; the open one lifts out of the list and
+   becomes a card, using the same recipe as every other card on the page. */
+.faq-item {
+  border-top: 1px solid var(--border);
+  border-radius: var(--r);
+  transition: background .3s var(--ease), box-shadow .3s var(--ease),
+              border-color .2s var(--ease);
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item[open] {
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: var(--shadow-card);
+  border-top-color: transparent;
+}
+/* Only the rules touching the open card are hidden — the shorthand would also
+   drop the list's closing edge when the last item is the open one. */
+.faq-item[open] + .faq-item { border-top-color: transparent; }
+.faq-item[open]:last-child { border-bottom-color: transparent; }
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 8px;
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  transition: color .2s var(--ease), padding .3s var(--ease);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--blue); }
+.faq-item[open] summary { padding-inline: 26px; color: var(--blue); }
+
+/* An outlined chevron that fills in and flips — the page already speaks in
+   arrows, so the marker uses that vocabulary instead of a plus in a circle. */
+.faq-mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  color: var(--green-ink);
+  transition: transform .35s var(--ease), background-color .25s var(--ease),
+              border-color .25s var(--ease), color .25s var(--ease);
+}
+.faq-item summary:hover .faq-mark {
+  border-color: var(--green);
+  background: var(--tint-green);
+}
+.faq-item[open] .faq-mark {
+  transform: rotate(180deg);
+  background: var(--green);
+  border-color: var(--green);
+  color: #143c1f;
+}
+
+.faq-answer {
+  padding: 0 26px 28px;
+  font-size: var(--step-0);
+  line-height: 1.75;
+  color: var(--muted);
+}
+.faq-answer p { max-width: 68ch; }
+/* Not in the reference, which never runs an answer past one paragraph. Ours
+   do, and the base sheet zeroes paragraph margins, so without this they run
+   together into one block. */
+.faq-answer p + p { margin-top: 14px; }
+
+/* The reference centres its FAQ heading over the accordion, and the accordion
+   centres itself too — a left-aligned heading above a centred list reads as a
+   mistake. Scoped to this one block so the page's other headings stay put. */
+.faq-head { text-align: center; max-width: 720px; margin: 0 auto 44px; }
+
+/* The answer settles in wherever it opens — this works with or without the
+   height transition below. */
+.faq-item[open] .faq-answer { animation: faq-in .42s var(--ease) both; }
+@keyframes faq-in {
+  from { opacity: 0; transform: translateY(-7px); }
+}
+
+/* Smooth height where the browser supports it, a clean snap where it doesn't.
+   No JS involved either way. */
+@supports (interpolate-size: allow-keywords) {
+  :root { interpolate-size: allow-keywords; }
+
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size .34s var(--ease),
+                content-visibility .34s allow-discrete;
+    transition-behavior: allow-discrete;
+  }
+  .faq-item[open]::details-content { block-size: auto; }
+}
+
+
+/* ------------------------------------------------------------
+   23. FINAL CTA - centered navy closing band
+   Usage: <section class="band navy"><div class="wrap final">...</div></section>
+   ------------------------------------------------------------ */
+.final { text-align: center; }
+.final h2.sec  { margin-bottom: 16px; }
+.final p.lead  { margin: 0 auto 32px; }
+.final .hero-ctas { justify-content: center; }
+.final-kicker { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+.final-flip   { font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.35; letter-spacing: -0.3px; margin: 0 auto; max-width: 720px; }
+.final-flip span { color: var(--green); font-weight: 800; }
+
+
+/* ------------------------------------------------------------
+   24. IMAGE PLACEHOLDER - hatched box for TBD image spots
+   ------------------------------------------------------------ */
+.img-ph {
+  background: repeating-linear-gradient(135deg, #eef1f5, #eef1f5 12px, #e7ebf1 12px, #e7ebf1 24px);
+  border: 1px dashed #b9c4d2;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+  color: #8091a5;
+  font-size: 13px; font-weight: 600;
+  text-align: center;
+  padding: 40px 24px;
+  min-height: 220px;
+  border-radius: 12px;
+}
+.img-ph.plain { border-radius: 0; border: none; }
+.img-ph span.tag { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #9aa8ba; font-weight: 700; }
+
+
+/* ============================================================
+   25. RESPONSIVE
+   Mobile-first rule: every multi-column grid collapses at ≤600px
+   ============================================================ */
+@media (max-width: 900px) {
+  .compare { grid-template-columns: 1fr; }
+  .platform-split { grid-template-columns: 1fr; }
+  .half-drupal { border-right: none; border-bottom: 1px solid var(--gray-mid); }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+
+  .ig-phases { display: none; }
+  .ig-flow { grid-template-columns: 1fr; gap: 4px; margin-top: 24px; }
+  .ig-flow::before {
+    top: 0; bottom: 0; left: 27px; right: auto;
+    width: 2px; height: auto;
+    background: linear-gradient(180deg,
+      var(--green) 0%, var(--green) 28%,
+      var(--blue) 30%, var(--blue) 71%,
+      var(--navy) 73%, var(--navy) 100%);
+  }
+  .ig-step { display: grid; grid-template-columns: 54px 1fr; gap: 16px; text-align: left; padding: 10px 0; }
+  .ig-icon { margin: 0; }
+  .ig-num  { grid-column: 2; margin-bottom: 2px; }
+  .ig-step h3 { grid-column: 2; }
+  .ig-step p  { grid-column: 2; }
+  .ig-tag { grid-column: 2; justify-self: start; }
+}
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 22px; }
+  section.band { padding: 56px 0; }
+  .answer { padding: 24px 22px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .hood-row { grid-template-columns: 1fr; }
+  .hood-row dt { border-right: none; border-bottom: 1px solid var(--gray-mid); padding: 12px 20px; }
+  .hood-row dd { padding: 14px 20px; }
+}
+
+/* ------------------------------------------------------------
+   REVEAL - staged entrance, verbatim from the Custom Web Design page.
+   The hidden state is gated on data-anim, which only the script sets,
+   so a page whose JS never runs shows its content outright rather
+   than a column of blank boxes.
+   ------------------------------------------------------------ */
+[data-anim="on"] .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-anim="on"] .reveal.is-revealed { opacity: 1; transform: none; }
+
+/* A section's opening blocks cross the trigger line together, so without a
+   stagger they arrive as one slab. Only the first three need it — anything
+   further down a section is already spaced out by the scroll itself. */
+[data-anim="on"] .wrap > .reveal:nth-child(2) { --reveal-delay: 70ms; }
+[data-anim="on"] .wrap > .reveal:nth-child(3) { --reveal-delay: 140ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wash span, .hero-wash::after,
+  .ig-step:hover .ig-icon { animation: none !important; transform: none !important; }
+  [data-anim="on"] .reveal { opacity: 1; transform: none; }
+  /* the spark stops descending the rail. Hover states still respond. */
+  .fk__spark { animation: none; opacity: 0; }
+}
+
