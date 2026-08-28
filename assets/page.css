@@ -361,9 +361,8 @@ section.band.gray + section.band.gray { border-top: 1px solid var(--gray-mid); }
 #plans .lb-cta { border-top: 0; padding-top: 0; }
 
 /* --- Section anchor offset --- */
-/* The header is sticky now, so the clearance comes from the root's
-   scroll-padding-top (nav height + 16px). This only adds a little breathing
-   room on top of it; 24px here would stack into a visible overshoot. */
+/* The root now sets scroll-padding-top to a flat 24px, the sticky header it
+   used to clear having gone. This adds a little on top of that. */
 .anchor { scroll-margin-top: 8px; }
 
 /* --- Criteria grid: neutral two-column divided list (not benefits) --- */
